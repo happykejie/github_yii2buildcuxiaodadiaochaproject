@@ -32,6 +32,8 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            
+            [['realname','phone','wechatnumber'], 'required'],
         
             [['userorder','phone'], 'integer'],
             [['description'], 'string'],
@@ -82,12 +84,12 @@ class Users extends \yii\db\ActiveRecord
             'usercreatetime' => '用户注册时间',
             'useraccount' => '用户帐号',
             'userrole' => '用户角色',
-            'title' => '老师的头衔',
+            'title' => '用户的头衔',
             'userstate'=>'用户状态',
             'description' => '老师的介绍',
-            'phone' => '老师的电话',
-            'questionprice' => '老师提问的价格',
-            'createteachertime' => '成为老师的时间',
+            'phone' => '用户的电话',
+            'questionprice' => '用户提问的价格',
+            'createteachertime' => '成为用户的时间',
             'userorder' => '排序',
             'isenable'=>'是否启用',
             'openid'=>'Openid',
@@ -98,6 +100,13 @@ class Users extends \yii\db\ActiveRecord
             'country'=>'国家',
             'headimgurl'=>'头像',
             'remark'=>'备注',
+            'realname'=>'真实姓名',
+            'qqnum'=>'QQ号码',
+            'belongfirm'=>'所属机构',
+            'belongfirmphone'=>'所属机构电话',
+            
+            
+            
         ];
     }
 }

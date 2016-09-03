@@ -73,6 +73,49 @@ class CuXiaoController extends Controller{
      */
 
     public function actionIndex(){
+
+        $value=Yii::$app->cache->get('citynamenew'); 
+        if($value===false) ///没有获取到所属城市
+        {
+            return $this->renderPartial('loadad');
+        }
+        
+        $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
+        if( $this->_user ){
+            //
+            $banner=Banner::find()->orderBy('order asc')->all();
+            //获取组别信息
+            $category=Category::find()->orderBy('id asc')->all();
+            
+            $Sqlitem="select a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id where a.belongarea ='$value'";
+            
+            $search=new Activity();
+            
+            if ($search->load(Yii::$app->request->post())) {
+                if (strlen($search->name))
+                {
+                    $Sqlitem= $Sqlitem.' and intro like "%'.($search->name).'%"';
+                }
+            }
+            $Sqlitem=$Sqlitem." order by ordernum asc,createtime DESC";
+            //获取所有问题信息
+            $items=\app\models\Activity::findBySql($Sqlitem)->all();
+
+            return $this->render('cuxiaoindex',['items'=>$items,'category'=>$category,'banner'=>$banner,'search'=>$search,'cityname'=>$value]);
+        }
+        else
+        {
+            //返回登陆
+            Yii::$app->response->redirect(Url::to(['/wenda/index'],true));
+            return false;			
+        }
+        
+    }
+    
+    
+    public function actionCuxiaoindex()
+    {
+      
         
         $value=Yii::$app->cache->get('citynamenew'); 
         if($value===false) ///没有获取到所属城市
@@ -80,39 +123,38 @@ class CuXiaoController extends Controller{
             return $this->renderPartial('loadad');
         }
 
-     
-            $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
-            if( $this->_user ){
-                //
-                $banner=Banner::find()->orderBy('order asc')->all();
-                //获取组别信息
-                $category=Category::find()->orderBy('id asc')->all();
-                
-                $Sqlitem="select a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id where a.belongarea ='$value'";
-                
-                $search=new Askproblem();
-                
-                if ($search->load(Yii::$app->request->post())) {
-                    if (strlen($search->questiondescription))
-                    {
-                        $Sqlitem= $Sqlitem.' and intro like "%'.($search->questiondescription).'%" or b.categoryname like  "%'.($search->questiondescription).'%" ';
-                    }
+        $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
+        if( $this->_user ){
+            //
+            $banner=Banner::find()->orderBy('order asc')->all();
+            //获取组别信息
+            $category=Category::find()->orderBy('id asc')->all();
+            
+            $Sqlitem="select a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id where a.belongarea ='$value'";
+            
+            $search=new Activity();
+            
+            if ($search->load(Yii::$app->request->post())) {
+                if (strlen($search->name))
+                {
+                    $Sqlitem= $Sqlitem.' and intro like "%'.($search->name).'%"';
                 }
-                $Sqlitem=$Sqlitem." order by ordernum asc,createtime DESC";
-                //获取所有问题信息
-                $items=\app\models\Activity::findBySql($Sqlitem)->all();
-                
-               
-                 
-                
-                return $this->render('index',['items'=>$items,'category'=>$category,'banner'=>$banner,'search'=>$search,'cityname'=>$value]);
             }
-            else
-            {
-                //返回登陆
-                Yii::$app->response->redirect(Url::to(['/wenda/index'],true));
-                return false;			
-            }
+            $Sqlitem=$Sqlitem." order by ordernum asc,createtime DESC";
+            //获取所有问题信息
+            $items=\app\models\Activity::findBySql($Sqlitem)->all();
+            
+            
+            
+            
+            return $this->render('cuxiaoindex',['items'=>$items,'category'=>$category,'banner'=>$banner,'search'=>$search,'cityname'=>$value]);
+        }
+        else
+        {
+            //返回登陆
+            Yii::$app->response->redirect(Url::to(['/wenda/index'],true));
+            return false;			
+        }
         
     }
     
@@ -178,293 +220,39 @@ class CuXiaoController extends Controller{
     
     
     
-    /**
-     * @我是老师 详细页
-     */
 
-    public function actionTeacher(){
-        return $this->render('teacher');
-    }
     
     public function actionDetail($id=1)
     {
         $item = Activity::findOne(['id'=>$id]);
         
+        
         if(isset($item)) 
         {
+        ///添加浏览次数：
+        $currentviewnum = $item->viewcount;
+        
+       // $currentviewnum=$currentviewnum+range(1,10);
+        
+         $currentviewnum =$currentviewnum+1;
+         
+         $item->viewcount = $currentviewnum;
+         
+          $result = $item->save();
+          
+          ///结束添加浏览次数
+          
+     
+        
+ 
             
             $arryimg = $item->newspictures;
-            
-             
-            
+
             return $this->render('detail',['item'=>$item,'arryimg'=>$arryimg]);
         }
         
        
     }
-    
-    
-    
-    
-    
-    public function actionPaywenda($id=1)
-    {
-		
-		
-        $body =ORDERBODY;
-        $fee=1;
-        $goods_tag=ORDERTAG;
-        $attach =ORDERATTACH;
-        $tools = new \JsApiPay();
-        
-        $currentid =Yii::$app->user->getId();
-        
-        $this->_user = User::findOne(['id'=>Yii::$app->user->getId()]);
-        if( $this->_user ){
-            $this->_openid = $this->_user->openid;
-        }
-        //$this->_openid = 'oTBP7vhBl8BNsAY-F5DmE1wdRbDw';//测试使用用户 微信账号:khjl12345
-        if(empty($this->_openid)){
-            //①、获取用户openid
-            $this->_openid = $tools->GetOpenid(Url::to(['/wenda/wenda/paywenda'],true));
-        }
-        //商户订单号
-        $out_trade_no=MCHID.date("YmdHis");
-        //②、统一下单
-        $input = new \WxPayUnifiedOrder();
-        $input->SetBody($body);
-        $input->SetAttach($attach);
-        //必填
-        $input->SetOut_trade_no($out_trade_no);
-        $input->SetTotal_fee($fee);
-        $input->SetTime_start(date("YmdHis"));
-        $input->SetGoods_tag($goods_tag);
-        $input->SetNotify_url(Url::to(['/wenda/wenda/paynotify']));
-        $input->SetTrade_type("JSAPI");
-        $input->SetOpenid($this->_openid);
-
-        $order = \WxPayApi::unifiedOrder($input);
-        
-        $jsApiParameters = $tools->GetJsApiParameters($order);
-
-        //获取共享收货地址js函数参数
-        $editAddress = $tools->GetEditAddressParameters();
-        
-        $items = new Askproblem();
-        $item= $items::findOne(['id'=>$id]);
-		
-		
-        return $this->render('paywenda',['item'=>$item,'order'=>$order,'jsApiParameters'=>$jsApiParameters,'editAddress'=>$editAddress]);
-        /// return $this->render('paywenda');
-        
-        
-    }
-    
-    //支付更新状态回调
-    public function actionPaynotify()
-    {
-        return $this->render('paynotify');
-    }
-	
-	
-    //回答问题luyin submint
-    public function actionSubrecord()
-    {
-        
-        $Answerquestion= new Answerquestion();
-        if ($Answerquestion->load(Yii::$app->request->post()))
-        {
-            $id = $Answerquestion->askquestionid;
-			
-            $askproblem = Askproblem::findOne(["id"=>$id]);
-            $askproblem->questionstate=1;
-            $result = $askproblem->save();
-            
-            //回答完毕，消息模板提醒提问用户收听
-            if($result)
-            {
-                if(isset($askproblem))
-                {
-                    $jssdk = new  \WxJsSdk(WX_APPID, WX_APPSECRET); 
-                    $askuser = $askproblem->getUser();
-                    $ansuser = $askproblem->getUseranswer();
-                    
-                    $touser =$askuser->openid;
-                    $questionid =$askproblem->id;
-                    $ansnickname=$ansuser->nickname;           			 
-                    $content =$askproblem->questiondescription;           			  
-                    $answerlist =$askproblem->getAnswerquestions();            			  
-                    $answertotallength =0;  			  
-                    foreach($answerlist as $v)
-                    {
-                        $oneanswerlength=$v->answertimelength;
-                        $answertotallength =$answertotallength+$oneanswerlength;
-                    }
-                    $jssdk->sendtplmsgtoaskperson($touser,$questionid,$answertotallength,$ansnickname,$content);
-                }
-                $this->redirect(array('/wenda/wenda/paywenda','id'=>$id));
-            }
-            else
-            {
-                $this->redirect(array('/wenda/wenda/paywenda','id'=>$id));
-            }
-        }
-        
-    }
-
-    //回答问题录音
-    public function actionRecordings($id=1)
-    {
-        
-        
-        $Answerquestion= new Answerquestion();
-		
-        
-        if ($Answerquestion->load(Yii::$app->request->post()))
-        {
-            
-            $id = $Answerquestion->askquestionid;
-            
-            $askproblem = Askproblem::findOne(["id"=>$id]);
-            $askproblem->questionstate=1;
-            $result = $askproblem->save();
-            
-            
-            //回答完毕，把提问的钱汇入回答人账号：
-            $currentuserid =  Yii::$app->user->getId();
-            
-            $incomecost=new  Incomecost();
-            $incomecost->incomecostnum=$askproblem->askfee;
-            $incomecost->dealtime=date("Y-m-d H:i:s", time());
-            $incomecost->questionid=$askproblem->id;/// 获取问题ID
-            $incomecost->incomecosttype=5;
-            $incomecost->userid=$currentuserid;
-            $incomecost->save();
-
-            //回答完毕，消息模板提醒提问用户收听
-            if($result)
-            {
-                if(isset($askproblem))
-                {
-                    $jssdk = new  \WxJsSdk(WX_APPID, WX_APPSECRET); 
-                    $askuser = $askproblem->getUser();
-                    $ansuser = $askproblem->getUseranswer();
-                    
-                    $touser =$askuser->openid;
-                    $questionid =$askproblem->id;
-                    $ansnickname=$ansuser->nickname;           			 
-                    $content =$askproblem->questiondescription;           			  
-                    $answerlist =$askproblem->getAnswerquestions();            			  
-                    $answertotallength =0;  			  
-                    foreach($answerlist as $v)
-                    {
-                        $oneanswerlength=$v->answertimelength;
-                        $answertotallength =$answertotallength+$oneanswerlength;
-                    }
-                    $jssdk->sendtplmsgtoaskperson($touser,$questionid,$answertotallength,$ansnickname,$content);
-                }
-                $this->redirect(array('/wenda/wenda/paywenda','id'=>$id));
-            }
-            else
-            {
-                $this->redirect(array('/wenda/wenda/paywenda','id'=>$id));
-            }
-        }
-        else
-        {
-            //获取组别信息
-            $categorys=Category::find()->orderBy('id asc')->all();
-            
-            $to=array();
-            foreach($categorys as $v){
-                $to[$v->id]=$v->categoryname;
-            }
-            
-			$items =   new Askproblem();
-			$item= $items::findOne(['id'=>$id]);
-			return $this->render('recordings',['item'=>$item,'to'=>$to]);
-        }
-        
-        return null;
-    }
-    
-    
-    ///添加爱听
-    public function actionAddlovelisten()
-    {
-		
-		
-        $questionid =  Yii::$app->request->post("questionid");
-        $currentid =Yii::$app->user->getId();
-        $t=time(); 
-        $datetime = date("Y-m-d H:i:s",$t); 
-        $lovelisten = new \app\models\LoveListenQuestion();
-        $lovelisten->userid=$currentid;
-        $lovelisten->questionid =$questionid;
-        $lovelisten->buytime =$datetime;
-        
-        if($lovelisten->save())
-        {
-			$items =   new Askproblem();
-			$item= $items::findOne(['id'=>$questionid]);
-            if (isset($item))
-			{            
-				//获取问题提问者Id
-				if (strlen($item->askpersonid))
-				{
-					$incomecost=new  Incomecost();
-					$incomecost->incomecostnum=0.5;
-					$incomecost->dealtime=date("Y-m-d H:i:s", time());
-					$incomecost->questionid=$questionid;
-					$incomecost->incomecosttype=2;
-					$incomecost->userid=$item->askpersonid;
-					if($incomecost->save()){
-						Yii::$app->session->setFlash('success','发送成功！');
-					}else{
-						Yii::$app->session->setFlash('error','发送失败！');
-					}
-				}
-				
-				//获取问题回答人的Id
-				if (strlen($item->answerpersonid))
-				{
-					$incomecost=new  Incomecost();
-					$incomecost->incomecostnum=0.5;
-					$incomecost->dealtime=date("Y-m-d H:i:s", time());
-					$incomecost->questionid=$questionid;
-					$incomecost->incomecosttype=3;
-					$incomecost->userid=$item->answerpersonid;
-					if($incomecost->save()){
-						Yii::$app->session->setFlash('success','发送成功！');
-					}else{
-						Yii::$app->session->setFlash('error','发送失败！');
-					}
-				}
-
-				//获取爱听用户的ID
-				if (strlen(Yii::$app->user->getId()))
-				{
-					$incomecost=new  Incomecost();
-					$incomecost->dealtime=date("Y-m-d H:i:s", time());
-					$incomecost->questionid=$questionid;
-					$incomecost->incomecostnum=-1;
-					$incomecost->incomecosttype=1;
-					$incomecost->userid=Yii::$app->user->getId();
-					
-					if($incomecost->save()){
-						Yii::$app->session->setFlash('success','发送成功！');
-					}else{
-						Yii::$app->session->setFlash('error','发送失败！');
-					}
-				}
-                
-            }
-            
-            return '1';
-        }
-        return "0";
-    }
-    
     
     public function actionSearch()
     {
@@ -497,20 +285,5 @@ class CuXiaoController extends Controller{
     }
     
 
-    public function addproblem($userid)
-    {
-        $model=new Askproblem();
-        if($model->load(Yii::$app->request->post())//判断是否是表单提交
-           && $model->validate() //验证表单提交的内容正确性
-           ){
-            
-            if($model->save()){
-                Yii::$app->session->setFlash('success','发送成功！');
-            }else{
-                Yii::$app->session->setFlash('error','发送失败！');
-            }
-            //echo "<pre/>";print_r(Yii::$app->request->post());die();
-        }
-        return $this->render('addht',['model'=>$model]);
-    }
+   
 }

@@ -75,7 +75,7 @@ use yii\widgets\ActiveForm;
 		}
 	}
     mui("#nav").on("tap", "#defaultTab", function () {
-        window.location = "/wenda/cuxiao/index";
+        window.location = "/wenda/cuxiao/cuxiaoindex";
 		sessionStorage.setItem("tabNum","1")
     })
     mui("#nav").on("tap", "#defaultTab2", function () {

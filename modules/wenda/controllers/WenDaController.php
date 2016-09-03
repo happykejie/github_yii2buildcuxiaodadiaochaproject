@@ -45,7 +45,7 @@ class WenDaController extends Controller{
     public function actionIndex(){
         
 
-        if(CURR_DOMAIN=='boshizhidao.com')
+        if(true)
         {
             $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
             if( $this->_user ){

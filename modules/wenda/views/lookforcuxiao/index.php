@@ -94,13 +94,12 @@ $signPackage = $jssdk->GetSignPackage();
                 </div>
             </div>
             <div>
-                <!-- 全部-->
+                <!-- 今日 -->
                 <div id="item1" class="mui-control-content mui-active">
                     <ul id="wenda-ul" class="wenda-ul mui-table-view mui-table-view-striped mui-table-view-condensed">
-                      
 
-                       <?php if(count($items)>0):?>
-                <?php foreach($items as $v):?>
+                       <?php if(count($todayitems)>0):?>
+                <?php foreach($todayitems as $v):?>
 
 
                 <li class="mui-table-view-cell mui-media">
@@ -108,9 +107,12 @@ $signPackage = $jssdk->GetSignPackage();
 						<img class="cuxiao-little-img !important  mui-pull-left" src="<?=$v->surface?>">
 						<div class="mui-media-body">
 							<?=$v->name?>
-							<p class='mui-ellipsis'><?=$v->rule?></p>
+							
 						</div>
-					</a>
+                           <div class="mui-pull-right">
+                           
+                                  <p> 共<?=$v->viewcount?>人查看</p>
+                         </div>
 				</li>
 
 
@@ -119,7 +121,7 @@ $signPackage = $jssdk->GetSignPackage();
                 <?endforeach?>
                 <?endif?>
 
-                        <?php if(count($items)<=0&&!isset($askone)):?>
+                        <?php if(count($todayitems)<=0):?>
                         <li style="background-color: #efeff4;">
                             <div style="margin-top: 30px;">
                                 <div class="face">
@@ -136,11 +138,11 @@ $signPackage = $jssdk->GetSignPackage();
                         <?endif?>
                     </ul>
                 </div>
-                <!-- 备孕-->
+                <!-- 明日-->
                 <div id="item2" class="mui-control-content">
                     <ul class="wenda-ul mui-table-view mui-table-view-striped mui-table-view-condensed">
-                         <?php if(count($items)>0):?>
-                <?php foreach($items as $v):?>
+                         <?php if(count($tomorrowitems)>0):?>
+                <?php foreach($tomorrowitems as $v):?>
 
 
                 <li class="mui-table-view-cell mui-media">
@@ -148,8 +150,12 @@ $signPackage = $jssdk->GetSignPackage();
 						<img class="cuxiao-little-img !important  mui-pull-left" src="<?=$v->surface?>">
 						<div class="mui-media-body">
 							<?=$v->name?>
-							<p class='mui-ellipsis'><?=$v->rule?></p>
+							
 						</div>
+                           <div class="mui-pull-right">
+                           
+                                  <p> 共<?=$v->viewcount?>人查看</p>
+                         </div>
 					</a>
 				</li>
 
@@ -159,7 +165,7 @@ $signPackage = $jssdk->GetSignPackage();
                 <?endforeach?>
                 <?endif?>
 
-                        <?php if(count($items)<=0&&!isset($askone)):?>
+                        <?php if(count($tomorrowitems)<=0):?>
                         <li style="background-color: #efeff4;">
                             <div style="margin-top: 30px;">
                                 <div class="face">
@@ -167,7 +173,7 @@ $signPackage = $jssdk->GetSignPackage();
                                 </div>
                                 <p class="remind-text">您暂时还没有信息哦！</p>
                                 <div class="mui-button-row">
-                                    <a href="/wenda/lookforpeople/lookforpeople">
+                                   <a href="/wenda/mycuxiao/publishinfonew">
                                         <button type="button" class="mui-btn-primary remind-button">去发布</button>
                                     </a>
                                 </div>
@@ -176,11 +182,11 @@ $signPackage = $jssdk->GetSignPackage();
                         <?endif?>
                     </ul>
                 </div>
-                <!-- 孕期-->
+                <!-- 预告-->
                 <div id="item3" class="mui-control-content">
                     <ul class="wenda-ul mui-table-view mui-table-view-striped mui-table-view-condensed">
-                         <?php if(count($items)>0):?>
-                <?php foreach($items as $v):?>
+                         <?php if(count($prevueitems)>0):?>
+                <?php foreach($prevueitems as $v):?>
 
 
                 <li class="mui-table-view-cell mui-media">
@@ -188,8 +194,12 @@ $signPackage = $jssdk->GetSignPackage();
 						<img class="cuxiao-little-img !important  mui-pull-left" src="<?=$v->surface?>">
 						<div class="mui-media-body">
 							<?=$v->name?>
-							<p class='mui-ellipsis'><?=$v->rule?></p>
+							
 						</div>
+                           <div class="mui-pull-right">
+                           
+                                  <p> 共<?=$v->viewcount?>人查看</p>
+                         </div>
 					</a>
 				</li>
 
@@ -199,7 +209,7 @@ $signPackage = $jssdk->GetSignPackage();
                 <?endforeach?>
                 <?endif?>
 
-                        <?php if(count($items)<=0&&!isset($askone)):?>
+                        <?php if(count($prevueitems)<=0):?>
                         <li style="background-color: #efeff4;">
                             <div style="margin-top: 30px;">
                                 <div class="face">
@@ -207,7 +217,7 @@ $signPackage = $jssdk->GetSignPackage();
                                 </div>
                                 <p class="remind-text">您暂时还没有信息哦！</p>
                                 <div class="mui-button-row">
-                                    <a href="/wenda/lookforpeople/lookforpeople">
+                                    <a href="/wenda/mycuxiao/publishinfonew">
                                         <button type="button" class="mui-btn-primary remind-button">去发布</button>
                                     </a>
                                 </div>
@@ -216,20 +226,21 @@ $signPackage = $jssdk->GetSignPackage();
                         <?endif?>
                     </ul>
                 </div>
-                <!-- 产后-->
+                <!-- 热门-->
                 <div id="item4" class="mui-control-content">
                     <ul class="wenda-ul mui-table-view mui-table-view-striped mui-table-view-condensed">
-                        <?php if(count($items)>0):?>
-                <?php foreach($items as $v):?>
-
-
+                        <?php if(count($hotitems)>0):?>
+                <?php foreach($hotitems as $v):?>
                 <li class="mui-table-view-cell mui-media">
 					<a href="/wenda/cuxiao/detail?id=<?=$v->id?>">
 						<img class="cuxiao-little-img !important  mui-pull-left" src="<?=$v->surface?>">
 						<div class="mui-media-body">
 							<?=$v->name?>
-							<p class='mui-ellipsis'><?=$v->rule?></p>
 						</div>
+                           <div class="mui-pull-right">
+                           
+                                  <p> 共<?=$v->viewcount?>人查看</p>
+                         </div>
 					</a>
 				</li>
 
@@ -239,7 +250,7 @@ $signPackage = $jssdk->GetSignPackage();
                 <?endforeach?>
                 <?endif?>
 
-                        <?php if(count($items)<=0&&!isset($askone)):?>
+                        <?php if(count($hotitems)<=0):?>
                         <li style="background-color: #efeff4;">
                             <div style="margin-top: 30px;">
                                 <div class="face">
@@ -247,7 +258,7 @@ $signPackage = $jssdk->GetSignPackage();
                                 </div>
                                 <p class="remind-text">您暂时还没有信息哦！</p>
                                 <div class="mui-button-row">
-                                    <a href="/wenda/lookforpeople/lookforpeople">
+                                  <a href="/wenda/mycuxiao/publishinfonew">
                                         <button type="button" class="mui-btn-primary remind-button">去发布</button>
                                     </a>
                                 </div>
@@ -256,11 +267,11 @@ $signPackage = $jssdk->GetSignPackage();
                         <?endif?>
                     </ul>
                 </div>
-                <!-- 婴幼-->
+                <!-- 大型活动-->
                 <div id="item5" class="mui-control-content">
                     <ul class="wenda-ul mui-table-view mui-table-view-striped mui-table-view-condensed">
-                         <?php if(count($items)>0):?>
-                <?php foreach($items as $v):?>
+                         <?php if(count($bigitems)>0):?>
+                <?php foreach($bigitems as $v):?>
 
 
                 <li class="mui-table-view-cell mui-media">
@@ -268,8 +279,12 @@ $signPackage = $jssdk->GetSignPackage();
 						<img class="cuxiao-little-img !important  mui-pull-left" src="<?=$v->surface?>">
 						<div class="mui-media-body">
 							<?=$v->name?>
-							<p class='mui-ellipsis'><?=$v->rule?></p>
+							
 						</div>
+                           <div class="mui-pull-right">
+                           
+                                  <p> 共<?=$v->viewcount?>人查看</p>
+                         </div>
 					</a>
 				</li>
 
@@ -279,7 +294,7 @@ $signPackage = $jssdk->GetSignPackage();
                 <?endforeach?>
                 <?endif?>
 
-                        <?php if(count($items)<=0&&!isset($askone)):?>
+                        <?php if(count($bigitems)<=0):?>
                         <li style="background-color: #efeff4;">
                             <div style="margin-top: 30px;">
                                 <div class="face">
@@ -287,7 +302,7 @@ $signPackage = $jssdk->GetSignPackage();
                                 </div>
                                 <p class="remind-text">您暂时还没有信息哦！</p>
                                 <div class="mui-button-row">
-                                    <a href="/wenda/lookforpeople/lookforpeople">
+                                    <a href="/wenda/mycuxiao/publishinfonew">
                                         <button type="button" class="mui-btn-primary remind-button">去发布</button>
                                     </a>
                                 </div>

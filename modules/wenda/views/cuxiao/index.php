@@ -77,17 +77,37 @@ $signPackage = $jssdk->GetSignPackage();
 
 
 
-            <div id="look-header" class="row">
-                <?php $form=ActiveForm::begin(['id'=>'search','enableAjaxValidation'=>false]); ?>
+     
+
+     <div id="look-header" class="row">
+
+
+               
 					<div class="col-md-12">
                     
 
-                      <div class="col-md-8">
-                    <input id="selctarea" name="selectarea" style="float:left;width:55px;margin-top:20px; margin-left:10px; border:0px"  value="<?php echo $cityname ?>"> <?=$form->field($search,'questiondescription')->textinput(['placeholder'=>'请输入产品，活动，公司等查询促销信息']);?>
+                      <div class="col-md-6">
+                   
+                     <input id="selctarea" name="selectarea" style="float:left;width:55px;margin-top:10px; margin-left:10px; border:0px"  value="<?php echo $cityname ?>"> 
+
+                         <div id="divsearch" style="margin-top:10px">
+
+                              <?php $form=ActiveForm::begin(['id'=>'index','enableAjaxValidation'=>false]); ?>
+
+                    <?=$form->field($search,'name')->textinput(['placeholder'=>'请输入关键字查询']);?>
+                               <?=Html::submitButton('',['class'=>'btn btn-primary mui-input-clear mui-indexed-list-search-input mui-icon mui-icon-search'])?>
                             </div>
+         
+                  
+            
 					</div>
                 <?php ActiveForm::end()?>
+
+                         </div>
+
+                         
             </div>
+
 </div>      
 	  <div style="padding: 0 10px 10px 10px; background-color: #FFFFFF; position: relative;">
             <div id="segmentedControl" class="segmented-control segmented-control-inverted segmented-control-primary">
@@ -168,8 +188,12 @@ $signPackage = $jssdk->GetSignPackage();
 						<img class="cuxiao-little-img !important  mui-pull-left" src="<?=$v->surface?>">
 						<div class="mui-media-body">
 							<?=$v->name?>
-							<p class='mui-ellipsis'><?=$v->rule?></p>
+							
 						</div>
+                           <div class="mui-pull-right">
+                           
+                                  <p> 共<?=$v->viewcount?>人查看</p>
+                         </div>
 					</a>
 				</li>
 
@@ -211,8 +235,12 @@ $signPackage = $jssdk->GetSignPackage();
 						<img class="cuxiao-little-img !important  mui-pull-left" src="<?=$v->surface?>">
 						<div class="mui-media-body">
 							<?=$v->name?>
-							<p class='mui-ellipsis'><?=$v->rule?></p>
+							
 						</div>
+                           <div class="mui-pull-right">
+                           
+                                  <p> 共<?=$v->viewcount?>人查看</p>
+                         </div>
 					</a>
 				</li>
 

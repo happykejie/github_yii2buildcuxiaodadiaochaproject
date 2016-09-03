@@ -300,12 +300,12 @@ use yii\widgets\ActiveForm;
               <p class="showlable">地址:</p>
 
               
-                <p class="showcontent">  <?=$item->rule?></p> 
+                <p class="showcontent">  <?=$item->address?></p> 
 
                <p class="showlable">咨询方式:</p>
                
               
-                <p class="showcontent">  <?=$item->rule2?> </p> 
+                <p class="showcontent">  <?=$item->contacttype?> </p> 
                
                 <p class="showlable">活动介绍:</p>
 

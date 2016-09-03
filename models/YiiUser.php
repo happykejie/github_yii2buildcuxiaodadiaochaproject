@@ -22,6 +22,22 @@ class YiiUser extends ActiveRecord implements IdentityInterface
     {
         return '{{%user}}';
     }
+    
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            
+            [['realname','phone','wechatnumber'], 'required'],
+        
+            [['userorder','phone'], 'integer'],
+            [['description'], 'string'],
+            [['title'], 'string', 'max' =>225]
+        ];
+    }
+    
 
     /**
      * 获取当前用户回答了多少个问题
@@ -112,6 +128,43 @@ class YiiUser extends ActiveRecord implements IdentityInterface
     public function validatePassword($password)
     {
         return $this->pwd === $password;
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => '用户Id',
+            'username' => '用户姓名',
+            'usercreatetime' => '用户注册时间',
+            'useraccount' => '用户帐号',
+            'userrole' => '用户角色',
+            'title' => '用户的头衔',
+            'userstate'=>'用户状态',
+            'description' => '老师的介绍',
+            'phone' => '用户的电话',
+            'questionprice' => '用户提问的价格',
+            'createteachertime' => '成为用户的时间',
+            'userorder' => '排序',
+            'isenable'=>'是否启用',
+            'openid'=>'Openid',
+            'scope'=>'scope',
+            'nickname'=>'昵称',
+            'sex'=>'性别',
+            'city'=>'城市',
+            'country'=>'国家',
+            'headimgurl'=>'头像',
+            'remark'=>'备注',
+            'realname'=>'真实姓名',
+            'qqnum'=>'QQ号码',
+            'belongfirm'=>'所属机构',
+            'belongfirmphone'=>'所属机构电话',
+            
+            
+            
+        ];
     }
 
 

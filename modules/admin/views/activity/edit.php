@@ -146,8 +146,8 @@ function getinitialPreview($imgs){
                             'plugins' => ['clips', 'fontcolor','imagemanager']
                         ]
                     ])?>
-                    <?= $form->field($model,'rule')->textarea(['rows'=>4])?>
-                    <?= $form->field($model,'rule2')->textarea(['rows'=>4])?>
+                    <?= $form->field($model,'address')->textarea(['rows'=>1])?>
+                    <?= $form->field($model,'contacttype')->textarea(['rows'=>1])?>
 
                     <input type="hidden" id="activity-surface" class="form-control" name="Activity[surface]" value="<?=$model->surface; ?>">
                     <?=  $form->field($model, 'surface_file')->widget(FileInput::classname(), [

@@ -16,7 +16,7 @@ $signPackage = $jssdk->GetSignPackage();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>申请老师</title>
+    <title>申请成为发布者</title>
     <?=Html::cssFile('@web/web/assets/mui/css/mui.min.css')?>
     <?=Html::cssFile('@web/web/assets/mui/css/css/BecomeTeacher.css')?>
 	<style>

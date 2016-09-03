@@ -136,10 +136,10 @@ function getinitialPreview($imgs){
                       <?= $form->field($model,'intro')->textarea(['rows'=>4,'maxlength'=>1000,'placeholder'=>'本次活动介绍...']);?>
 
                     <h4 >活动地址</h4>
-                    <?= $form->field($model,'rule')->textarea(['rows'=>1,'placeholder'=>'成都市....或者http://www.baidu.com'])?>
+                    <?= $form->field($model,'address')->textarea(['rows'=>1,'placeholder'=>'成都市....或者http://www.baidu.com'])?>
                     <h4 >联系方式</h4>
 
-                    <?= $form->field($model,'rule2')->textarea(['rows'=>1,'placeholder'=>'电话，微信，QQ，邮件.....'])?>
+                    <?= $form->field($model,'contacttype')->textarea(['rows'=>1,'placeholder'=>'电话，微信，QQ，邮件.....'])?>
 
                     <h4 >封面</h4>
 

@@ -31,9 +31,9 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-        
-            [['userorder','phone'], 'integer'],
-            [['description','nickname','attentionname','headimgurl','wechatnumber','explain'], 'string'],
+            [['realname','phone','wechatnumber'], 'required'],
+            [['userorder','phone','qqnum'], 'integer'],
+            [['description','nickname','attentionname','headimgurl','wechatnumber','explain','belongfirm','belongfirmphone'], 'string'],
             [['questionprice'],'double'],
             [['title'], 'string', 'max' =>225]
         ];
@@ -376,33 +376,34 @@ class User extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'id' => '用户Id',
-            'nickname' => '用户姓名',
-            'usercreatetime' => '用户注册时间',
-            'useraccount' => '用户帐号',
-            'userrole' => '用户角色',
-            'title' => '老师的头衔',
-            'userstate'=>'用户状态',
-            'description' => '老师的介绍',
-            'phone' => '老师的电话',
-            'questionprice' => '老师提问的价格',
-            'createteachertime' => '成为老师的时间',
-            'userorder' => '排序',
-            'isenable'=>'是否启用',
-            'openid'=>'Openid',
-            'scope'=>'scope',
-            'nickname'=>'昵称',
-            'sex'=>'性别',
-            'city'=>'城市',
-            'country'=>'国家',
-            'headimgurl'=>'头像',
-            'remark'=>'备注',
-             'email'=>'邮箱',
-            'attentionname'=>'被关注的老师名称',
-            'wechatnumber'=>'微信号',
-            'explain'=>'审核失败原因',
-            
-            
-        ];
+           'id' => '用户Id',
+           'username' => '用户姓名',
+           'usercreatetime' => '用户注册时间',
+           'useraccount' => '用户帐号',
+           'userrole' => '用户角色',
+           'title' => '用户的头衔',
+           'userstate'=>'用户状态',
+           'description' => '老师的介绍',
+           'phone' => '用户的电话',
+           'questionprice' => '用户提问的价格',
+           'createteachertime' => '成为用户的时间',
+           'userorder' => '排序',
+           'isenable'=>'是否启用',
+           'openid'=>'Openid',
+           'scope'=>'scope',
+           'nickname'=>'昵称',
+           'sex'=>'性别',
+           'city'=>'城市',
+           'country'=>'国家',
+           'headimgurl'=>'头像',
+           'remark'=>'备注',
+           'realname'=>'真实姓名',
+           'qqnum'=>'QQ号码',
+           'belongfirm'=>'所属机构',
+           'belongfirmphone'=>'所属机构电话',
+           
+           
+           
+       ];
     }
 }

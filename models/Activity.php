@@ -38,7 +38,7 @@ class Activity extends \yii\db\ActiveRecord
            [['name','group_id','start_time','end_time'], 'required'],
             //[['group_id'], 'integer'],
             [['group_id'], 'integer'],
-            [['name','start_time','end_time','intro','rule','rule2','sponsor','belongarea'], 'string'],
+            [['name','start_time','end_time','intro','address','contacttype','sponsor','belongarea'], 'string'],
             [['name'], 'string', 'max' => 225],
             [['surface','belongarea'], 'required'],
             [['surface_file'], 'file','maxFiles' => 1, 'skipOnEmpty' => true, 'extensions' => 'png, jpg,jpeg'],

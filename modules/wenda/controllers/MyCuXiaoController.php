@@ -73,10 +73,10 @@ class MyCuXiaoController extends Controller{
         $items =User::findOne(['id'=>$id]);
         if ($items->userstate==1)
         {
-            return $this->render('teacher',['items'=>$items]);
+            return $this->render('publishuser',['items'=>$items]);
         }else
         {
-            return $this->render('index',['items'=>$items]);
+            return $this->render('commonuser',['items'=>$items]);
         }   
     }
     
@@ -88,14 +88,121 @@ class MyCuXiaoController extends Controller{
         return $this->render('feedback');
     }
     
-    
-    public function actionApiimgtest()
+    /**
+     * 发布信息用户
+     */
+    public function actionPublishuser()
     {
-        return $this->render('apiimgtest');
-
+        return $this->render('publishuser');
     }
-	
-	
+    
+    /**
+     * 普通用户
+     */
+    public function actionCommonuser()
+    {
+        return $this->render('commonuser');
+    }
+    
+    
+    /**
+     * 我的发布
+     */
+    public function actionMypublished()
+    {             
+        $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
+        $userid =Yii::$app->user->getId();
+        if( $this->_user ){
+           
+            
+            $Sqlitem="select a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id where a.publishpeople ='$userid'";
+          
+            $Sqlitem=$Sqlitem." order by ordernum asc,createtime DESC";
+            //获取所有问题信息
+            $mypublishitems=\app\models\Activity::findBySql($Sqlitem)->all();
+
+            return $this->render('mypublished',['mypublishitems'=>$mypublishitems]);
+        }
+        else
+        {
+            //返回登陆
+            Yii::$app->response->redirect(Url::to(['/wenda/index'],true));
+            return false;			
+        }
+    }
+    
+    
+    /**
+     * 我的资料
+     */
+    public function actionMyinfo()
+    {
+        $id=Yii::$app->user->getId();
+        $model=User::findOne(['id'=>$id]);
+        
+        if($model->load(Yii::$app->request->post())//判断是否是表单提交
+           //验证表单提交的内容正确性
+            ){
+          
+            if($model->save()){
+                Yii::$app->session->setFlash('success','发送成功！');
+            }else{
+                Yii::$app->session->setFlash('error','发送失败！');
+            }
+        }
+        return $this->render('myinfo',['model'=>$model]);    
+    }
+    
+    
+    /**
+     * 平台合作
+     */
+    public function actionCooperation()
+    {
+        return $this->render('cooperation');
+    }
+    
+    /**
+     * 平台二维码展示
+     */
+    
+    public function actionInfoercode()
+    {
+        return $this->render('infoercode');
+        
+    }
+    
+    
+    /**
+     * 成为发布者
+     */
+    public function actionBecomepublisher($id)
+    {
+      
+        $model=User::findOne(['id'=>$id]);
+        if($model->load(Yii::$app->request->post())//判断是否是表单提交
+            
+            
+         
+           //验证表单提交的内容正确性
+            ){
+            //如果自己本身不是老师,状态变更为审核状态
+             if ($model->userstate<>1)
+            {
+                $model->userstate=2;
+            }
+            if($model->save()){
+                Yii::$app->session->setFlash('success','发送成功！');
+                $items =$model;
+                return $this->render('commonuser',['items'=>$items]);    
+            }else{
+                Yii::$app->session->setFlash('error','发送失败！');
+            }
+        }
+    
+        return $this->render('becomepublisher',['model'=>$model]);    
+    }
+
 	/**
      *
      *

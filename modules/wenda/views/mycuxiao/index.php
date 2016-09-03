@@ -18,7 +18,6 @@ $signPackage = $jssdk->GetSignPackage();
     <title>我</title>
     <?=Html::cssFile('@web/web/assets/mui/css/mui.min.css')?>
     <?=Html::cssFile('@web/web/assets/wenda/css/teacher.css')?>
-
 </head>
 <body>
 	

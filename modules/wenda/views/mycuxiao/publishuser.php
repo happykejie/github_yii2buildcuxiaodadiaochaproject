@@ -41,7 +41,7 @@ $signPackage = $jssdk->GetSignPackage();
 			<div class="my-teacher">
                 <?php if($items->userstate==1):?>
           
-                <a href="publishinfonew?id=<?=$items->id?>">发布促销消息</a>  
+                <a href="publishdeclare">发布促销消息</a>  
                 
                 <?endif?>
             </div>

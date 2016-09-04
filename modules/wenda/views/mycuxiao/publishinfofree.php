@@ -69,8 +69,7 @@ function getinitialPreview($imgs){
 
         <script>
 
-            function changepay()
-            {
+            function changepay() {
                 alert('test');
             }
 
@@ -100,46 +99,25 @@ function getinitialPreview($imgs){
                     <?endif?>
 
                     <?php $form=ActiveForm::begin([
-                        'id'=>'publishinfonew',
+                        'id'=>'publishinfofree',
                         'enableAjaxValidation'=>false,
                         'options' => ['enctype' => 'multipart/form-data']]); ?>
-						<h4 >活动名称(12字以内 )</h4>
+						<h4 >活动名称(25字以内 )</h4>
 					<?= $form->field($model,'name')->textarea(['rows'=>1,'maxlength'=>25,'placeholder'=>'阿欢阿杰科技促销平台']);?>
 						<h4 >所属分类</h4>
 					 <?=$form->field($model,'group_id')->dropDownList($to)?>
                     <h4 >发布城市</h4>
                      <?= $form->field($model,'belongarea')->textinput(['readonly'=>'readonly','value'=>Yii::$app->cache->get('citynamenew')]);?>
-                    <h4 >是否支付</h4>
-                    <?= $form->field($model,'ispay')->dropDownList(['是'=>'是','否'=>'否'],['onchange'=>'changepay()']);?>
-                    <h4 >支付金额</h4>
-                    <?= $form->field($model,'paynum')->textinput();?>
+                  
                    
 	            <h4 >&nbsp;&nbsp;&nbsp;开始时间</h4>
-                <?= DateTimePicker::widget([
-                    'model' => $model,
-                    'attribute' => 'start_time',
-                    'language' => 'zh-CN',
-                    'size' => 'ms',
-                    'clientOptions' => [
-                        'autoclose' => true,
-                        'format' => 'yyyy-mm-dd hh:ii',
-                        'todayBtn' => true
-                    ]
-                ]);?>
+         <?= $form->field($model,'start_time')->textinput(['value'=>date('y-m-d',time()).' '.'00:00:00','readonly'=>'readonly'])?>
 
 
-                        <h4 >&nbsp;&nbsp;&nbsp;结束时间</h4>
-                              <?= DateTimePicker::widget([
-                    'model' => $model,
-                    'attribute' => 'end_time',
-                    'language' => 'zh-CN',
-                    'size' => 'ms',
-                    'clientOptions' => [
-                        'autoclose' => true,
-                        'format' => 'yyyy-mm-dd hh:ii',
-                        'todayBtn' => true
-                    ]
-                ]);?>
+                 <h4 >&nbsp;&nbsp;&nbsp;结束时间</h4>
+                
+
+                     <?= $form->field($model,'end_time')->textinput(['value'=>date('y-m-d',time()).' '.'59:59:59','readonly'=>'readonly'])?>
 
 
 
@@ -276,7 +254,7 @@ function getinitialPreview($imgs){
                 $('.field-activity-surface_file .help-block-error').text('');
             }
 
-         
+
 
             var newspictures_val = $('#newspictures_val').val();
             if (!newspictures_val) {

@@ -21,83 +21,47 @@ $signPackage = $jssdk->GetSignPackage();
 </head>
 <body>
 	
-    <div class="mui-content" style="position: relative;">
-        <div class="my-header">
-            <div class="oa-contact-avatar ">
-                <img src="<?=$items->headimgurl?>">
-            </div>
-			<input type="hidden" value="<?=$items->id?>" id="userid"/>
-            <h4 class="text-h4"><?=$items->nickname?></h4>
+    <div class="mui-content"  style="height:600px">
+        
+           
          
 
-           <div style="text-align:left">
-            <p style="color:green">欢迎您成为发布者，现在可以发布自己的促销信息</p>
+           <div style="text-align:left;margin-top:10px">
+            <p style="color:green">请详细阅读发布发布信息说明</p>
 </div>
             <div >
-            <div style="text-align:left"> <p style="color:blue">促销大调查平台协议：</p></div>
-               <div style="padding-left:20px;text-align:left"> <p>在平台发布信息真实可靠，如果发现虚假信息立即封号并删除之前所有发布信息。发布的信息如果过期平台将自动清除不再展示。</p></div>
+            <div style="text-align:left"> <p style="color:blue">促销大调查发布说明：</p></div>
+               <div style="padding-left:20px;text-align:left"> <p>发现信息除了遵守促销大调查平台协议外。还有如下发布说明：</p></div>
+               <div style="padding-left:20px;text-align:left"> <p>(1)发布消息可以选择免费发布和付费发布</p></div>
+               <div style="padding-left:20px;text-align:left"> <p>(2)为了防止恶意发布和恶意占用资源，一个账号每月可以免费发布一次促销消息。发布时间默认只限当天促销活动。</p></div>
+               <div style="padding-left:20px;text-align:left"> <p>(3)为了提供产品质量和不乱发促销信息，付费发布从发布当前到结束时间期间每天收取10元的平台维护费用。</p></div>
+               <div style="padding-left:20px;text-align:left"> <p>(4)为防止长期占用资源，发布促销信息超过时间跨度超过10天的请联系平台服务商解决。</p></div>
+               <div style="padding-left:20px;text-align:left"> <p>(5)倾销分类，和大型活动发布，以及自定义设计促销页面等特殊需求请联系平台服务商解决。</p></div>
+
             </div>
 
-			<div class="my-teacher">
-                <?php if($items->userstate==1):?>
-          
-                <a href="publishinfonew?id=<?=$items->id?>">发布促销消息</a>  
+            <div class="my-teacher">
+                <a  href="publishinfopay">付费发布促销消息</a>  
+               </div>
+       
+			<div class="my-teacher" >
+               
+                 <a href="publishinfofree">免费发布促销消息</a>  
+            </div>
+
+
+        
+
+    
+
                 
-                <?endif?>
-            </div>
+              
+          
 
-             <ul class="teacher-ul">
-                <li>
-                    <a href="infoercode">
-                        <img src="/web/assets/mui/images/icon8.png" alt="" />
-                        <div class="">二维码</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="becomepublisher?id=<?=$items->id?>">
-                        <img style="width: 28px;" src="/web/assets/mui/images/icon9.png" alt="" />
-                        <div class="bj">编辑</div>
-                    </a>
-                </li>
-            </ul>
+           
         </div>
-        <ul class="mui-table-view mui-table-view-chevron">
-            <li class="mui-table-view-cell mui-media">
-                <a class="mui-navigate-right"  href="mypublished">
-                    <div class="mui-pull-left border-radius love">
-                        <img class="" src="/web/assets/mui/images/icon10.png">
-                    </div>
-                    <div class="mui-media-body">
-                       我的发布
-                    </div>
-                </a>
-            </li>
-
-            <li class="mui-table-view-cell mui-media">
-                <a class='mui-navigate-right' href="myinfo">
-                    <div class="mui-pull-left border-radius question-mark">
-                        <img class="" src="/web/assets/mui/images/icon12.png">
-                    </div>
-                    <div class="mui-media-body">
-                        我的资料
-                    </div>
-                </a>
-            </li>
-            <li class="mui-table-view-cell mui-media">
-                <a class="mui-navigate-right" href="cooperation">
-                    <div class="mui-pull-left border-radius headset">
-                        <img class="" src="/web/assets/mui/images/icon13.png">
-                    </div>
-                    <div class="mui-media-body">
-                        平台合作
-                    </div>
-                </a>
-            </li>
-
-
-            
-        </ul>
-    </div>
+        
+  
 	
 	
 

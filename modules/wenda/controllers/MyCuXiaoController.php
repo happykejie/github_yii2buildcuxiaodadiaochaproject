@@ -106,6 +106,18 @@ class MyCuXiaoController extends Controller{
     
     
     /**
+     * 发布申明
+     */
+    public function actionPublishdeclare()
+    {
+        
+      
+        return $this->render('publishdeclare');
+    }
+    
+    
+    
+    /**
      * 我的发布
      */
     public function actionMypublished()
@@ -203,64 +215,78 @@ class MyCuXiaoController extends Controller{
         return $this->render('becomepublisher',['model'=>$model]);    
     }
 
-	/**
-     *
-     *
-     */
+    
     
     /**
-     * @申请成为老师
-     * 传入用户Id
+     * 免费发布促销信息
+     * @param mixed $id 
+     * @return string
      */
-    public function actionBecometeacher($id){
-        $model=User::findOne(['id'=>$id]);
-        $category=Category::find()->all();
-        if($model->load(Yii::$app->request->post())//判断是否是表单提交
-           //验证表单提交的内容正确性
-            ){
-            //如果自己本身不是老师,状态变更为审核状态
-            if ($model->userstate<>1)
-            {
-                $model->userstate=2;
-            }
-
-            if($model->save()){
-                Yii::$app->session->setFlash('success','发送成功！');
-            }else{
-                Yii::$app->session->setFlash('error','发送失败！');
-            }
-        }
-        return $this->render('becometeacher',['model'=>$model,'category'=>$category]);
-    }
-    
-    public function actionPublishinfo($id)
+    public function actionPublishinfofree()
     {
       
-        $model=User::findOne(['id'=>$id]);
-        $category=Category::find()->all();
-        if($model->load(Yii::$app->request->post())//判断是否是表单提交
-           //验证表单提交的内容正确性
+        $group= Category::find()->all();
+        $to=array();
+        foreach($group as $v){
+            $to[$v->id]=$v->categoryname;
+        }
+        $model=new Activity();
+        
+        if($model->load(Yii::$app->request->post())//判断是否是表单提交s
             ){
-            //如果自己本身不是老师,状态变更为审核状态
-            if ($model->userstate<>1)
-            {
-                $model->userstate=2;
+            
+            if (Yii::$app->request->isPost) {
+                $surface_files = UploadedFile::getInstance($model, 'surface_file');
+                if($surface_files){
+                    $model->surface = $model->fileInput($surface_files);
+                    $model->setAttr("surface",$model->surface);
+                }
+                $homepictures_val=  Yii::$app->request->post("homepictures_val");
+                if($homepictures_val){
+                    $model->homepictures= explode('-',$homepictures_val);
+                    $model->setAttr("homepictures",$homepictures_val);
+                }else{
+                    $homepictures_files = UploadedFile::getInstances($model, 'homepictures');
+                    if($homepictures_files)
+                    {
+                        $model->homepictures=$model->fileInput($homepictures_files);
+                        $model->setAttr("homepictures",$model->homepictures);
+                    }
+                }
+                $newspictures_val=  Yii::$app->request->post("newspictures_val");
+                if($newspictures_val){
+                    $model->newspictures= explode('-',$newspictures_val);
+                    $model->setAttr("newspictures",$newspictures_val);
+                }else{
+                    $newspictures_files = UploadedFile::getInstances($model, 'newspictures');
+                    if($newspictures_files)
+                    {
+                        $model->newspictures=$model->fileInput($newspictures_files);
+                        $model->setAttr("newspictures",$model->newspictures);
+                    }
+                }
             }
-
-            if($model->save()){
-                Yii::$app->session->setFlash('success','发送成功！');
-            }else{
-                Yii::$app->session->setFlash('error','发送失败！');
+            $userid=Yii::$app->user->getId();
+            $model->publishpeople=$userid;
+            $model->ispay='否';
+            $model->paynum=0;
+            
+            if( $model->validate()){
+                if($model->save()){
+                    Yii::$app->response->redirect("/wenda/mycuxiao/index");
+                }else{
+                    Yii::$app->session->setFlash('error','添加失败！');
+                }
             }
         }
-        return $this->render('publishinfo',['model'=>$model,'category'=>$category]);
+        return $this->render('publishinfofree',['model'=>$model,"to"=>$to]);
     }
     
     
-    /**
+    /**付费发布促销信息
      * @add
      */
-    public function actionPublishinfonew(){
+    public function actionPublishinfopay(){
         
         $group= Category::find()->all();
         $to=array();
@@ -304,6 +330,10 @@ class MyCuXiaoController extends Controller{
                 }
             }
             
+            
+            $userid=Yii::$app->user->getId();
+            $model->publishpeople=$userid;
+            
             if( $model->validate()){
                 if($model->save()){
                     Yii::$app->response->redirect("/wenda/mycuxiao/index");
@@ -312,7 +342,7 @@ class MyCuXiaoController extends Controller{
                 }
             }
         }
-        return $this->render('publishinfonew',['model'=>$model,"to"=>$to]);
+        return $this->render('publishinfopay',['model'=>$model,"to"=>$to]);
     }
     
     public function actionGetlocal()

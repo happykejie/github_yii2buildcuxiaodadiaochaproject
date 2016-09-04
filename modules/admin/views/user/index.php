@@ -8,7 +8,7 @@ use yii\widgets\linkPager;
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>老师管理</title>
+    <title>用户管理</title>
     <?=Html::cssFile('@web/web/css/bootstrap.min.css')?>
     <?=Html::cssFile('@web/web/css/site.css')?>
     <?=Html::jsFile('@web/web/Js/jquery.js')?>

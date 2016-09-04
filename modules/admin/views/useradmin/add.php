@@ -56,9 +56,22 @@ use yii\bootstrap\Alert;
 
                     <?php $form=ActiveForm::begin(['id'=>'add','enableAjaxValidation'=>false]); ?>
 
-                    <?= $form->field($model,'nickname')->textinput();?>
+                    <?= $form->field($model,'realname')->textinput();?>
                     <?= $form->field($model,'user')->textinput();?>
                     <?= $form->field($model,'pwd')->passwordInput();?>
+                    <?= $form->field($model,'managecity')->textinput();?>
+                    <?= $form->field($model,'phone')->textinput();?>
+                    <?= $form->field($model,'wechatnumber')->textinput();?>
+                    <?= $form->field($model,'qqnum')->textinput();?>
+                    <?= $form->field($model,'managecity')->textinput();?>
+                    <?= $form->field($model,'belongfirm')->textinput();?>
+                    <?= $form->field($model,'belongfirmphone')->textinput();?>
+                    <?= $form->field($model,'remark')->textinput();?>
+
+
+
+
+
                   
                     <?= $form->field($model,'userorder')->textinput();?>
 

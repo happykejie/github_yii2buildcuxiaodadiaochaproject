@@ -67,6 +67,16 @@ function getinitialPreview($imgs){
    
     </style>
 
+        <script>
+
+            function changepay()
+            {
+                alert('test');
+            }
+
+
+        </script>
+
 </head>
 <body>
     <?php $this->beginBody() ?>
@@ -95,15 +105,16 @@ function getinitialPreview($imgs){
                         'options' => ['enctype' => 'multipart/form-data']]); ?>
 						<h4 >活动名称(12字以内 )</h4>
 					<?= $form->field($model,'name')->textarea(['rows'=>1,'maxlength'=>25,'placeholder'=>'阿欢阿杰科技促销平台']);?>
-
 						<h4 >所属分类</h4>
 					 <?=$form->field($model,'group_id')->dropDownList($to)?>
-
+                    <h4 >发布城市</h4>
                      <?= $form->field($model,'belongarea')->textinput(['readonly'=>'readonly','value'=>Yii::$app->cache->get('citynamenew')]);?>
-				
-
+                    <h4 >是否支付</h4>
+                    <?= $form->field($model,'ispay')->dropDownList(['是'=>'是','否'=>'否'],['onchange'=>'changepay()']);?>
+                    <h4 >支付金额</h4>
+                    <?= $form->field($model,'paynum')->textinput();?>
                    
-	<h4 >&nbsp;&nbsp;&nbsp;开始时间</h4>
+	            <h4 >&nbsp;&nbsp;&nbsp;开始时间</h4>
                 <?= DateTimePicker::widget([
                     'model' => $model,
                     'attribute' => 'start_time',

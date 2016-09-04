@@ -31,7 +31,7 @@ use yii\widgets\linkPager;
                         <?php $form=ActiveForm::begin(['id'=>'index','enableAjaxValidation'=>false]); ?>
 
                         <div class="col-md-2">
-                            <?=$form->field($search,'nickname')->textinput();?>
+                            <?=$form->field($search,'managecity')->textinput();?>
                         </div>
 
                         <div class="col-md-1">
@@ -41,18 +41,27 @@ use yii\widgets\linkPager;
                     </div>
                     <table class="table table-hover">
                         <tr>
-                            <th>用户名</th>
+                            <th>真实姓名</th>
                              <th>用户账号</th>
-                            <th>排序</th>
+                            <th>管理城市</th>
+                            <th>手机号</th>
+                            <th>公司电话</th>
+                            <th>微信号</th>
+                            <th>备注</td> 
                             <th>操作</th>
                         </tr>
 
                         <?php if(count($items)>0):?>
                         <?php foreach($items as $v):?>
                         <tr>
-                            <td><?=$v->nickname?></td>
+                            <td><?=$v->realname?></td>
                             <td><?=$v->user?></td>
-                            <td><?=$v->userorder?></td>
+                            <td><?=$v->managecity?></td>
+                            <td><?=$v->phone?></td>
+                            <td><?=$v->belongfirmphone?></td>
+                            <td><?=$v->wechatnumber?></td>
+                            <td><?=$v->remark?></td>
+
                             <td>
                                 <button class="btn btn-sm btn-danger btn-edit" id="" action="<?=Yii::$app->urlManager->createUrl(['admin/useradmin/edit','id'=>$v->id])?>">编辑</button>
                                 <?if($authkey ='administrator'):?>

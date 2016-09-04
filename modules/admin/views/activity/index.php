@@ -13,6 +13,7 @@ use yii\widgets\LinkPager;
     <?=Html::cssFile('@web/web/css/site.css')?>
     <?=Html::jsFile('@web/web/Js/jquery.js')?>
     <?=Html::jsFile('@web/web/Js/bootstrap.js')?>
+         <?=Html::cssFile('@web/web/assets/citypicker/css/cityPicker.css')?>
 </head>
 <body>
     <div class="contianer">
@@ -22,12 +23,41 @@ use yii\widgets\LinkPager;
                     <div class="tool">
                         <a id="btn_add" class="btn btn-primary btn-sm" href="<?=Yii::$app->urlManager->createUrl('admin/activity/add')?>">添加活动</a>
                     </div>
+
+                       <div class="row">
+                        <?php $form=ActiveForm::begin(['id'=>'index','enableAjaxValidation'=>false]); ?>
+
+                        <div class="col-md-2">
+                           <?=$form->field($search,'name')->textinput();?>
+
+                        </div>
+                         <div class="col-md-2">
+                         <?=$form->field($search,'group_id')->dropDownList($to)?>
+
+                         </div>
+                          <div class="col-md-2"> 
+                          <?=$form->field($search,'belongarea')->textinput();?>
+                          </div>
+
+                    
+                        <div class="col-md-1">
+                            <?=Html::submitButton('搜索',['class'=>'btn btn-primary'])?>
+                        </div>
+                        <?php ActiveForm::end()?>
+                        </div>
+
                     <table class="table table-hover">
                         <tr> 
                             <th>名称</th>
                             <th>组别</th>
                             <th>起始日期</th>
                             <th>截至日期</th>
+                            <th>城市</th>
+                            <th>是否支付</th>
+                            <th>金额</th>
+                            <th>发布者</th>
+                            <th>发布者电话</th>
+                            <th>浏览次数</th>
                             <th>操作</th>
                         </tr>
                         <?php if(count($items)>0):?>
@@ -37,6 +67,16 @@ use yii\widgets\LinkPager;
                             <th><?=$v->getGroup()->categoryname?></th>
                             <th><?=$v->start_time?></th>
                             <th><?=$v->end_time?></th>
+                            <th><?=$v->belongarea?></th>
+                            <th><?=$v->ispay?></th>
+                            <th><?=$v->paynum?></th>
+                            <th><?=$v->getUserinfo()->realname?></th>
+                            <th><?=$v->getUserinfo()->phone?></th>
+                            <th><?=$v->viewcount?></th>
+
+
+
+
                            
                             <td>
                                 <a class="btn btn-sm btn-danger btn-edit" id="" href="<?=Yii::$app->urlManager->createUrl(['admin/activity/edit','id'=>$v->id])?>">编辑</a>

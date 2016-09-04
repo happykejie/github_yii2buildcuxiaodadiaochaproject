@@ -47,14 +47,13 @@ class UseradminController extends Controller{
      */
     public function  actionIndex(){
         $currentUser = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
-        $model=User::find()->orderBy("userorder desc")->where(['userstate'=>3])->where(['isenable'=>1]);
+        $model=User::find()->orderBy("userorder desc")->where(['userstate'=>3,'isenable'=>0]);
         
         $search=new User();
         if ($search->load(Yii::$app->request->post())) {
-            if (!isset($model->nickname))
+            if (!isset($model->managecity))
             {
-                
-                $model->andWhere(['like', 'nickname',$search->nickname]);
+                $model->andWhere(['like', 'managecity',$search->managecity]);
             }
         }
         $count=$model->count();
@@ -69,7 +68,7 @@ class UseradminController extends Controller{
     public function actionAdd(){
         $model=new User();
         if($model->load(Yii::$app->request->post())//判断是否是表单提交
-            && $model->validate() //验证表单提交的内容正确性
+             //验证表单提交的内容正确性
             ){
             $model->userstate=3;
             $model->pwd=md5( $model->pwd);

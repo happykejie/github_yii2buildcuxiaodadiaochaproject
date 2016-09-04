@@ -123,7 +123,7 @@ use yii\widgets\ActiveForm;
                                  { id: '7', text: '组别分类', href: category },
                                  { id: '9', text: '统计页面', href: statistics },
                                  { id: '10', text: '发布者列表', href: teacher },
-                                 { id: '11', text: '用户关注促销列表', href: userattention },
+                           
                                  { id: '12', text: '用户表', href: user },
                                  { id: '16', text: '管理员用户列表', href: useradmin },
                                  { id: '17', text: '禁用的用户', href: userdisable },

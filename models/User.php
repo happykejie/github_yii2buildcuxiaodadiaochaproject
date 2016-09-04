@@ -31,9 +31,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['realname','phone','wechatnumber'], 'required'],
             [['userorder','phone','qqnum'], 'integer'],
-            [['description','nickname','attentionname','headimgurl','wechatnumber','explain','belongfirm','belongfirmphone'], 'string'],
+            [['description','nickname','attentionname','headimgurl','wechatnumber','explain','belongfirm','belongfirmphone','managecity','user','realname','remark'], 'string'],
             [['questionprice'],'double'],
             [['title'], 'string', 'max' =>225]
         ];
@@ -377,6 +376,8 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
            'id' => '用户Id',
+           'user'=>'登录账号',
+           'pwd'=>'登录密码',
            'username' => '用户姓名',
            'usercreatetime' => '用户注册时间',
            'useraccount' => '用户帐号',
@@ -401,9 +402,8 @@ class User extends ActiveRecord implements IdentityInterface
            'qqnum'=>'QQ号码',
            'belongfirm'=>'所属机构',
            'belongfirmphone'=>'所属机构电话',
-           
-           
-           
+           'managecity'=>'管理城市',
+
        ];
     }
 }

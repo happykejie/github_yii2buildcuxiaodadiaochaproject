@@ -107,6 +107,9 @@ function getinitialPreview($imgs){
                         ]); ?>
                     <?= $form->field($model,'name')->textinput();?>
                     <?=$form->field($model,'group_id')->dropDownList($to)?>
+                      <?= $form->field($model,'belongarea')->textinput();?>
+                     <?= $form->field($model,'ispay')->dropDownList(['是'=>'是','否'=>'否']);?>
+                    <?= $form->field($model,'paynum')->textinput();?>
 
                    
 	<h4 >&nbsp;&nbsp;&nbsp;开始时间</h4>

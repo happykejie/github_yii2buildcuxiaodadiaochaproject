@@ -19,6 +19,10 @@ use yii\filters\AccessControl;
 use yii\web\UploadedFile;
 use app\models\UploadForm;
 use yii\web\Response;
+
+
+
+
 class ActivityController extends Controller{
     public $enableCsrfValidation = false;
     public $layout  = 'layout';
@@ -38,13 +42,37 @@ class ActivityController extends Controller{
      */
 
     public function  actionIndex(){
-        $model=new Activity();
         
-        $count=$model->find()->count();
-        $page=new Pagination(['defaultPageSize'=>20,'totalCount'=>$count]);
-        $items=$model->find()->orderBy('name asc')->offset($page->offset)->limit($page->limit)->all();
+        $group= Category::find()->all();
+        $to=array();
+        $to[0]='全部';
+        foreach($group as $v){
+            $to[$v->id]=$v->categoryname;
+        }
+        
+        $model=Activity::find();
+        
+        $search=new Activity();
+        if ($search->load(Yii::$app->request->post())) {
+            $model->andWhere(['like', 'name',$search->name]);
+            $model->andWhere(['like', 'belongarea',$search->belongarea]);
+            
+            if($search->group_id!=0)
+            {
+                $model->andWhere(['group_id'=>$search->group_id]);
+                
+            }
+         
 
-        return $this->render('index',['page'=>$page,'items'=>$items]);
+            
+        }
+        
+        
+        $count=$model->count();
+        $page=new Pagination(['defaultPageSize'=>20,'totalCount'=>$count]);
+        $items=$model->orderBy('name asc')->offset($page->offset)->limit($page->limit)->all();
+
+        return $this->render('index',['page'=>$page,'items'=>$items,'search'=>$search,'to'=>$to]);
 
 
     }

@@ -322,6 +322,7 @@
     <Compile Include="modules\wenda\views\mycuxiao\info.php" />
     <Compile Include="modules\wenda\views\mycuxiao\myinfo.php" />
     <Compile Include="modules\wenda\views\mycuxiao\mypublished.php" />
+    <Compile Include="modules\wenda\views\mycuxiao\publishdeclare.php" />
     <Compile Include="modules\wenda\views\mycuxiao\publishinfo.php" />
     <Compile Include="modules\wenda\views\mycuxiao\publishinfonew.php" />
     <Compile Include="modules\wenda\views\mycuxiao\publishuser.php" />

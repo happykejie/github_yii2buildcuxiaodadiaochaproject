@@ -88,9 +88,9 @@ function getinitialPreview($imgs){
                         'options' => ['enctype' => 'multipart/form-data']]); ?>
                     <?= $form->field($model,'name')->textinput();?>
                     <?=$form->field($model,'group_id')->dropDownList($to)?>
-
-
                     <?= $form->field($model,'belongarea')->textinput();?>
+                    <?= $form->field($model,'ispay')->dropDownList(['是'=>'是','否'=>'否']);?>
+                    <?= $form->field($model,'paynum')->textinput();?>
                     <input type="hidden" id="province" value="">
                     <input type="hidden" id="city" value="">
 

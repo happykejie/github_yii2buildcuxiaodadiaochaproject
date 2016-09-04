@@ -37,8 +37,8 @@ class Activity extends \yii\db\ActiveRecord
         return [
            [['name','group_id','start_time','end_time'], 'required'],
             //[['group_id'], 'integer'],
-            [['group_id'], 'integer'],
-            [['name','start_time','end_time','intro','address','contacttype','sponsor','belongarea'], 'string'],
+            [['group_id','paynum'], 'integer'],
+            [['name','start_time','end_time','intro','address','contacttype','sponsor','belongarea','ispay'], 'string'],
             [['name'], 'string', 'max' => 225],
             [['surface','belongarea'], 'required'],
             [['surface_file'], 'file','maxFiles' => 1, 'skipOnEmpty' => true, 'extensions' => 'png, jpg,jpeg'],
@@ -46,7 +46,12 @@ class Activity extends \yii\db\ActiveRecord
             [['newspictures'], 'file','maxFiles' => 3, 'skipOnEmpty' => true, 'extensions' => 'png, jpg,jpeg'],
         ];
     }
-
+    
+    
+    /**
+     * 获取分组
+     * @return Category|Yii\db\BaseActiveRecord
+     */
     public function getGroup(){
         if($this->group_id){
             $group=  Category::findOne(['id'=>$this->group_id]);
@@ -56,6 +61,22 @@ class Activity extends \yii\db\ActiveRecord
             return $group;
         }else{
             return new Category();
+        }
+    }
+    
+    /**
+     * 获取用户信息
+     * @return Category|Yii\db\BaseActiveRecord
+     */
+    public function getUserinfo(){
+        if($this->publishpeople){
+            $user=  User::findOne(['id'=>$this->publishpeople]);
+            if(!$user){
+                $user= new User();
+            }
+            return $user;
+        }else{
+            return new User();
         }
     }
     
@@ -244,6 +265,9 @@ class Activity extends \yii\db\ActiveRecord
             'surface_file' => '封面',
             'homepictures'=>'首页图片',
             'newspictures'=>'精彩报道(最多三张)',
+            'ispay'=>'是否支付',
+            'paynum'=>'支付金额',
+
         ];
     }
     

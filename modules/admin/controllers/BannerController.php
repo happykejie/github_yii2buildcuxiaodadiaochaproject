@@ -58,7 +58,7 @@ class BannerController extends Controller
      */
 
     public function  actionIndex(){
-        $model=Banner::find()->orderBy('order asc');
+        $model=Banner::find()->orderBy('ordernum asc');
         $count=$model->count();
         $page=new Pagination(['defaultPageSize'=>15,'totalCount'=>$count]);
         $items=$model->offset($page->offset)->limit($page->limit)->all();

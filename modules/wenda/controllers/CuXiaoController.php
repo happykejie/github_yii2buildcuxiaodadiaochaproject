@@ -34,7 +34,6 @@ require_once "/vendor/WxpayAPI/example/WxPay.JsApiPay.php";
 require_once '/vendor/WxpayAPI/example/log.php';
 
 
-
 class CuXiaoController extends Controller{
     public $enableCsrfValidation = false;//yii默认表单csrf验证，如果post不带改参数会报错！
     public $layout  = 'layout';
@@ -114,8 +113,7 @@ class CuXiaoController extends Controller{
     
     
     public function actionCuxiaoindex()
-    {
-      
+    {   
         
         $value=Yii::$app->cache->get('citynamenew'); 
         if($value===false) ///没有获取到所属城市
@@ -126,7 +124,9 @@ class CuXiaoController extends Controller{
         $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
         if( $this->_user ){
             //
-            $banner=Banner::find()->orderBy('order asc')->all();
+            
+            $Sqlitem="select b.* from sm_banner  as b where remark !='启动页' order by ordernum asc  LIMIT 5";
+            $banner=Banner::findBySql($Sqlitem)->all();
             //获取组别信息
             $category=Category::find()->orderBy('id asc')->all();
             
@@ -143,9 +143,7 @@ class CuXiaoController extends Controller{
             $Sqlitem=$Sqlitem." order by ordernum asc,createtime DESC";
             //获取所有问题信息
             $items=\app\models\Activity::findBySql($Sqlitem)->all();
-            
-            
-            
+                        
             
             return $this->render('cuxiaoindex',['items'=>$items,'category'=>$category,'banner'=>$banner,'search'=>$search,'cityname'=>$value]);
         }
@@ -160,8 +158,13 @@ class CuXiaoController extends Controller{
     
     public function actionLoadad()
     {
-
-      return $this->renderPartial('loadad');
+        
+        $Sqlitem="select b.* from sm_banner  as b  where b.remark ='启动页' order by ordernum asc limit 3";
+        
+        
+       $banner=Banner::findBySql($Sqlitem)->all();
+        
+      return $this->renderPartial('loadad',['banner'=>$banner]);
 
     }
     

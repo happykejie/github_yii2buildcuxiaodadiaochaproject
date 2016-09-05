@@ -42,7 +42,7 @@ use yii\widgets\linkPager;
                                 <img src="<?=$v->bannerimgpath?>" width="40px" height="40px" />
                             </td>
                             <td><?=$v->linkurl?></td>
-                            <td><?=$v->order?></td>
+                            <td><?=$v->ordernum?></td>
                             <td><?=$v->createtime?></td>
                             <td><?=$v->remark?></td>
                             <td>

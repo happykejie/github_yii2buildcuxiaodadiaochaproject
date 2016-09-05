@@ -92,7 +92,7 @@ function getinitialPreview($imgs){
 
                     <?= $form->field($model,'bannertitle')->textinput();?>
                     <?= $form->field($model,'linkurl')->textinput();?>
-                    <?= $form->field($model,'order')->textinput();?>
+                    <?= $form->field($model,'ordernum')->textinput();?>
                     <?= $form->field($model,'remark')->textinput();?>
 
                     <input type="hidden" id="banner-bannerimgpath" class="form-control" name="Banner[bannerimgpath]" value="<?=$model->bannerimgpath; ?>">

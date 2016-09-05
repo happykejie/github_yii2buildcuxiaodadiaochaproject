@@ -32,7 +32,7 @@ class Banner extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['order'], 'integer'],
+            [['ordernum'], 'integer'],
             [['bannertitle','bannerimgpath','linkurl','remark','createtime'], 'string'],
             [['bighead_file'], 'file', 'skipOnEmpty' => true],
         ];
@@ -48,7 +48,7 @@ class Banner extends \yii\db\ActiveRecord
             'bannertitle' => '图片标题',
             'bannerimgpath' => '图片存储路径',
             'linkurl' => '图片链接地址',
-            'order' => '排序',
+            'ordernum' => '排序',
             'createtime' => '创建时间',
             'remark' => '备注',
             'bighead_file'=>'上传图片',

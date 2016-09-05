@@ -57,39 +57,74 @@ $signPackage = $jssdk->GetSignPackage();
         <div id="slider" class="mui-slider">
             <div class="mui-slider-group mui-slider-loop">
                 <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+
+                <?php 
+                $lastimgpath ='';
+                
+                ?>
+
                 <div class="mui-slider-item mui-slider-item-duplicate">
                     <a id="lasts" href="#">
-                        <img src="/web/assets/mui/images/cxddc1.jpg">
+                        <img src="/../<?=  $lastimgpath?>">
+
                     </a>
                 </div>
 
+                <?php 
+                $count =0;
+                $firstimgpath ='';
+                $hrefurl='#';
+                ?>
+                 <?php if(count($banner)>0):?>
+                
+                <?php foreach($banner as $b):?>
 
-                <?php if(count($banner)>0):?>
+                <?php 
+                if($count==0)
+                {
+                    $firstimgpath =$b->bannerimgpath;
+                }
+                
+                if($count==2)
+                {
+                    $lastimgpath =$b->bannerimgpath;
+                    $hrefurl ='cuxiaoindex';
+                    
+                }
+                
+                
+                
+                
+                
+                $count++;
+                
+                
+                
+                
+                
+                    
+                
+                ?>
 
+                <div class="mui-slider-item">
+                    <a href="<?=$hrefurl?>">
+                        <img src="/../<?=$b->bannerimgpath;?>">
+                    </a>
+                </div>
+
+                
+                
+                <?endforeach?>
+                <?endif?>
                
-                <!-- 第一张 -->
-                <div class="mui-slider-item">
-                    <a href="#">
-                        <img src="/web/assets/mui/images/cxddc1.jpg">
-                    </a>
-                </div>
+               
 
-                <div class="mui-slider-item">
-                    <a href="#">
-                        <img src="/web/assets/mui/images/11.jpg"></img>
-                    </a>
-                </div>
-
-                 <div class="mui-slider-item">
-                    <a href="/wenda/cuxiao/index">
-                        <img src="/web/assets/mui/images/cxddc3.jpg">
-                    </a>
-                </div>
+                
               
                 <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 				<div class="mui-slider-item mui-slider-item-duplicate">
                     <a  id="fists" href="#">
-                        <img src="/web/assets/mui/images/cxddc3.jpg">
+                        <img src="/../<?=$firstimgpath?>">
                     </a>
                 </div>
             </div>

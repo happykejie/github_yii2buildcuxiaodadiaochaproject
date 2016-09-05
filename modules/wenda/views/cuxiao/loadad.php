@@ -62,6 +62,10 @@ $signPackage = $jssdk->GetSignPackage();
                         <img src="/web/assets/mui/images/cxddc1.jpg">
                     </a>
                 </div>
+
+
+                <?php if(count($banner)>0):?>
+
                
                 <!-- 第一张 -->
                 <div class="mui-slider-item">

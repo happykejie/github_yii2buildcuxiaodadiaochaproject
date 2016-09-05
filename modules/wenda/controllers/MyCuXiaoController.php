@@ -21,9 +21,15 @@ use app\models\Activity;
 
 use yii\web\NotFoundHttpException;
 
+use common\widgets\payment\Weixinjspi;
+use common\widgets\payment\Notifyurl;
+use yii\helpers\Url;
+use yii\app;
+use yii\web\Response;
+
 use yii\web\UploadedFile;
 use app\models\UploadForm;
-use yii\web\Response;
+
 require_once "models/phpqrcode.php";
 
 require_once "models/WxJsSdk.php";
@@ -185,6 +191,138 @@ class MyCuXiaoController extends Controller{
     }
     
     
+    
+    /**
+     * 没支付或者支付失败的订单
+     */
+    
+    public function actionNopayorder()
+    {
+        
+        $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
+        $userid =Yii::$app->user->getId();
+        if( $this->_user ){
+
+            $Sqlitem="select a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id where a.publishpeople ='$userid' and a.ispay='否'";
+            
+            $Sqlitem=$Sqlitem." order by ordernum asc,createtime DESC";
+            //获取所有问题信息
+            $mypublishitems=\app\models\Activity::findBySql($Sqlitem)->all();
+
+            return $this->render('nopayorder',['mypublishitems'=>$mypublishitems]);
+        }
+        else
+        {
+            //返回登陆
+            Yii::$app->response->redirect(Url::to(['/wenda/index'],true));
+            return false;			
+        }
+        
+       
+        
+    }
+    
+    
+    
+    
+    /**
+     * 确认订单支付界面
+     */
+    public function actionComfirmorder($id)
+    {
+        
+
+         $item = Activity::findOne(['id'=>$id]);
+        
+        
+        if(isset($item)) 
+        {
+            
+            ///开始生产订单信息
+            
+            
+            $body =ORDERBODY;
+            $fee=(int)($item->paynum);
+            $goods_tag=ORDERTAG;
+            $attach =ORDERATTACH;
+            $tools = new \JsApiPay();
+            
+            // $body ='aiwenaida';
+            // $fee=1;
+            // $goods_tag='aiwenaida';
+            // $attach ='this is aiwenaida of test program';
+            // $tools = new \JsApiPay();
+
+            $this->_user = User::findOne(['id'=>Yii::$app->user->getId()]);
+            if( $this->_user ){
+                $this->_openid = $this->_user->openid;
+            }
+            //$this->_openid = 'oTBP7vhBl8BNsAY-F5DmE1wdRbDw';//测试使用用户 微信账号:khjl12345
+            if(empty($this->_openid)){
+                //①、获取用户openid
+                $this->_openid = $tools->GetOpenid(Url::to(['/wenda/index'],true));
+            }
+            //商户订单号
+            $out_trade_no=MCHID.date("YmdHis");
+            //②、统一下单
+            $input = new \WxPayUnifiedOrder();
+            $input->SetBody($body);
+            $input->SetAttach($attach);
+            //必填
+            $input->SetOut_trade_no($out_trade_no);
+            $input->SetTotal_fee($fee);
+            $input->SetTime_start(date("YmdHis"));
+            $input->SetGoods_tag($goods_tag);
+            $input->SetNotify_url(Url::to(['/wenda/wenda/paynotify']));
+            $input->SetTrade_type("JSAPI");
+            $input->SetOpenid($this->_openid);
+            
+            $order = \WxPayApi::unifiedOrder($input);
+            
+            $trade_no = $input->GetOut_trade_no();
+
+            $jsApiParameters = $tools->GetJsApiParameters($order);
+
+            //获取共享收货地址js函数参数
+            $editAddress = $tools->GetEditAddressParameters();
+            
+            ///结束生产订单信息
+
+
+            $arryimg = $item->newspictures;
+
+            return $this->render('comfirmorder',['item'=>$item,'arryimg'=>$arryimg,'order'=>$order,'trade_no'=>$trade_no,'jsApiParameters'=>$jsApiParameters,'editAddress'=>$editAddress]);
+        }
+        
+        return null;
+       
+    }
+    
+    
+    
+    
+    
+    /**
+     * 支付成功修改发布信息状态
+     */
+    public function actionPaysuccess()
+    {
+        $publishid = Yii::$app->request->post('publishid');
+        $model=Activity::findOne(['id'=>$publishid]);
+        
+        $model->ispay='是';
+        
+        $result = $model->save();
+        
+        if($result)
+        {
+            return '1';
+        }
+        
+        return false;
+    }
+    
+    
     /**
      * 成为发布者
      */
@@ -268,7 +406,7 @@ class MyCuXiaoController extends Controller{
             }
             $userid=Yii::$app->user->getId();
             $model->publishpeople=$userid;
-            $model->ispay='否';
+            $model->ispay='免费';
             $model->paynum=0;
             
             if( $model->validate()){
@@ -287,7 +425,7 @@ class MyCuXiaoController extends Controller{
      * @add
      */
     public function actionPublishinfopay(){
-        
+
         $group= Category::find()->all();
         $to=array();
         foreach($group as $v){
@@ -330,13 +468,16 @@ class MyCuXiaoController extends Controller{
                 }
             }
             
+      
             
             $userid=Yii::$app->user->getId();
             $model->publishpeople=$userid;
+            $model->ispay='否';
+           
             
             if( $model->validate()){
                 if($model->save()){
-                    Yii::$app->response->redirect("/wenda/mycuxiao/index");
+                    Yii::$app->response->redirect("/wenda/mycuxiao/comfirmorder?id=$model->id");
                 }else{
                     Yii::$app->session->setFlash('error','添加失败！');
                 }

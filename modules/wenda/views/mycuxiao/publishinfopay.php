@@ -9,6 +9,8 @@ use dosamigos\datetimepicker\DateTimePickerAsset;
 use \yii\redactor\widgets\Redactor;
 use kartik\file\FileInput;
 
+
+
 function getinitialPreviewConfig($imgs){
     $data=[];
     foreach($imgs as $img){
@@ -37,6 +39,12 @@ function getinitialPreview($imgs){
 
 ?>
 <?php $this->beginPage() ?>
+
+
+
+
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -48,16 +56,18 @@ function getinitialPreview($imgs){
 
      <?=Html::cssFile('@web/web/assets/mui/css/css/BecomeTeacher.css')?>
   
-
     <?=Html::jsFile('@web/web/Js/jquery.js')?>
     <?=Html::jsFile('@web/web/Js/bootstrap.js')?>
 
     <?php $this->head() ?>
 
 
+
+
+
+
+
     <style>
-
-
 
         .input-group-btn:last-child .btn{
                 margin-left: 20px;
@@ -295,19 +305,20 @@ function getinitialPreview($imgs){
                     }
                     else {  ///如果有结束时间则先计算开始时间是否小于结束时间， 如果是则计算天数
 
-                        var beginDate = new Date(start_time).Format("yyyy-MM-dd");
-                       // alert(beginDate);
+                        var beginDate = new Date(start_time).Format("yyyy-MM-dd hh:mm:ss");
+                      // alert(beginDate);
 
-                        var endDate = new Date(end_time).Format("yyyy-MM-dd");
-                       // alert(endDate);
+                        var endDate = new Date(end_time).Format("yyyy-MM-dd hh:mm:ss");
+                       //alert(endDate);
 
 
                         if (beginDate >= endDate) {
-                            alert("结束时间必须大于开始时间！");
+                            alert("开始时间必须小于结束时间！");
+                            $("#activity-start_time").val("");
                             return false;
                         } else {
                             
-                            var daysnum = DateDiff(beginDate, endDate);
+                            var daysnum = DateDiff(beginDate, endDate)+1;
 
                             var paynum = parseInt(daysnum) * 10;
 
@@ -343,19 +354,21 @@ function getinitialPreview($imgs){
                     }
                     else {  ///如果有结束时间则先计算开始时间是否小于结束时间， 如果是则计算天数
 
-                        var beginDate = new Date(start_time).Format("yyyy-MM-dd");
-                        // alert(beginDate);
+                        var beginDate = new Date(start_time).Format("yyyy-MM-dd hh:mm:ss");
+                      //   alert(beginDate);
 
-                        var endDate = new Date(end_time).Format("yyyy-MM-dd");
+                        var endDate = new Date(end_time).Format("yyyy-MM-dd hh:mm:ss");
                         // alert(endDate);
 
 
                         if (beginDate >= endDate) {
                             alert("结束时间必须大于开始时间！");
+                            $("#activity-end_time").val("");
                             return false;
                         } else {
 
-                            var daysnum = DateDiff(beginDate, endDate);
+                            var daysnum = DateDiff(beginDate, endDate)+1;
+
 
                             var paynum = parseInt(daysnum) * 10;
 

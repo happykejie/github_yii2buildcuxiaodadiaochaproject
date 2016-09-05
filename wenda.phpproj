@@ -309,6 +309,7 @@
     <Compile Include="modules\wenda\views\me\follow.php" />
     <Compile Include="modules\wenda\views\me\my.php" />
     <Compile Include="modules\wenda\views\me\myanswer.php" />
+    <Compile Include="modules\wenda\views\mycuxiao\comfirmorder.php" />
     <Compile Include="modules\wenda\views\mycuxiao\infoercode.php" />
     <Compile Include="modules\wenda\views\me\love.php" />
     <Compile Include="modules\wenda\views\me\myquestion.php" />
@@ -322,6 +323,7 @@
     <Compile Include="modules\wenda\views\mycuxiao\info.php" />
     <Compile Include="modules\wenda\views\mycuxiao\myinfo.php" />
     <Compile Include="modules\wenda\views\mycuxiao\mypublished.php" />
+    <Compile Include="modules\wenda\views\mycuxiao\nopayorder.php" />
     <Compile Include="modules\wenda\views\mycuxiao\publishdeclare.php" />
     <Compile Include="modules\wenda\views\mycuxiao\publishinfofree.php" />
     <Compile Include="modules\wenda\views\mycuxiao\publishinfopay.php" />

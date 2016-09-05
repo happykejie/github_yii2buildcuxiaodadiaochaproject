@@ -34,7 +34,7 @@ define("JJGQTX",'Ik8CJmg69xjVrdduWIvemsFsLG1Lm77aljMAIyEQMCE'); // 促销大调�
 
 define("WXFX_TITLE",'促销大调查'); // 促销大调查  微信分享——标题
 
-define("WXFX_DESC",'促销大调查：专业的平台,专业的问题,专业的回答'); // 促销大调查  微信分享——分享描述
+define("WXFX_DESC",'促销大调查：全国最大的促销分享平台，最专业，最快捷的发布促销信息'); // 促销大调查  微信分享——分享描述
 
 define("WXFX_LINK",'happykejie.vicp.cc'); // 促销大调查  微信分享详细地址
 
@@ -74,10 +74,10 @@ define("WWW",'happykejie.vicp.cc'); // 促销大调查
  */
 
 
-define('APPID','wx9d87a8766d67046b');
-define('MCHID','1359663202');
-define('KEY','0f20d16e0ace80ea1b0bf0ef89207a96');
-define('APPSECRET','dbe970c0d68d338693a5eb836689d83f');
+define('APPID','wx40af8cb4c6dd1f67');
+define('MCHID','1360507502');
+define('KEY','86b8c4edc4fbhh39896ab14dec4kejie');
+define('APPSECRET','86b8c4edc4fbcc39896ab14dec449d41');
 
 
 //=======【证书路径设置】=====================================
@@ -88,17 +88,17 @@ define('APPSECRET','dbe970c0d68d338693a5eb836689d83f');
  * @var path
  */
 
-define('SSLCERT_PATH','../bszdcert/apiclient_cert.pem');
-define('SSLKEY_PATH','../bszdcert/apiclient_key.pem');
-define('SSLCERTP12_PATH','../bszdcert/apiclient_cer.p12');
-define('SSLROOTCA','../bszdcert/rootca.pem');
+define('SSLCERT_PATH','../cxddccert/apiclient_cert.pem');
+define('SSLKEY_PATH','../cxddccert/apiclient_key.pem');
+define('SSLCERTP12_PATH','../cxddccert/apiclient_cer.p12');
+define('SSLROOTCA','../cxddccert/rootca.pem');
 
 ////证书完整路径
 
-define('SSLCERT_PATHALL','/vendor/wxpayapi/bszdcert/apiclient_cert.pem');
-define('SSLKEY_PATHALL','/vendor/wxpayapi/bszdcert/apiclient_key.pem');
-define('SSLCERTP12_PATHALL','/vendor/wxpayapi/bszdcert/apiclient_cer.p12');
-define('SSLROOTCAALL','/vendor/wxpayapi/bszdcert/rootca.pem');
+define('SSLCERT_PATHALL','/vendor/wxpayapi/cxddccert/apiclient_cert.pem');
+define('SSLKEY_PATHALL','/vendor/wxpayapi/cxddccert/apiclient_key.pem');
+define('SSLCERTP12_PATHALL','/vendor/wxpayapi/cxddccert/apiclient_cer.p12');
+define('SSLROOTCAALL','/vendor/wxpayapi/cxddccert/rootca.pem');
 
 //=======【curl代理设置】===================================
 /**

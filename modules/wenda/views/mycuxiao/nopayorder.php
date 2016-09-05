@@ -41,7 +41,7 @@ $signPackage = $jssdk->GetSignPackage();
 <html>
 <head>
     <meta charset="utf-8">
-    <title>我的发布</title>
+    <title>我的未支付订单</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -87,7 +87,7 @@ $signPackage = $jssdk->GetSignPackage();
 
 
                 <li class="mui-table-view-cell mui-media">
-					<a href="/wenda/cuxiao/detail?id=<?=$v->id?>">
+					<a href="/wenda/mycuxiao/comfirmorder?id=<?=$v->id?>">
 						<img class="cuxiao-little-img !important  mui-pull-left" src="<?=$v->surface?>">
 						<div class="mui-media-body">
 							<?=$v->name?>
@@ -113,7 +113,7 @@ $signPackage = $jssdk->GetSignPackage();
                                 </div>
                                 <p class="remind-text">您暂时还没有信息哦！</p>
                                 <div class="mui-button-row">
-                                    <a href="/wenda/lookforpeople/lookforpeople">
+                                    <a href="/wenda/mycuxiao/publishdeclare">
                                         <button type="button" class="mui-btn-primary remind-button">去发布</button>
                                     </a>
                                 </div>

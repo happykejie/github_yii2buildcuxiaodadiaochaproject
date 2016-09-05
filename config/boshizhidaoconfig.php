@@ -84,17 +84,17 @@ define('APPSECRET','dbe970c0d68d338693a5eb836689d83f');
  * @var path
  */
 
-define('SSLCERT_PATH','../bszdcert/apiclient_cert.pem');
-define('SSLKEY_PATH','../bszdcert/apiclient_key.pem');
-define('SSLCERTP12_PATH','../bszdcert/apiclient_cer.p12');
-define('SSLROOTCA','../bszdcert/rootca.pem');
+define('SSLCERT_PATH','../cxddccert/apiclient_cert.pem');
+define('SSLKEY_PATH','../cxddccert/apiclient_key.pem');
+define('SSLCERTP12_PATH','../cxddccert/apiclient_cer.p12');
+define('SSLROOTCA','../cxddccert/rootca.pem');
 
 ////证书完整路径
 
-define('SSLCERT_PATHALL','/vendor/wxpayapi/bszdcert/apiclient_cert.pem');
-define('SSLKEY_PATHALL','/vendor/wxpayapi/bszdcert/apiclient_key.pem');
-define('SSLCERTP12_PATHALL','/vendor/wxpayapi/bszdcert/apiclient_cer.p12');
-define('SSLROOTCAALL','/vendor/wxpayapi/bszdcert/rootca.pem');
+define('SSLCERT_PATHALL','/vendor/wxpayapi/cxddccert/apiclient_cert.pem');
+define('SSLKEY_PATHALL','/vendor/wxpayapi/cxddccert/apiclient_key.pem');
+define('SSLCERTP12_PATHALL','/vendor/wxpayapi/cxddccert/apiclient_cer.p12');
+define('SSLROOTCAALL','/vendor/wxpayapi/cxddccert/rootca.pem');
 
 //=======【curl代理设置】===================================
 /**
@@ -121,9 +121,9 @@ const REPORT_LEVENL = 1;//=======【基本信息设置】=======================
 
 ////////////////////////////////支付订单////////////////////////////////////////
 
-define('ORDERBODY','博士知道');
-define('ORDERTAG','博士知道');
-define('ORDERATTACH','博士知道');
+define('ORDERBODY','促销大调查');
+define('ORDERTAG','促销大调查');
+define('ORDERATTACH','促销大调查');
 
 
 

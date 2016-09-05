@@ -192,7 +192,7 @@ $signPackage = $jssdk->GetSignPackage();
 						</div>
                            <div class="mui-pull-right">
                            
-                                  <p> 共<?=$v->viewcount?>人查看</p>
+                                  <p> 共<?=int($v->name)?>人查看</p>
                          </div>
 					</a>
 				</li>

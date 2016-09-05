@@ -6,6 +6,14 @@ use yii\widgets\ActiveForm;
 
 ?>
 
+
+<?php
+require_once "models/WxJsSdk.php";
+$jssdk = new WxJsSdk(WX_APPID, WX_APPSECRET);  
+$signPackage = $jssdk->GetSignPackage();
+?>
+
+
 <!doctype html>
 <html>
 
@@ -17,6 +25,8 @@ use yii\widgets\ActiveForm;
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<!--标准mui.css-->
 		  <?=Html::cssFile('@web/web/assets/mui/css/mui.min.css')?>
+
+             <?=Html::cssFile('@web/web/assets/wenda/css/teacher.css')?>
 		<!--App自定义的css-->
 		<style type="text/css">
 			.mui-preview-image.mui-fullscreen {
@@ -273,6 +283,102 @@ use yii\widgets\ActiveForm;
 		  
 		</style>
 
+
+               <script type="text/javascript">
+                   //调用微信JS api 支付
+		
+		
+                   var  onclicknum = 0;
+		
+                   function jsApiCall()
+                   {
+                       WeixinJSBridge.invoke(
+                            'getBrandWCPayRequest',
+                           <?php echo $jsApiParameters; ?>,
+                   
+			                function(res){
+
+			    if(res.err_msg=='get_brand_wcpay_request:ok'){
+
+			        //支付成功在这里添加用户爱听
+			        var publishid = document.getElementById("publishid").value;
+			       // alert(publishid);
+			        $.ajax({
+			            url: '/wenda/mycuxiao/paysuccess',
+			            type: 'post',
+			            data: {'publishid':publishid},
+			            dataType: "text",
+			            success: function (data) {
+							
+			                if(!data)
+			                {
+			                    alert("支付失败，请联系管理员！");
+			                    return false;
+			                }
+			           
+			                   /// alert('恭喜您，支付成功!');
+			                    window.location.href='/wenda/mycuxiao/index';
+			                    return false;
+			                
+			            },
+						
+			            error: function (xhr, errorType, error) {
+						
+
+			                alert("支付失败，请联系管理员！");
+							
+			            }
+			        });
+
+			        
+			    }else{
+			        WeixinJSBridge.log(res.err_msg);
+			        //支付成功后执行
+					
+					
+			        alert('支付失败：'+res.err_code+res.err_desc+res.err_msg);
+					
+			        onclicknum=0;
+			    }
+			}
+		);
+        }
+
+        function callpay()
+        {
+            
+            if(onclicknum==0)
+            {
+                onclicknum = onclicknum+1;
+                if (typeof WeixinJSBridge == "undefined"){
+                    if( document.addEventListener ){
+                        document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                    }else if (document.attachEvent){
+                        document.attachEvent('WeixinJSBridgeReady', jsApiCall); 
+                        document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                    }
+                }else{
+                    jsApiCall();
+                }
+            }
+        }
+			 
+			 
+      
+
+
+
+		
+		
+
+    </script>
+
+
+
+
+
+    
+
 	</head>
 
 	<body>
@@ -280,9 +386,7 @@ use yii\widgets\ActiveForm;
 		<div class="mui-content">
 			<div class="mui-content-padded">
 
-            <!--    <div id="bgheadimg" style="height:200px;width:100%;">
-
-                </div>-->
+                <input type="hidden" id="publishid" name="publishid" value="<?php echo $item->id?>" />
 
                 <div id="headtitle">
                     <?=$item->name?>
@@ -343,13 +447,16 @@ use yii\widgets\ActiveForm;
               
             
 		</div>
-          
-        <div class ="emptydiv">
 
-            点击右上角分享
-            </br></br>
-             <p>版权所有：成都阿欢阿杰科技有限公司</p>
-        </div>
+          <div class="my-teacher">
+        
+                <a href="#" onclick="callpay()">确认支付</a>  
+            
+            </div>
+
+        <div style="height:100px"></div>
+  
+   
        
                  
 	</body>
@@ -362,7 +469,7 @@ use yii\widgets\ActiveForm;
 	<script>
 	    mui.previewImage();
 
-	  
+
 
 	</script>
 

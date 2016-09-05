@@ -37,7 +37,7 @@ class Activity extends \yii\db\ActiveRecord
         return [
            [['name','group_id','start_time','end_time'], 'required'],
             //[['group_id'], 'integer'],
-            [['group_id','paynum'], 'integer'],
+            [['group_id','paynum','viewcount'], 'integer'],
             [['name','start_time','end_time','intro','address','contacttype','sponsor','belongarea','ispay'], 'string'],
             [['name'], 'string', 'max' => 225],
             [['surface','belongarea'], 'required'],
@@ -267,6 +267,9 @@ class Activity extends \yii\db\ActiveRecord
             'newspictures'=>'精彩报道(最多三张)',
             'ispay'=>'是否支付',
             'paynum'=>'支付金额',
+            'viewcount'=>'浏览次数',
+            
+            
 
         ];
     }

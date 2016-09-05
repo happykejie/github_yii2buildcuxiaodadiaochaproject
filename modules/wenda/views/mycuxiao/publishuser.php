@@ -73,6 +73,21 @@ $signPackage = $jssdk->GetSignPackage();
                 </a>
             </li>
 
+
+
+            <li class="mui-table-view-cell mui-media">
+                <a class="mui-navigate-right"  href="/wenda/mycuxiao/nopayorder">
+                    <div class="mui-pull-left border-radius love">
+                        <img class="" src="/web/assets/mui/images/icon10.png">
+                    </div>
+                    <div class="mui-media-body">
+                       未支付发布
+                    </div>
+                </a>
+            </li>
+           
+
+
             <li class="mui-table-view-cell mui-media">
                 <a class='mui-navigate-right' href="myinfo">
                     <div class="mui-pull-left border-radius question-mark">

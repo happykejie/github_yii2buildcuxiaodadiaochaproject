@@ -79,22 +79,17 @@ class LookForPeopleController extends Controller{
 	
     public function actionIndex($id = -1,$code=null){
 
-
 		if($id!=-1)
         {
-
 			$cookteacherid ='teacherid';			
 			$value=Yii::$app->cache->get($cookteacherid);         
             Yii::$app->cache->set($cookteacherid, $id, 7000);  
-
         }
 		$cookteacherid ='teacherid';
         
 		$value=Yii::$app->cache->get($cookteacherid);
 		
 		$this->getteacherid =$value;
-        
-        
         //返回首页
         // yii::$app->response->redirect(url::to(['/wenda/wenda/index'],true));
         // return;

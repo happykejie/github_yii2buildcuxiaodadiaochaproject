@@ -1,0 +1,137 @@
+body{font-family:Microsoft YaHei ;}
+.mui-card .mui-control-content {  padding: 10px;  }
+.mui-scroll{background-color: #FFFFFF;}
+.nav{overflow:hidden ;margin-left: 1%;}
+
+.mui-segmented-control{border-radius: 8px;}
+.shou{overflow: hidden;/*height: 38px*/; cursor:pointer;}
+.shou a{  margin-left:12%;  display: table-cell;  overflow: hidden;  width: 1%;  -webkit-transition: background-color .1s linear;  transition: background-color .1s linear;  text-align: center;  white-space: nowrap;  text-overflow: ellipsis;  }
+.shousuo{width: 26px; vertical-align: middle;}
+.mui-table-view-cell{  position: relative;  overflow: hidden;  padding: 11px 15px;   }
+.mui-table-view-cell h4{line-height: 1.4;color: #000000;font-weight: normal;margin-bottom:0;margin-top:0;font-size: 16px;}
+.mui-table-view-cell span {color:#000000;font-size: 15px;}
+.mui-table-view-cell label{font-size: 16px;}
+.mui-segmented-control{border:1px solid #23ac38;    margin-left: 3px;}
+.mui-segmented-control .mui-control-item{font-size:    16px;  border-left:1px solid #23ac38;  color:#23ac38;font-weight: normal; line-height: 34px; }
+.mui-segmented-control .mui-control-item.mui-active{background-color: #23ac38;}
+/**/
+.log-div{  overflow: hidden;  line-height: 0;   margin-top: 10px; }
+.log-right{  position: relative;  width: 35%;  height:50px;  background-color: #ff9995;  text-align: center;  border-radius: 56px 40px 40px 0;  background-clip: padding-box;  line-height: 0;  overflow: hidden;  margin-top: 10px;  }
+.log-background-color{background-color:#23ac38;}
+.log-right img{position: absolute;top:25%;left: 10%; width:10%;}
+.log-right span{font-size: 16px;color: #FFFFFF;font-weight: normal;position: absolute;top:45%;left: 20%;}
+.quanbu-right-img{position: absolute;right: 0;  bottom: 18px;font-size: 13px;}
+.icon3{color: #999999;}
+.icon4{color:#FF9999;}
+.quanbu-right-img img{width: 18px; vertical-align: -1px; margin-right: 4px;}
+.cxddc-ul li{  border-bottom:10px solid #efeff4;  }
+.cxddc-button{border-radius: 80px 68px 68px 0px ; padding: 7px 13px;position: relative;top: 9px;font-size: 16px ;width:40%;}
+.cxddc-button img{vertical-align: -3px;width:11px;  position: relative;left: -6px;top: 0px;}
+.ta{background-color: #ff9997; border: 1px solid #ff9997;}
+.ta1{background-color: #23ac38;border: 1px solid #23ac38;}
+.oa-contact-cell.mui-table .mui-table-cell {  padding: 11px 0;  vertical-align: middle;  }
+.oa-contact-avatar {  width: 75px;  }
+.oa-contact-avatar img {  border-radius: 50%;  border: 1px solid #23ac38;  width: 55px;  height: 55px;  }
+.mui-table-view-cell:after{height: 0;}
+.mui-btn-primary:enabled:active{background-color: #5fd3cc;border: 1px solid #5fd3cc;}
+.mui-table-view{margin-bottom:70px;}
+.mui-table-view-cell>a:not(.mui-btn) {  white-space: normal;}
+.mui-table-view:before,.mui-table-view:after{height:0;}
+.index{display:none;}
+.mui-table-view-cell p{font-size:13px;margin-top: 5px;color:#999999; white-space: normal;}
+.face{text-align: center;    margin-bottom: 20px;}
+.face img{width: 35%;}
+.remind-text{text-align: center;padding-left: 10px;}
+.remind-button{background-color: #23ac38;border: 1px solid #23ac38;
+	width: 35%;
+	border-radius: 100px;
+	margin-bottom: 20px;
+	font-size: 20px;
+	padding: 6px 20px;
+	}
+/**/
+.mui-indexed-list-search{border-bottom: none;background-color:#ffffff;}
+.mui-search input[type=search]{
+	border: 1px solid #E8E8E8;
+	background-color:#FAFAFA;
+	border-radius:18px ;
+}
+.segmented-control.segmented-control-inverted .mui-control-item.mui-active{color: inherit;}
+.doctor-index-a{font-size: 20px;
+ 	color: #23ac38;
+    font-weight: normal;
+    display: table-cell;
+    overflow: hidden;
+    width: 1%;text-align: center;
+}
+.segmented-control.segmented-control-inverted .mui-control-item.mui-active{
+	border-bottom:2px solid #23ac38 ;
+}
+.mui-icon-search:before{color: #c2c2c2;}
+.doctor-index-a:after{ content: url(/web/assets/mui/images/buttom.png); }
+.doctor-text{
+	font-weight: normal;
+	padding: 10px;
+	overflow: hidden;
+	margin-bottom: 0;margin-top: 0;
+	background-color: #f0f3f2; 
+	font-size: 16px;
+	color: #a5a5a5;
+}
+.doctor-text:after{
+	content: url(/web/assets/mui/images/shang.png); 
+	position: absolute;
+    right: 26px;
+	top:8px;
+}
+.mui-slider{border-bottom: 10px solid #efeff4;}
+#tab1 .tab-a{line-height: 34px;width: 100%;}
+.mui-grid-view.mui-grid-9{background-color:#FFFFFF ;}
+.mui-grid-view.mui-grid-9 .mui-table-view-cell{padding: 0;}
+.segmented-control.segmented-control-inverted .control-item{background-color:#FFFFFF ;}
+.mui-grid-view.mui-grid-9  .mui-table-view-cell.active{border-bottom: 2px solid #23ac38;background-color:#FFFFFF ;}
+.segmented-control.segmented-control-inverted .control-item{color:#707070;}
+#slider{height:10rem;}
+.segmented-control {
+    font-size: 15px;
+    font-weight: 400;
+    position: relative;
+    display: table;
+    overflow: hidden;
+    width: 100%;
+    table-layout: fixed;
+    border: 1px solid #007aff;
+    border-radius: 3px;
+    background-color: transparent;
+    -webkit-touch-callout: none;
+}
+.segmented-control.segmented-control-inverted {
+    width: 100%;
+    border: 0;
+    border-radius: 0;
+}
+.segmented-control .mui-control-item {
+    line-height: 38px;
+    display: table-cell;
+    overflow: hidden;
+    width: 1%;
+    -webkit-transition: background-color .1s linear;
+    transition: background-color .1s linear;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #007aff;
+    border-color: #007aff;
+border-left: 1px solid #007aff}
+.segmented-control.segmented-control-inverted .mui-control-item {
+    color: inherit;
+    border: 0;
+}
+.mui-slider .mui-slider-group .mui-slider-item img{height:10rem;}
+.mui-grid-view.mui-grid-9 .mui-table-view-cell.mui-active{background:#ffffff;}
+.mui-slider .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{color:#000000;}
+.row{background-color:#ffffff;}
+.control-label{display:none;}
+#search{margin:0;}
+#search input[type=text]{margin-bottom:0;background-color:#fafafa; color:#8f8f8f; width:80%; margin-top:10px;margin-bottom:10px; border-radius: 24px;    font-size: 14px;padding-left: 15px;border:1px solid #eeeeee;}
+.form-group {padding: 0 30px 0 25px;}

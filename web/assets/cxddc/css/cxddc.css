@@ -1,0 +1,37 @@
+
+.mui-card .mui-control-content {  padding: 10px;  }
+.mui-scroll{background-color: #FFFFFF;}
+.nav{overflow:hidden ;margin-left: 3%;}
+.mui-segmented-control{border-radius: 8px;}
+.shou{overflow: hidden;height: 38px; cursor:pointer;}
+.shou a{  margin-left:12%;  line-height: 38px;  display: table-cell;  overflow: hidden;  width: 1%;  -webkit-transition: background-color .1s linear;  transition: background-color .1s linear;  text-align: center;  white-space: nowrap;  text-overflow: ellipsis;  }
+.shousuo{width: 28px; vertical-align: middle;}
+.mui-table-view-cell{  position: relative;  overflow: hidden;  padding: 11px 15px;   }
+.mui-table-view-cell h4{line-height: 1.4;color: #333333;font-weight: normal;}
+.mui-table-view-cell span {color:#333333;font-size: 16px;}
+.mui-table-view-cell label{font-size: 16px;}
+.mui-segmented-control{border:1px solid #23ac38;}
+.mui-segmented-control .mui-control-item{  border-left:1px solid #23ac38;  color:#23ac38;font-weight: bold;  }
+.mui-segmented-control .mui-control-item.mui-active{background-color: #23ac38;}
+/**/
+.log-div{  overflow: hidden;  line-height: 0;  height: 70px; margin-top: 10px; }
+.log-right{  position: relative;  width: 35%;  height:50px;  background-color: #ff9995;  text-align: center;  border-radius: 56px 40px 40px 0;  background-clip: padding-box;  line-height: 0;  overflow: hidden;  margin-top: 10px;  }
+.log-background-color{background-color:#23ac38;}
+.log-right img{position: absolute;top:25%;left: 10%; width:10%;}
+.log-right span{font-size: 16px;color: #FFFFFF;font-weight: bold;position: absolute;top:45%;left: 20%;}
+.quanbu-right-img{position: absolute;right: -23px;  bottom: 29px;font-size: 14px;}
+.icon3{color: #9a9a9a;}
+.icon4{color:#FF9999;}
+.quanbu-right-img img{width: 14%;}
+.cxddc-ul li{  border-bottom:15px solid #f6f5f5;  }
+.cxddc-button{border-radius: 80px 68px 68px 0px ; padding: 7px 13px;position: absolute;margin-top: 12px;font-size: 15px;left:66px ;}
+.cxddc-button img{vertical-align: -3px;width:11px;}
+.ta{background-color: #ff9997; border: 1px solid #ff9997;}
+.ta1{background-color: #23ac38;border: 1px solid #23ac38;}
+.oa-contact-cell.mui-table .mui-table-cell {  padding: 11px 0;  vertical-align: middle;  }
+.oa-contact-avatar {  width: 75px;  }
+.oa-contact-avatar img {  border-radius: 50%;  border: 1px solid #23ac38;  width: 60px;  height: 60px;  }
+.mui-table-view-cell:after{height: 0;}
+.mui-btn-primary:enabled:active{background-color: #5fd3cc;border: 1px solid #5fd3cc;}
+.mui-table-view{margin-bottom:70px;}
+.mui-table-view-cell>a:not(.mui-btn) {  white-space: normal;}

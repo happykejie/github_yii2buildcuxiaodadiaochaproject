@@ -31,7 +31,7 @@
                   title: '<?php echo WXFX_TITLE ?>',
                  desc: '<?php echo WXFX_DESC ?>',
                   link: '<?php echo WXFX_LINK ?>',
-                  link: '<?php echo WXFX_LINK ?>' + '/wenda/me/info?id=' + userid + '',
+                  link: '<?php echo WXFX_LINK ?>' + '/cxddc/me/info?id=' + userid + '',
                  imgUrl: '<?php echo WXFX_IMGPATH ?>'
              };
 

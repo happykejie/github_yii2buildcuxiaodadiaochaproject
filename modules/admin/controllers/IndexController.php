@@ -257,19 +257,19 @@ class IndexController extends Controller{
                    $session=Yii::$app->session;
                    $session->set('msg',$count);
 
-                   //return $this->redirect(['/wenda/index']);
-                   return  Yii::$app->response->redirect(Url::to(['../wenda/index'],true));
+                   //return $this->redirect(['/cxddc/index']);
+                   return  Yii::$app->response->redirect(Url::to(['../cxddc/index'],true));
                    
                }else{
                   // return $this->render('login',['model'=>$model]);
                    
-                   return  Yii::$app->response->redirect(Url::to(['../wenda/index'],true));
+                   return  Yii::$app->response->redirect(Url::to(['../cxddc/index'],true));
                    
                    
                }
            }
 
-           return  Yii::$app->response->redirect(Url::to(['../wenda/index'],true));
+           return  Yii::$app->response->redirect(Url::to(['../cxddc/index'],true));
        }
        else // pc 端
        {

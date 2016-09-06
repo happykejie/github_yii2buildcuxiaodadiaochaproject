@@ -30,7 +30,7 @@
               var shareData = {
                   title: '<?php echo WXFX_TITLE ?>',
                      desc: '<?php echo WXFX_DESC ?>',
-                  link: '<?php echo WXFX_LINK ?>' + '/wenda/lookforpeople/expert?id=' + userid + '',
+                  link: '<?php echo WXFX_LINK ?>' + '/cxddc/lookforpeople/expert?id=' + userid + '',
                      imgUrl: '<?php echo WXFX_IMGPATH ?>'
                  };
 

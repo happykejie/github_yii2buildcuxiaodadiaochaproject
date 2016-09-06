@@ -3,16 +3,16 @@
 $params = require(__DIR__ . '/params.php');
 
 $config = [
-    'id' => 'Wenda System',
+    'id' => 'cxddc System',
    // 'path'=>'http://'.$_SERVER['HTTP_HOST'],,
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'zh-CN',
     'charset'=>'utf-8',
-    'defaultRoute'=>'wenda/index',//默认路由，控制器+方法
+    'defaultRoute'=>'cxddc/index',//默认路由，控制器+方法
     'modules' => [
         'admin'=>'app\modules\admin\admin',//后台模块引用
-        'wenda'=>'app\modules\wenda\wenda',//后台模块引用
+        'cxddc'=>'app\modules\cxddc\cxddc',//后台模块引用
         'api'=>'app\modules\api\api',//后台模块引用
         'redactor' => [
             'class' => 'yii\redactor\RedactorModule',

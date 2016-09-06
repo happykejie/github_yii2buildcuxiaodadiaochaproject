@@ -213,7 +213,7 @@ class WxJsSdk  {
 		$t=time(); 
         $datetime = date("Y-m-d H:i:s",$t); 
 		$keyword3 =$datetime;
-		$url = 'http://'.WWW.'/wenda/wenda/recordings?id='.$questionid;
+		$url = 'http://'.WWW.'/cxddc/cxddc/recordings?id='.$questionid;
 
         //模板消息	
         $template=array(
@@ -266,7 +266,7 @@ class WxJsSdk  {
 		$keyword2 =$datetime;
 		$keyword3 =$answerlength;
 		
-		$url = 'http://'.WWW.'/wenda/wenda/paywenda?id='.$questionid;
+		$url = 'http://'.WWW.'/cxddc/cxddc/paywenda?id='.$questionid;
 
         //模板消息	
         $template=array(

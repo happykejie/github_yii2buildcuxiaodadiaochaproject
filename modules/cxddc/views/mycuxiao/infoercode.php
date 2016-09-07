@@ -3,7 +3,10 @@ use yii\helpers\Html;
 use app\assets\AppAsset;
 use yii\widgets\ActiveForm;
 ?>
-<?=Html::jsFile('@web/web/assets/mui/js/mui.min.js')?>
+
+
+
+
 <?php
 require_once "models/WxJsSdk.php";
 $jssdk = new WxJsSdk(WX_APPID, WX_APPSECRET);
@@ -110,11 +113,12 @@ $signPackage = $jssdk->GetSignPackage();
 
 
    
+      <?=Html::jsFile('@web/web/assets/mui/js/mui.min.js')?>
 
-
-	<!--Start 引入分享功能-->
+  <input type="hidden" value="<?= $currentuserid?>" id="userid"/>
+      	<!--Start 引入分享功能-->
 	<?php 
-    require(BASE_PATH . '/config/wxfxjs2.php'); ///引入微信分享
+    require(BASE_PATH.'/config/wxfxzhuyejs.php'); ///引入微信分享
     ?> 
     <!--End 结束分享功能-->
 

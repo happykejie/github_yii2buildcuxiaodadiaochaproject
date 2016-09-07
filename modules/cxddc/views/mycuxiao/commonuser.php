@@ -3,7 +3,16 @@ use yii\helpers\Html;
 use app\assets\AppAsset;
 use yii\widgets\ActiveForm;
 
-?><!DOCTYPE html>
+?>
+
+<?php
+require_once "models/WxJsSdk.php";
+$jssdk = new WxJsSdk(WX_APPID, WX_APPSECRET);  
+$signPackage = $jssdk->GetSignPackage();
+?>
+
+
+<!DOCTYPE html>
 
 
 <html>
@@ -13,7 +22,7 @@ use yii\widgets\ActiveForm;
     <title>我</title>
     <?=Html::cssFile('@web/web/assets/mui/css/mui.min.css')?>
    
-         <?=Html::cssFile('@web/web/assets/cxddc/css/teacher.css')?>
+         <?=Html::cssFile('@web/web/assets/cxddc/css/user.css')?>
 </head>
 <body>
     <div class="mui-content" >
@@ -28,7 +37,7 @@ use yii\widgets\ActiveForm;
 
             <div >
             <div style="text-align:left"> <p style="color:blue">促销大调查成为发布者平台协议：</p></div>
-               <div style="padding-left:20px;text-align:left"> <p>成为发布者， 可以免费及时发布自己的促销信息。每个发布者每天可以免费发布1条促销信息。</p></div>
+               <div style="padding-left:20px;text-align:left"> <p>成为发布者， 可以免费及时发布自己的促销信息。及时让别人知道你的活动信息</p></div>
             </div>
         
             <div class="my-teacher">
@@ -59,16 +68,7 @@ use yii\widgets\ActiveForm;
 
         </div>
         <ul class="mui-table-view mui-table-view-chevron">
-            <li class="mui-table-view-cell mui-media">
-                <a class="mui-navigate-right"  href="mypublished">
-                    <div class="mui-pull-left border-radius love">
-                        <img class="" src="/web/assets/mui/images/icon10.png">
-                    </div>
-                    <div class="mui-media-body">
-                        我的发布
-                    </div>
-                </a>
-            </li>
+           
 
             <li class="mui-table-view-cell mui-media">
                 <a class='mui-navigate-right' href="myinfo">
@@ -97,5 +97,12 @@ use yii\widgets\ActiveForm;
     <script type="text/javascript" charset="UTF-8">
         mui.init();
     </script>
+
+      <input type="hidden" value="<?= $currentuserid?>" id="userid"/>
+      	<!--Start 引入分享功能-->
+	<?php 
+    require(BASE_PATH.'/config/wxfxzhuyejs.php'); ///引入微信分享
+    ?> 
+    <!--End 结束分享功能-->
 </body>
 </html>

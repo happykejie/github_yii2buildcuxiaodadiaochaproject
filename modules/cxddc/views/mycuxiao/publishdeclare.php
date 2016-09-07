@@ -17,7 +17,7 @@ $signPackage = $jssdk->GetSignPackage();
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title>我</title>
     <?=Html::cssFile('@web/web/assets/mui/css/mui.min.css')?>
-    <?=Html::cssFile('@web/web/assets/cxddc/css/teacher.css')?>
+    <?=Html::cssFile('@web/web/assets/cxddc/css/user.css')?>
 </head>
 <body>
 	
@@ -70,9 +70,10 @@ $signPackage = $jssdk->GetSignPackage();
         mui.init();
     </script>
 	
-	<!--Start 引入分享功能-->
+  <input type="hidden" value="<?= $currentuserid?>" id="userid"/>
+      	<!--Start 引入分享功能-->
 	<?php 
-    require(BASE_PATH . '/config/wxfxjs.php'); ///引入微信分享
+    require(BASE_PATH.'/config/wxfxzhuyejs.php'); ///引入微信分享
     ?> 
     <!--End 结束分享功能-->
 	

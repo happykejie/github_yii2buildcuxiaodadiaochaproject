@@ -41,7 +41,11 @@ function getinitialPreview($imgs){
 <?php $this->beginPage() ?>
 
 
-
+<?php
+require_once "models/WxJsSdk.php";
+$jssdk = new WxJsSdk(WX_APPID, WX_APPSECRET);  
+$signPackage = $jssdk->GetSignPackage();
+?>
 
 
 
@@ -54,7 +58,7 @@ function getinitialPreview($imgs){
     <?=Html::cssFile('@web/web/css/bootstrap.min.css')?>
     <?=Html::cssFile('@web/web/css/site.css')?>
 
-     <?=Html::cssFile('@web/web/assets/mui/css/css/BecomeTeacher.css')?>
+     <?=Html::cssFile('@web/web/assets/mui/css/css/Becomeuser.css')?>
   
     <?=Html::jsFile('@web/web/Js/jquery.js')?>
     <?=Html::jsFile('@web/web/Js/bootstrap.js')?>
@@ -416,10 +420,7 @@ function getinitialPreview($imgs){
 
 
        
-        function testchange()
-        {
-            alert("45454454");
-        }
+      
 
 
       
@@ -470,6 +471,14 @@ function getinitialPreview($imgs){
             return true;
         });
     </script>
+
+      <input type="hidden" value="<?= $currentuserid?>" id="userid"/>
+      	<!--Start 引入分享功能-->
+	<?php 
+    require(BASE_PATH.'/config/wxfxzhuyejs.php'); ///引入微信分享
+    ?> 
+    <!--End 结束分享功能-->
+
 </body>
 </html>
 <?php $this->endPage() ?>

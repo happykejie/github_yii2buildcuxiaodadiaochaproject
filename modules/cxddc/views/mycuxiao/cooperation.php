@@ -5,6 +5,12 @@ use app\assets\AppAsset;
 use yii\widgets\ActiveForm;
 ?>
 
+<?php
+require_once "models/WxJsSdk.php";
+$jssdk = new WxJsSdk(WX_APPID, WX_APPSECRET);  
+$signPackage = $jssdk->GetSignPackage();
+?>
+
 
 <!DOCTYPE html>
 <html>
@@ -18,6 +24,7 @@ use yii\widgets\ActiveForm;
 
 		   <?=Html::cssFile('@web/web/assets/mui/css/mui.min.css')?>
      <?=Html::cssFile('@web/web/assets/cxddc/css/my.css')?>
+
 		<style>
 			p {
 				text-indent: 22px;
@@ -154,6 +161,15 @@ use yii\widgets\ActiveForm;
 
 
 		</script>
+
+
+          <input type="hidden" value="<?= $currentuserid?>" id="userid"/>
+      	<!--Start 引入分享功能-->
+	<?php 
+    require(BASE_PATH.'/config/wxfxzhuyejs.php'); ///引入微信分享
+    ?> 
+    <!--End 结束分享功能-->
+
 	</body>
 
 </html>

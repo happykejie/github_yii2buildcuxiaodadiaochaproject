@@ -18,8 +18,8 @@ $signPackage = $jssdk->GetSignPackage();
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title>申请成为发布者</title>
     <?=Html::cssFile('@web/web/assets/mui/css/mui.min.css')?>
-    <?=Html::cssFile('@web/web/assets/mui/css/css/BecomeTeacher.css')?>
-         <?=Html::cssFile('@web/web/assets/cxddc/css/teacher.css')?>
+    <?=Html::cssFile('@web/web/assets/mui/css/css/Becomeuser.css')?>
+         <?=Html::cssFile('@web/web/assets/cxddc/css/user.css')?>
 	<style>
 		.checks_div_select{
 			background-color:#23ac38;
@@ -131,7 +131,7 @@ $signPackage = $jssdk->GetSignPackage();
 		    <div class="q"></div>
             <div class="mui-content-padded">
                 <h4 class="s">介绍一下你自己吧 (100字以内)</h4>
-                <?= $form->field($model,'description')->textarea(['rows'=>4,'maxlength'=>100,'placeholder'=>'简单介绍一下自己，如个人经历，擅长回答的方向和内容...']);?>
+                <?= $form->field($model,'description')->textarea(['rows'=>4,'maxlength'=>100,'placeholder'=>'简单介绍一下自己，如：涉足的领域等']);?>
             </div>
 
 
@@ -242,9 +242,10 @@ $signPackage = $jssdk->GetSignPackage();
     </script>
 	
 	
-     <!--Start 引入分享功能-->
+    <input type="hidden" value="<?= $currentuserid?>" id="userid"/>
+      	<!--Start 引入分享功能-->
 	<?php 
-    require(BASE_PATH . '/config/wxfxjs.php'); ///引入微信分享1
+    require(BASE_PATH.'/config/wxfxzhuyejs.php'); ///引入微信分享
     ?> 
     <!--End 结束分享功能-->
 </body>

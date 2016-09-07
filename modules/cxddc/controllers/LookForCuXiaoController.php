@@ -117,9 +117,10 @@ class LookForCuXiaoController extends Controller{
             $bigitems=\app\models\Activity::findBySql($Sqlitem4)->all();
             
             
+            $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+
             
-            
-            return $this->render('index',['todayitems'=>$todayitems,'tomorrowitems'=>$tomorrowitems,'prevueitems'=>$prevueitems,'hotitems'=>$hotitems,'bigitems'=>$bigitems]);
+            return $this->render('index',['todayitems'=>$todayitems,'tomorrowitems'=>$tomorrowitems,'prevueitems'=>$prevueitems,'hotitems'=>$hotitems,'bigitems'=>$bigitems,'currentuserid'=>$currentuserid]);
         }
         else
         {

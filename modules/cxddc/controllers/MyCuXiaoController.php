@@ -75,14 +75,16 @@ class MyCuXiaoController extends Controller{
      */
     public function actionIndex()
     {
-        $id = Yii::$app->user->getId();
-        $items =User::findOne(['id'=>$id]);
+        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+        $items =User::findOne(['id'=>$currentuserid]);
+        
+        
         if ($items->userstate==1)
         {
-            return $this->render('publishuser',['items'=>$items]);
+            return $this->render('publishuser',['items'=>$items,'currentuserid'=>$currentuserid]);
         }else
         {
-            return $this->render('commonuser',['items'=>$items]);
+            return $this->render('commonuser',['items'=>$items,'currentuserid'=>$currentuserid]);
         }   
     }
     
@@ -91,7 +93,8 @@ class MyCuXiaoController extends Controller{
      */
     public function actionFeedback()
     {
-        return $this->render('feedback');
+        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+        return $this->render('feedback',['currentuserid'=>$currentuserid]);
     }
     
     /**
@@ -99,7 +102,10 @@ class MyCuXiaoController extends Controller{
      */
     public function actionPublishuser()
     {
-        return $this->render('publishuser');
+       
+        
+        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+        return $this->render('publishuser',['currentuserid'=>$currentuserid]);
     }
     
     /**
@@ -107,7 +113,10 @@ class MyCuXiaoController extends Controller{
      */
     public function actionCommonuser()
     {
-        return $this->render('commonuser');
+        
+        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+        return $this->render('commonuser',['currentuserid'=>$currentuserid]);
+       
     }
     
     
@@ -116,9 +125,10 @@ class MyCuXiaoController extends Controller{
      */
     public function actionPublishdeclare()
     {
-        
+        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+        return $this->render('publishdeclare',['currentuserid'=>$currentuserid]);
       
-        return $this->render('publishdeclare');
+       
     }
     
     
@@ -138,8 +148,12 @@ class MyCuXiaoController extends Controller{
             $Sqlitem=$Sqlitem." order by ordernum asc,createtime DESC";
             //获取所有问题信息
             $mypublishitems=\app\models\Activity::findBySql($Sqlitem)->all();
+            
+            $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+            
+          
 
-            return $this->render('mypublished',['mypublishitems'=>$mypublishitems]);
+            return $this->render('mypublished',['mypublishitems'=>$mypublishitems,'currentuserid'=>$currentuserid]);
         }
         else
         {
@@ -168,7 +182,9 @@ class MyCuXiaoController extends Controller{
                 Yii::$app->session->setFlash('error','发送失败！');
             }
         }
-        return $this->render('myinfo',['model'=>$model]);    
+        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+        
+        return $this->render('myinfo',['model'=>$model,'currentuserid'=>$currentuserid]);    
     }
     
     
@@ -177,7 +193,9 @@ class MyCuXiaoController extends Controller{
      */
     public function actionCooperation()
     {
-        return $this->render('cooperation');
+        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+        
+        return $this->render('cooperation',['currentuserid'=>$currentuserid]);
     }
     
     /**
@@ -186,7 +204,9 @@ class MyCuXiaoController extends Controller{
     
     public function actionInfoercode()
     {
-        return $this->render('infoercode');
+        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+        
+        return $this->render('infoercode',['currentuserid'=>$currentuserid]);
         
     }
     
@@ -208,8 +228,11 @@ class MyCuXiaoController extends Controller{
             $Sqlitem=$Sqlitem." order by ordernum asc,createtime DESC";
             //获取所有问题信息
             $mypublishitems=\app\models\Activity::findBySql($Sqlitem)->all();
+            
+            $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+            
 
-            return $this->render('nopayorder',['mypublishitems'=>$mypublishitems]);
+            return $this->render('nopayorder',['mypublishitems'=>$mypublishitems,'currentuserid'=>$currentuserid]);
         }
         else
         {
@@ -290,8 +313,9 @@ class MyCuXiaoController extends Controller{
 
 
             $arryimg = $item->newspictures;
-
-            return $this->render('comfirmorder',['item'=>$item,'arryimg'=>$arryimg,'order'=>$order,'trade_no'=>$trade_no,'jsApiParameters'=>$jsApiParameters,'editAddress'=>$editAddress]);
+            
+            $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+            return $this->render('comfirmorder',['item'=>$item,'arryimg'=>$arryimg,'order'=>$order,'trade_no'=>$trade_no,'jsApiParameters'=>$jsApiParameters,'editAddress'=>$editAddress,'currentuserid'=>$currentuserid]);
         }
         
         return null;
@@ -349,8 +373,14 @@ class MyCuXiaoController extends Controller{
                 Yii::$app->session->setFlash('error','发送失败！');
             }
         }
-    
-        return $this->render('becomepublisher',['model'=>$model]);    
+        
+       
+         
+        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+                                          
+        
+                                 
+        return $this->render('becomepublisher',['model'=>$model,'currentuserid'=>$currentuserid]);    
     }
 
     
@@ -417,7 +447,9 @@ class MyCuXiaoController extends Controller{
                 }
             }
         }
-        return $this->render('publishinfofree',['model'=>$model,"to"=>$to]);
+        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+        
+        return $this->render('publishinfofree',['model'=>$model,'to'=>$to,'currentuserid'=>$currentuserid]);
     }
     
     
@@ -483,333 +515,16 @@ class MyCuXiaoController extends Controller{
                 }
             }
         }
-        return $this->render('publishinfopay',['model'=>$model,"to"=>$to]);
+        
+        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+        
+        return $this->render('publishinfopay',['model'=>$model,'to'=>$to,'currentuserid'=>$currentuserid]);
     }
     
-    public function actionGetlocal()
-    {
-        return $this->render('getlocal');
-    }
-    
-    
-    public function actionSelectarea()
-    {
-        return $this->render('selectarea');
-    }
+  
     
 
-    /**
-     * @我的关注
-     */
-    public function actionFollow($id){
-        //获取当前登录用户的ID
-        $userid=Yii::$app->user->getId();
-        $userattention=new Userattention();
-        $ttention=new Userattention();
-        
-        if($userattention->load(Yii::$app->request->post())//判断是否是表单提交
-){
-            //根据当前用户ID和老师的Id查询是否有关注数据
-            $ttention=$ttention::findOne(["userid"=>$userid,'attentionuserid'=>$userattention->attentionuserid]);
-            //如果如果查询的数据得到非空 表示已经被关注了，那么删除该条关注信息
-            if (isset($ttention))
-            {
-                $userattention::deleteAll(['id'=>$ttention->id]);
-            }else
-            {
-                $userattention->userid=$userid;
-                $userattention->attentiontime=date("Y-m-d H:i:s", time());
-
-                if($userattention->save()){
-                    Yii::$app->session->setFlash('success','发送成功！');
-                }else{
-                    Yii::$app->session->setFlash('error','发送失败！');
-                }
-            }
-        }
-        
-        $Sql='select a.id,a.title,a.nickname,a.headimgurl,b.attentionuserid  from sm_user as a  inner JOIN sm_userattention as b on a.id=b.attentionuserid WHERE b.userid='.$id;
-        
-        $search=new User();
-        
-        if ($search->load(Yii::$app->request->post())) {
-            if (isset($search->nickname))
-            {
-                $Sql= $Sql.' and nickname like "%'.($search->nickname).'%"';
-            }
-        }
-        
-        
-        $Sql=$Sql.' order BY b.attentiontime DESC';
-        
-        $items =User::findBySql($Sql)->all();
-        return $this->render('follow',['items'=>$items,'search'=>$search]);
-    }
-
-    /**
-     * @我的二维码
-     */
-
-    public function actionInfo($id=-1){
-		
-        
-
-		if($id==-1)
-		{
-            
-            $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
-            if( $this->_user ){
-                
-                $value = 'http://'.WWW.'/cxddc/lookforpeople/index?id='.$this->_user->id; //二维码内容   
-                $errorCorrectionLevel = 'L';//容错级别   
-                $matrixPointSize = 6;//生成图片大小   
-                //生成二维码图片
-                
-                $fileyuantu = BASE_PATH.'web/images/'.$this->_user->openid.'qrcode.png';
-                
-                \QRcode::png($value, $fileyuantu, $errorCorrectionLevel, $matrixPointSize, 2);
-				
-                
-                $imgurl = '/web/images/'.$this->_user->openid.'qrcode.png';
-                $id = Yii::$app->user->getId();
-                $items =YiiUser::findOne(['id'=>$id]);
-                return $this->render('info',['items'=>$items,'url'=>$imgurl]);
-                
-            }
-            
-            
-		}
-		
-		else
-		{
-            $this->_user = YiiUser::findOne(['id'=>$id]);
-
-			
-			
-            if( $this->_user ){
-                $value = 'http:/'.WWW.'/cxddc/lookforpeople/index?id='.$this->_user->id; //二维码内容   
-                $errorCorrectionLevel = 'L';//容错级别   
-                $matrixPointSize = 6;//生成图片大小   
-                //生成二维码图片
-                
-                $fileyuantu = BASE_PATH.'web/images/'.$this->_user->openid.'qrcode.png';
-                
-                \QRcode::png($value, $fileyuantu, $errorCorrectionLevel, $matrixPointSize, 2);   
-                
-                
-                $imgurl = '/web/images/'.$this->_user->openid.'qrcode.png';
-                
-                $items =YiiUser::findOne(['id'=>$id]);
-                return $this->renderPartial('info',['items'=>$items,'url'=>$imgurl]);
-            }
-
-            
-		}
-        
-    }
-    
-    /**
-     * @获取我的爱听
-     */
-
-    public function actionLove($id){
-        
-        //$id = Yii::$app->user->getId();
-        $Sql="";
-        $search =new Askproblem();       
-        if ($search->load(Yii::$app->request->post())) {
-
-            if(isset($search->questiondescription))
-            {
-                $Sql="select a.questionid,a.userid,a.id,a.buytime from sm_lovelistenquestion as a inner join  sm_user as b inner JOIN sm_askproblem as c where a.questionid=c.id and b.id=c.answerpersonid and c.questiondescription like '%".$search->questiondescription."%' and a.userid=".$id;
-            }
-            
-        }  else
-        {
-            $Sql="select a.questionid,a.userid,a.id,a.buytime from sm_lovelistenquestion as a inner join  sm_user as b inner JOIN sm_askproblem as c where a.questionid=c.id and b.id=c.answerpersonid and a.userid=".$id;
-        }
-
-        $items=LoveListenQuestion::findBySql($Sql)->all();
-
-        return $this->render('love',['items'=>$items,'search'=>$search]);
-    }
-    
-    /**
-     * @我的问题
-     */
-
-    public function actionMyquestion($id){
-		
-        //获取我已经回答的问题集合
-        // $itemsOK=$itemsOK->where(['answerpersonid'=>$id])->all();
-        $sql='select * from sm_askproblem where questionstate<>0 and askpersonid='.$id.' ORDER BY asktime DESC';
-        
-        $itemsok =Askproblem::findBySql($sql)->all();
-        
-        //获取我还没有回答的问题
-        $itemsno =Askproblem::find()->where(['askpersonid'=>$id,'questionstate'=>0])->orderBy('asktime DESC')->all();
-        
-        return $this->render('myquestion',['itemsok'=>$itemsok,'itemsno'=>$itemsno]);
-    }
-    
-    
-    /**
-     * @我的回答
-     */
-
-    public function actionMyanswer($id){
-        
-        //获取我的提问集合
-        // $itemsOK=$itemsOK->where(['answerpersonid'=>$id])->all();
-        $sql='select * from sm_askproblem where questionstate<>0 and answerpersonid='.$id.' ORDER BY asktime DESC';
-        
-        $itemsok =Askproblem::findBySql($sql)->all();
-        
-        //获取我还没有回答的问题
-        $itemsno =Askproblem::find()->where(['answerpersonid'=>$id,'questionstate'=>0])->orderBy('asktime DESC')->all();
-        
-        return $this->render('myanswer',['itemsok'=>$itemsok,'itemsno'=>$itemsno]);
-    }
-
-    /**
-     * @我的详细页
-     */
-
-    public function actionMy(){
-        $id =  Yii::$app->user->getId();
-        
-        $items =User::findOne(['id'=>$id]);
-        
-        if ($items->userstate==1)
-        {
-            return $this->render('teacher',['items'=>$items]);
-            
-        }else
-        {
-            return $this->render('my',['items'=>$items]);
-        }   
-    }
-    
-    
-    public function  actionTest()
-    {
-        echo 'stese';
-        
-        return null;
-    }
-    
-    
-    public function actionCurrentme(){
-        $id = Yii::$app->user->getId();
-        $items =User::findOne(['id'=>$id]);
-        if ($items->userstate==1)
-        {
-            return $this->render('teacher',['items'=>$items]);
-        }else
-        {
-            return $this->render('currentme',['items'=>$items]);
-        }   
-    }
-    
-    
-    public function  actionTeacheranswer()
-    {
-        $this->render('teacheranswer');
-        // echo 'ssds';
-    }
-    
-
-	/**
-     *用户提现
-     *
-     */
-    public function actionWithdarawal()
-    {
-        $id = Yii::$app->user->getId();
-        $items =User::findOne(['id'=>$id]);
-		
-		$Enterprisepay=new Enterprisepay();
-		
-        $incomecost = new \app\models\Incomecost();
-        
-        $incomecounum =0;
-
-        if ($Enterprisepay->load(Yii::$app->request->post())) {
-
-            //商户订单号
-            $out_trade_no=MCHID.date("YmdHis");
-            
-            $Enterprisepay->applyname=$items->nickname;
-            $Enterprisepay->applyopenid=$items->openid;
-            $Enterprisepay->phone=$items->phone;
-            $Enterprisepay->trade_no = $out_trade_no;
-            
-            $sumexpenditure=($items->incomecost3mnumber()->sum('incomecostnum'))+($items->incomecost2mnumber()->sum('incomecostnum'))+($items->incomecost5mnumber()->sum('incomecostnum'))+($items->incomecost6mnumber()->sum('incomecostnum'));
-            $format_number = number_format($sumexpenditure, 2, '.', '');/// float 四舍五入
-            $money=$format_number; 
-            if(!isset($money)){
-                $money= 0;
-            }
-            
-        	$Enterprisepay->money=$money;
-            
-            $incomecounum = $money;
-            
-            
-            
-            $Enterprisepay->applytime=date("Y-m-d H:i:s", time());
-            $Enterprisepay->phone=$items->phone;
-            $Enterprisepay->state=0;
-            
-            if ($Enterprisepay->save())
-            {
-                
-                //添加一条提现记录到收入支付表
-                
-                $incomecost->userid=$id;
-                $incomecost->incomecosttype=6;
-                $incomecost->incomecostnum= -$incomecounum;       
-                $incomecost->dealtime =date("Y-m-d H:i:s", time());
-                $incomecost->trade_no =$out_trade_no;
-                $incomecost->questionid =0;
-                
-                if($incomecost->save())
-                {
-                    $id = Yii::$app->user->getId();
-                    $items =User::findOne(['id'=>$id]);
-                    if ($items->userstate==1)
-                    {
-                        return $this->render('teacher',['items'=>$items]);
-                    }else
-                    {
-                        return $this->render('currentme',['items'=>$items]);
-                    }   
-                    
-                }
-                
-                
-            }else
-            {
-                $this->render('recording');
-            }
-            
-        }
-        return $this->render('withdarawal',['items'=>$items]);
-        
-    }
-    
-	
-	
-    public function actionTestpage()
-    {
-        $this->render('testpage');
-    }
-    
-    
-    public function actionRecording()
-    {
-        $this->render('recording');
-    }
+   
     
     
     

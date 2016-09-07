@@ -15,11 +15,10 @@ $signPackage = $jssdk->GetSignPackage();
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>申请成为发布者</title>
+    <title>我的资料</title>
     <?=Html::cssFile('@web/web/assets/mui/css/mui.min.css')?>
-    <?=Html::cssFile('@web/web/assets/mui/css/css/BecomeTeacher.css')?>
-         <?=Html::cssFile('@web/web/assets/cxddc/css/teacher.css')?>
+    <?=Html::cssFile('@web/web/assets/cxddc/css/bepublisher.css')?>
+
 	<style>
 		.checks_div_select{
 			background-color:#23ac38;
@@ -131,7 +130,7 @@ $signPackage = $jssdk->GetSignPackage();
 		    <div class="q"></div>
             <div class="mui-content-padded">
                 <h4 class="s">介绍一下你自己吧 (100字以内)</h4>
-                <?= $form->field($model,'description')->textarea(['rows'=>4,'maxlength'=>100,'placeholder'=>'简单介绍一下自己，如个人经历，擅长回答的方向和内容...']);?>
+                <?= $form->field($model,'description')->textarea(['rows'=>4,'maxlength'=>100,'placeholder'=>'简单介绍一下自己，如：涉足的领域等']);?>
             </div>
 
           
@@ -139,16 +138,16 @@ $signPackage = $jssdk->GetSignPackage();
                 <div class="back-footer">
 				
 				
-                <?php if($model->userstate<>1):?>
-					<p style="padding-left: 10px;">审核信息提交后，工作人员会在24小时内为您更新信息。</p>
-
-                <?endif?>
+              
              
                   <div style="padding:10px;">
 				
                         <?=Html::submitButton('保存',['id'=>'sub','class'=>'mui-btn mui-btn-primary mui-btn-block s','onclick'=>'return reg()'])?>
                </div>
                     </div>
+
+
+
                       <?php ActiveForm::end()?>
 
           
@@ -161,9 +160,9 @@ $signPackage = $jssdk->GetSignPackage();
     <script type="text/javascript" charset="UTF-8">
 
         mui.init();
-    
 
-       
+
+
         /*表单验证　*/
 
         $('#user-name').blur(function () {
@@ -176,7 +175,7 @@ $signPackage = $jssdk->GetSignPackage();
 
 
 
-    
+
 
         $('#user-phone').blur(function () {
             var userPhone = $('#user-phone').val();
@@ -186,7 +185,7 @@ $signPackage = $jssdk->GetSignPackage();
             }
         })
 
-   
+
         //微信号
         $('#user-wechatnumber').blur(function () {
             var userwechatnumber = $('#user-wechatnumber').val();
@@ -200,16 +199,16 @@ $signPackage = $jssdk->GetSignPackage();
 
         function reg() {
             var userTitle = document.getElementById("user-realname").value;
-           
+
             var userPhone = document.getElementById("user-phone").value;
-           
+
             var userwechatnumber = $('#user-wechatnumber').val();
-          
+
             if (userTitle == "") {
                 alert("真实不能为空");
                 return false;
             }
-         if (userwechatnumber == "" || /[\u4E00-\u9FA5]/i.test(userwechatnumber)) {
+            if (userwechatnumber == "" || /[\u4E00-\u9FA5]/i.test(userwechatnumber)) {
                 alert('微信号输入格式不正确');
                 return false;
             }
@@ -217,7 +216,7 @@ $signPackage = $jssdk->GetSignPackage();
                 alert("手机号码不正确");
                 return false;
             }
-          
+
             else {
                 return true;
             }
@@ -225,9 +224,10 @@ $signPackage = $jssdk->GetSignPackage();
     </script>
 	
 	
-     <!--Start 引入分享功能-->
+  <input type="hidden" value="<?= $currentuserid?>" id="userid"/>
+      	<!--Start 引入分享功能-->
 	<?php 
-    require(BASE_PATH . '/config/wxfxjs.php'); ///引入微信分享1
+    require(BASE_PATH.'/config/wxfxzhuyejs.php'); ///引入微信分享
     ?> 
     <!--End 结束分享功能-->
 </body>

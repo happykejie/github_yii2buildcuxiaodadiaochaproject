@@ -144,8 +144,8 @@ class CuXiaoController extends Controller{
             //获取所有问题信息
             $items=\app\models\Activity::findBySql($Sqlitem)->all();
                         
-            
-            return $this->render('cuxiaoindex',['items'=>$items,'category'=>$category,'banner'=>$banner,'search'=>$search,'cityname'=>$value]);
+            $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+            return $this->render('cuxiaoindex',['items'=>$items,'category'=>$category,'banner'=>$banner,'search'=>$search,'cityname'=>$value,'currentuserid'=>$currentuserid]);
         }
         else
         {
@@ -247,11 +247,11 @@ class CuXiaoController extends Controller{
           
      
         
- 
+          $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
             
             $arryimg = $item->newspictures;
 
-            return $this->render('detail',['item'=>$item,'arryimg'=>$arryimg]);
+            return $this->render('detail',['item'=>$item,'arryimg'=>$arryimg,'currentuserid'=>$currentuserid]);
         }
         
        

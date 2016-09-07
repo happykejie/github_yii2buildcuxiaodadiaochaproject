@@ -6,17 +6,9 @@ use yii\widgets\ActiveForm;
 ini_set('date.timezone','Asia/Shanghai');
 
 
-//初始化日志
-$logHandler= new CLogFileHandler();
-$log = Log::Init($logHandler, 15);
 
-//打印输出数组信息
-function printf_info($data)
-{
-    foreach($data as $key=>$value){
-        echo "<font color='#00ff55;'>$key</font> : $value <br/>";
-    }
-}
+
+
 
 //echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
 
@@ -75,9 +67,7 @@ $signPackage = $jssdk->GetSignPackage();
 </head>
 <body>
     <div id="mui-wrap" class="mui-content" style="overflow-y: auto; position: relative; ">
-        <div id="s">
-          
-            <div>
+       
                 <!-- 我的发布 -->
                 <div id="item1" class="mui-control-content mui-active">
                     <ul id="cxddc-ul" class="cxddc-ul mui-table-view mui-table-view-striped mui-table-view-condensed">
@@ -97,6 +87,7 @@ $signPackage = $jssdk->GetSignPackage();
                            
                                   <p> 共<?=$v->viewcount?>人查看</p>
                          </div>
+                            </a>
 				</li>
 
 
@@ -113,7 +104,7 @@ $signPackage = $jssdk->GetSignPackage();
                                 </div>
                                 <p class="remind-text">您暂时还没有信息哦！</p>
                                 <div class="mui-button-row">
-                                    <a href="/cxddc/lookforpeople/lookforpeople">
+                                    <a href="/cxddc/mycuxiao/publishdeclare">
                                         <button type="button" class="mui-btn-primary remind-button">去发布</button>
                                     </a>
                                 </div>
@@ -123,8 +114,7 @@ $signPackage = $jssdk->GetSignPackage();
                     </ul>
                 </div>
               
-            </div>
-        </div>
+           
     </div>
     <?=Html::jsFile('@web/web/assets/mui/js/mui.min.js')?>
     <script type="text/javascript">
@@ -146,9 +136,10 @@ $signPackage = $jssdk->GetSignPackage();
     </script>
 
 
+  <input type="hidden" value="<?= $currentuserid?>" id="userid"/>
       	<!--Start 引入分享功能-->
 	<?php 
-    require(BASE_PATH.'/config/wxfxjs1.php'); ///引入微信分享
+    require(BASE_PATH.'/config/wxfxzhuyejs.php'); ///引入微信分享
     ?> 
     <!--End 结束分享功能-->
 

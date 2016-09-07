@@ -32,7 +32,9 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             [['userorder','phone','qqnum'], 'integer'],
-            [['description','nickname','attentionname','headimgurl','wechatnumber','explain','belongfirm','belongfirmphone','managecity','user','realname','remark'], 'string'],
+            [['sex'], 'int'],
+            
+            [['description','nickname','attentionname','city','country','headimgurl','wechatnumber','explain','belongfirm','belongfirmphone','managecity','user','realname','remark'], 'string'],
             [['questionprice'],'double'],
             [['title'], 'string', 'max' =>225]
         ];

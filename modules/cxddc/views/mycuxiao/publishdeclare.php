@@ -21,22 +21,18 @@ $signPackage = $jssdk->GetSignPackage();
 </head>
 <body>
 	
-    <div class="mui-content"  style="height:600px">
+    <div class="mui-content" >
         
-           
-         
-
-           <div style="text-align:left;margin-top:10px">
-            <p style="color:green">请详细阅读发布发布信息说明</p>
-</div>
-            <div >
-            <div style="text-align:left"> <p style="color:blue">促销大调查发布说明：</p></div>
-               <div style="padding-left:20px;text-align:left"> <p>发现信息除了遵守促销大调查平台协议外。还有如下发布说明：</p></div>
-               <div style="padding-left:20px;text-align:left"> <p>(1)发布消息可以选择免费发布和付费发布</p></div>
-               <div style="padding-left:20px;text-align:left"> <p>(2)为了防止恶意发布和恶意占用资源，一个账号每月可以免费发布一次促销消息。发布时间默认只限当天促销活动。</p></div>
-               <div style="padding-left:20px;text-align:left"> <p>(3)为了提供产品质量和不乱发促销信息，付费发布从发布当前到结束时间期间每天收取10元的平台维护费用。</p></div>
-               <div style="padding-left:20px;text-align:left"> <p>(4)为防止长期占用资源，发布促销信息超过时间跨度超过10天的请联系平台服务商解决。</p></div>
-               <div style="padding-left:20px;text-align:left"> <p>(5)倾销分类，和大型活动发布，以及自定义设计促销页面等特殊需求请联系平台服务商解决。</p></div>
+    
+            <div style="text-align:left;margin-top:20px; margin-left:10px"> <p style="color:#23ac38">促销大调查发布说明：</p></div>
+                <div style="border-bottom-style:groove;margin-left:20px;margin-right:20px;border:1px solid #23ac38;padding:20px 20px 20px 20px;margin-bottom:10px">
+             
+               <div style="padding-left:2px;text-align:left"> <p>(1)发布消息可以选择免费发布和付费发布</p></div>
+               <div style="padding-left:2px;text-align:left"> <p>(2)为了防止恶意发布和恶意占用资源，一个账号每月可以免费发布一次促销消息。发布时间默认只限当天促销活动。</p></div>
+               <div style="padding-left:2px;text-align:left"> <p>(3)为了提供产品质量和不乱发促销信息，付费发布从发布当前到结束时间期间每天收取10元的平台维护费用。</p></div>
+               <div style="padding-left:2px;text-align:left"> <p>(4)为防止长期占用资源，发布促销信息超过时间跨度超过10天的请联系平台服务商解决。</p></div>
+               <div style="padding-left:2px;text-align:left"> <p>(5)大型活动发布，以及自定义设计促销页面等特殊需求请联系平台服务商解决。</p></div>
+                </div>
 
             </div>
 
@@ -49,7 +45,9 @@ $signPackage = $jssdk->GetSignPackage();
                  <a href="publishinfofree">免费发布促销消息</a>  
             </div>
 
+            
 
+          <div style="height:50px"></div>
         
 
     

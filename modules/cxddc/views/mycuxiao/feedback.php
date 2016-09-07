@@ -20,7 +20,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title>问题反馈</title>
 		  <?=Html::cssFile('@web/web/assets/mui/css/mui.min.css')?>
-    <?=Html::cssFile('@web/web/assets/mui/css/css/Becomeuser.css')?>
+    <?=Html::cssFile('@web/web/assets/mui/css/css/bepublisher.css')?>
     <?=Html::cssFile('@web/web/assets/mui/css/css/feedback.css')?>
 	</head>
 

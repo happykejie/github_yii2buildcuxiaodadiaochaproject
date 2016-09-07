@@ -99,6 +99,9 @@ class IndexController extends Controller{
     
     //微信自动验证
     public function actionIndex($id = 1,$code=null){
+        
+        
+       
 		
         //$ismobile =  $this->checkmobile();
         //$user_agent = $_SERVER['HTTP_USER_AGENT'];
@@ -149,11 +152,15 @@ class IndexController extends Controller{
                 die("No openid there! Can't add");
             } 
             $jssdk = new  \WxJsSdk(WX_APPID, WX_APPSECRET);
+            
+            
+         
 
             $this->_access_token =  $jssdk->getAccessTokenfile();
 
             
-			
+            
+        			
             $this->_wxuser = $this->getWxUserinfo();
 			
             
@@ -180,20 +187,20 @@ class IndexController extends Controller{
                 $this->_user->nickname = $this->_wxuser['nickname'];
                 $this->_user->sex = $this->_wxuser['sex'];
                 $this->_user->thumb = $this->_wxuser['headimgurl'];
-                $this->_user->sex = $this->_wxuser['sex'];
-                $this->_user->headimgurl = $this->_wxuser['headimgurl'];
                 $this->_user->city = $this->_wxuser['city'];
                 $this->_user->country = $this->_wxuser['country'];
                 $this->_user->remark = $this->_wxuser['remark'];
 				$this->_user->userstate =0;
+                $this->_user->createusertime= date('y-m-d h:i:s',time());
                 
+
                 if($this->_user->save()){
                     //设置登录成功
                     Yii::$app->user->login($this->_user,3600*24*1);
 					
 					
                 }else{
-                    echo "登录失败";
+                    echo "login  error";
                     die;
                 }
             }

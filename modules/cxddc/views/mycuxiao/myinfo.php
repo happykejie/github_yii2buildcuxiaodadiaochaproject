@@ -43,6 +43,20 @@ $signPackage = $jssdk->GetSignPackage();
 			position: relative;
 			top: 1px;
 		}
+
+
+          .tybutton {
+            width: 180px;
+            height: 40px;
+            background-color: #23ac38;
+            margin: 0 auto;
+            border-radius: 20px;
+            line-height: 40px;
+            margin-bottom: 10px;
+            text-align:center;
+        }
+
+ .tybutton a { display: inline-block;width: 100%;height: 100%; color: #FFFFFF; font-size: 18px;}
 	
 	</style>
 </head>
@@ -138,9 +152,10 @@ $signPackage = $jssdk->GetSignPackage();
                 <div class="back-footer">
 				
 				
+
               
              
-                  <div style="padding:10px;">
+                  <div style="padding:10px;margin-bottom:50px;">
 				
                         <?=Html::submitButton('保存',['id'=>'sub','class'=>'mui-btn mui-btn-primary mui-btn-block s','onclick'=>'return reg()'])?>
                </div>

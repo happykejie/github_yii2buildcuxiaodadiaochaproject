@@ -58,7 +58,8 @@ $signPackage = $jssdk->GetSignPackage();
     <?=Html::cssFile('@web/web/css/bootstrap.min.css')?>
     <?=Html::cssFile('@web/web/css/site.css')?>
 
-     <?=Html::cssFile('@web/web/assets/mui/css/css/Becomeuser.css')?>
+      <?=Html::cssFile('@web/web/assets/cxddc/css/bepublisher.css')?>
+
   
     <?=Html::jsFile('@web/web/Js/jquery.js')?>
     <?=Html::jsFile('@web/web/Js/bootstrap.js')?>

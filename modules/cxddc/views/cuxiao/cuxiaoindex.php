@@ -88,9 +88,9 @@ $signPackage = $jssdk->GetSignPackage();
 
                       <div class="col-md-6">
                    
-                     <input id="selctarea" name="selectarea" style="float:left;width:55px;margin-top:10px; margin-left:10px; border:0px"  value="<?php echo $cityname ?>"> 
+                     <input id="selctarea" name="selectarea" style="float:left;width:70px;margin-top:10px; margin-left:10px; border:0px;"  value="<?php echo $cityname ?>"/> 
 
-                         <div id="divsearch" style="margin-top:10px">
+                         <div id="divsearch" style="margin-top:10px;margin-left:5px">
 
                               <?php $form=ActiveForm::begin(['id'=>'index','enableAjaxValidation'=>false]); ?>
 

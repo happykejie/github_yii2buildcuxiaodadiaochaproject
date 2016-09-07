@@ -10,7 +10,7 @@ require_once "models/WxJsSdk.php";
 $jssdk = new WxJsSdk(WX_APPID, WX_APPSECRET);  
 $signPackage = $jssdk->GetSignPackage();
 ?>
-
+<!--  -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +18,7 @@ $signPackage = $jssdk->GetSignPackage();
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title>申请成为发布者</title>
     <?=Html::cssFile('@web/web/assets/mui/css/mui.min.css')?>
-    <?=Html::cssFile('@web/web/assets/mui/css/css/Becomeuser.css')?>
+    <?=Html::cssFile('@web/web/assets/mui/css/css/bepublisher.css')?>
          <?=Html::cssFile('@web/web/assets/cxddc/css/user.css')?>
 	<style>
 		.checks_div_select{

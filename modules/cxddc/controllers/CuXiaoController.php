@@ -37,8 +37,8 @@ require_once '/vendor/WxpayAPI/example/log.php';
 class CuXiaoController extends Controller{
     public $enableCsrfValidation = false;//yii默认表单csrf验证，如果post不带改参数会报错！
     public $layout  = 'layout';
-    private $WX_APPID = WX_APPID; ///张杰开发测试账号wxf861f60fbb144cb9  //李朝先wxe474c6e60ea8f0c8
-    private $WX_APPSECRET = WX_APPSECRET; //张杰开发测试账号2da66bd2cf0dccf0fb8d5db1e3ca6122  //李朝先33b1241f97a2803440b34bf30c33d57e
+    private $WX_APPID = WX_APPID; 
+    private $WX_APPSECRET = WX_APPSECRET; 
     private $_openid ,$_access_token,$_wxuser,$_user,$_users;
     private $timetamp;
     
@@ -218,6 +218,122 @@ class CuXiaoController extends Controller{
         
 
     }
+   
+   
+   /**分享连接过来查看详情的
+    * Summary of actionFxDetail
+    */
+   public function actionFxdetail($fxren=-1,$pid=-1,$code=null)
+   {
+       $urldetail = "/cxddc/cuxiao/detail?id=".$pid;
+       
+       
+       $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
+       if( $this->_user ){
+           $this->_openid = $this->_user->openid;
+           //返回提问老师页面
+           // return $urlexpert;
+           Yii::$app->response->redirect(Url::to([$urldetail],true));
+           return;
+       }
+       if($code){
+           //return;
+           if(!$this->_openid)
+           {
+               $this->_openid = $this->getWxUserOpenId($code);
+           }
+           //$this->_openid = "oTBP7vhBl8BNsAY-F5DmE1wdRbDw";
+           if(empty($this->_openid)){
+               die("No openid there! Can't add");
+           } 
+           $jssdk = new  \WxJsSdk(WX_APPID, WX_APPSECRET);
+
+           $this->_access_token =  $jssdk->getAccessTokenfile();
+
+           $this->_wxuser = $this->getWxUserinfo();
+           $this->_user = YiiUser::find()->where(['openid'=>$this->_openid])->one();
+           if($this->_user )
+           {
+               //设置登录成功
+               Yii::$app->user->login($this->_user,3600*24*1);
+
+           }else{
+               //未找到绑定用户自动注册并登陆
+               $this->_user=new YiiUser();
+               $this->_user->openid =  $this->_openid;
+               $this->_user->user =  $this->_openid;
+               $this->_user->nickname = $this->_wxuser['nickname'];
+               $this->_user->sex = $this->_wxuser['sex'];
+               $this->_user->thumb = $this->_wxuser['headimgurl'];
+               $this->_user->city = $this->_wxuser['city'];
+               $this->_user->country = $this->_wxuser['country'];
+               $this->_user->remark = $this->_wxuser['remark'];
+               $this->_user->userstate =0;
+               $this->_user->createusertime= date('y-m-d h:i:s',time());
+               
+               if($this->_user->save()){
+                   //设置登录成功
+                   Yii::$app->user->login($this->_user,3600*24*1);
+                   
+                   
+                   
+                   
+               }else{
+                   echo "login error";
+                   die;
+               }
+           }
+           
+           //return $urlexpert;
+           //返回首页
+           Yii::$app->response->redirect(Url::to([$urldetail],true));
+       }else{
+           
+           $returl="http://".WWW."/cxddc/cuxiao/fxdetail";//Url::to(['/wx/wxapi/login'],true);
+           
+           Yii::$app->response->redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->WX_APPID.'&redirect_uri='.$returl.'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect');
+       }
+       
+   }
+   
+   
+   
+   
+   //private Oauth 用户登录方法 
+   //获取openid
+   function getWxUserOpenId($code)
+   {
+       $appid =$this->WX_APPID;  
+       $secret = $this->WX_APPSECRET;  
+       //第一步:取得openid
+       $oauth2Url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$secret&code=$code&grant_type=authorization_code";
+       $oauth2 = $this->getJson($oauth2Url); 
+       if(isset($oauth2['openid'])){
+           return $oauth2['openid'];  
+       }
+       return null;
+   }
+
+   //获取用户信息
+   function getWxUserinfo(){
+       $get_user_info_url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$this->_access_token."&openid=".$this->_openid."&lang=zh_CN";
+       $wxuserinfo =$this->getJson($get_user_info_url);
+
+       return $wxuserinfo;
+   }
+   
+   //字符串转对象
+   function getJson($url){
+       $ch = curl_init();
+       curl_setopt($ch, CURLOPT_URL, $url);
+       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE); 
+       curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE); 
+       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+       $output = curl_exec($ch);
+       curl_close($ch);
+       return json_decode($output, true);
+   }
+   
     
     
     

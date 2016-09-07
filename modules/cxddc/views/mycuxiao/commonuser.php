@@ -59,7 +59,7 @@ $signPackage = $jssdk->GetSignPackage();
                     </a>
                 </li>
                 <li>
-                    <a href="becomepublisher?id=<?=$items->id?>">
+                    <a href="myinfo">
                         <img style="width: 28px;" src="/web/assets/mui/images/icon9.png" alt="" />
                         <div class="bj">编辑</div>
                     </a>
@@ -69,7 +69,6 @@ $signPackage = $jssdk->GetSignPackage();
         </div>
         <ul class="mui-table-view mui-table-view-chevron">
            
-
             <li class="mui-table-view-cell mui-media">
                 <a class='mui-navigate-right' href="myinfo">
                     <div class="mui-pull-left border-radius question-mark">

@@ -54,7 +54,7 @@ $signPackage = $jssdk->GetSignPackage();
                     </a>
                 </li>
                 <li>
-                    <a href="becomepublisher?id=<?=$items->id?>">
+                    <a href="myinfo">
                         <img style="width: 28px;" src="/web/assets/mui/images/icon9.png" alt="" />
                         <div class="bj">编辑</div>
                     </a>

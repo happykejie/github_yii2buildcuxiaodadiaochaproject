@@ -26,6 +26,8 @@ $signPackage = $jssdk->GetSignPackage();
 		<!--App自定义的css-->
 		  <?=Html::cssFile('@web/web/assets/cxddc/css/publishdetail.css')?>
 
+
+            <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=lmZLZ77R2a7dDznD114r5g813rXWhUSY"></script>
 	
 
 	</head>
@@ -107,7 +109,10 @@ $signPackage = $jssdk->GetSignPackage();
         </div>
 
          <input type="hidden" value="<?= $currentuserid?>" id="userid"/>
-         <input type="hidden" value="<?= $item->id?>" id="detailid"/>
+         <input type="hidden" value="<?= $item->id?>" id="pid"/>
+         <input type="hidden" value="<?= $item->name?>" id="ptitle"/>
+         <input type="hidden" value="<?= $item->surface?>" id="pimg"/>
+
 
        
                  
@@ -127,5 +132,44 @@ $signPackage = $jssdk->GetSignPackage();
     require(BASE_PATH.'/config/wxfxdetailjs.php'); ///引入微信分享
     ?> 
     <!--End 结束分享功能-->
+
+
+
+    <script type="text/javascript">
+        // 百度地图API功能-通过浏览器获取定位信息
+        var geolocation = new BMap.Geolocation();
+        geolocation.getCurrentPosition(function (r) {
+            if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+                var mk = new BMap.Marker(r.point);
+
+                // alert('您的位置：' + r.point.lng + ',' + r.point.lat);
+
+                $.ajax({
+                    url: '/cxddc/cuxiao/getcityname',
+                    type: 'get',
+                    data: { 'lng': r.point.lng, 'lat': r.point.lat },
+                    dataType: "text",
+                    success: function (data) {
+
+                        // alert('你所在城市:'+data);
+
+                        $("#enter").css('display', 'block');
+
+                        //  window.location.href = '/cxddc/cuxiao/index';
+
+                    },
+                    error: function (xhr, errorType, error) {
+                        alert('不能定位到你所在城市');
+                        // window.location.href = '/cxddc/cuxiao/loadad';
+
+                    }
+                });
+            }
+            else {
+                alert('failed' + this.getStatus());
+            }
+        }, { enableHighAccuracy: true })
+
+</script>
 
 </html>

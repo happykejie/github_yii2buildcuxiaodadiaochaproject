@@ -127,8 +127,7 @@ class MyCuXiaoController extends Controller{
     {
         $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
         return $this->render('publishdeclare',['currentuserid'=>$currentuserid]);
-      
-       
+
     }
     
     
@@ -150,9 +149,7 @@ class MyCuXiaoController extends Controller{
             $mypublishitems=\app\models\Activity::findBySql($Sqlitem)->all();
             
             $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
-            
-          
-
+      
             return $this->render('mypublished',['mypublishitems'=>$mypublishitems,'currentuserid'=>$currentuserid]);
         }
         else
@@ -392,6 +389,26 @@ class MyCuXiaoController extends Controller{
      */
     public function actionPublishinfofree()
     {
+        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+        ///判断当前用户是否发送过了
+       
+         $userinfo=User::findOne(['id'=>$currentuserid]);
+        
+         if($userinfo)
+         {
+            $isfp =  $userinfo->isfreepublished;
+            
+            $fptime =  $userinfo->freepublishtime;
+            
+            
+         Yii::$app->session->setFlash('msg','添加失败！');
+            
+         return $this->render('publishdeclare',['currentuserid'=>$currentuserid]);
+         }
+        
+        
+        
+        ///结束判断
       
         $group= Category::find()->all();
         $to=array();
@@ -434,7 +451,7 @@ class MyCuXiaoController extends Controller{
                     }
                 }
             }
-            $userid=Yii::$app->user->getId();
+            $userid=Yii::$app->user->getId();  //获取当前用户；
             $model->publishpeople=$userid;
             $model->ispay='免费';
             $model->paynum=0;
@@ -447,7 +464,7 @@ class MyCuXiaoController extends Controller{
                 }
             }
         }
-        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+       
         
         return $this->render('publishinfofree',['model'=>$model,'to'=>$to,'currentuserid'=>$currentuserid]);
     }

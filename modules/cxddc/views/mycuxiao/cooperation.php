@@ -74,8 +74,8 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="mui-content">
 			<div class="mui-content-padded">
 
-               <div style="text-align:left"> <p style="color:blue">诚意全国城市代理商：</p></div>
-               <div style="padding-left:20px;text-align:left"> <p>促销大调查是阿欢阿杰科技自主开发和运营的全国首家促销信息平台。全国最大的促销信息分享平台。阿欢阿杰科技只专业于微信平台开发。</p></div>
+               <div style="text-align:left;color:#23ac38"> 诚意全国城市代理商：</div>
+               <div style="padding-left:20px;text-align:left"><p> 促销大调查是阿欢阿杰科技自主开发和运营的全国首家促销信息平台。全国最大的促销信息分享平台。阿欢阿杰科技只专业于微信平台开发。</p></div>
             </div>
                
 				<!--<h4 style="margin-top:10px;">mui</h4>-->
@@ -83,7 +83,7 @@ $signPackage = $jssdk->GetSignPackage();
                 <div style="text-align:center;">
                 <ul class="mui-table-view">
 					<li class="mui-table-view-cell">
-						公司名称: <span id="channel"><a href="http://www.ahuanajie.com">阿欢阿杰科技</a></span>
+						公司名称:<span id="channel"><a href="http://www.ahuanajie.com">阿欢阿杰科技</a></span>
 					</li>
 					<li class="mui-table-view-cell">
 						公司电话: <span id="bill_no">028-86090169</span>

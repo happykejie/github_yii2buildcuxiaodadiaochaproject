@@ -30,7 +30,7 @@ class YiiUser extends ActiveRecord implements IdentityInterface
     {
         return [
             
-            [['realname','phone','wechatnumber'], 'required'],
+         
         
             [['userorder','phone'], 'integer'],
             [['description'], 'string'],

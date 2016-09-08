@@ -24,7 +24,7 @@ $signPackage = $jssdk->GetSignPackage();
     <div class="mui-content" >
         
 
-        <?php if(Yii::$app->session->hasFlash('error')):?>
+                 <?php if(Yii::$app->session->hasFlash('error')):?>
                     <div class="alert alert-success text">
                         <div style="text-align:center;color:red;margin-top:20px"><?=Yii::$app->session->getFlash('error')?></div>
                         <script>

@@ -75,8 +75,21 @@ class MyCuXiaoController extends Controller{
      */
     public function actionIndex()
     {
+        
+        //判断当前用户是否关注，如果没有关注跳转让用户关注
         $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
         $items =User::findOne(['id'=>$currentuserid]);
+        
+		
+		if($items->subscribe==0) //如果用户没用关注，跳转用户关注
+        {
+			Yii::$app->session->setFlash('notattention','还没有关注，请先关注');
+
+            //return $this->render('infoercode',['currentuserid'=>$currentuserid]);
+            
+			return $this->render('commonuser',['items'=>$items,'currentuserid'=>$currentuserid]);
+        }
+        ///跳转关注结束
         
         
         if ($items->userstate==1)

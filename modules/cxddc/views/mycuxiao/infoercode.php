@@ -35,14 +35,13 @@ $signPackage = $jssdk->GetSignPackage();
             <div class="infon-h4">
                 <h4>请关注促销大调查的官方微信</h4>
             </div>
-            <div class="oa-contact-avatar ">
+            <div style="line-height:5px;padding-top:5px;" >
+             <p>第一步：长按住二维码3秒以上出现弹层</p>
+           <p>第二步：在弹层中选择"识别图中的二维码"</p>
+            <p>第三步：点击下方的关注按钮关注</p>
             </div>
-            <h4 class="infon-text infon-text-h4" style="text-align:left"><span style="color:red;font-size:1em;">第一步：长按住二维码3秒以上出现弹层</span></h4>
-            </br>
-            <h4 class="infon-text infon-text-h4" style="text-align:left"><span style="color:red;font-size:1em;">第二步：在弹层中选择"识别图中的二维码"</span></h4>
-                </br>
-            <h4 class="infon-text infon-text-h4" style="text-align:left"><span style="color:red;font-size:1em;">第三步：点击下方的关注按钮关注</span></h4>
-            </br>
+         
+           
 
             <p class="infon-text iofon-p">点击右上角分享二维码给朋友</p>
 			
@@ -56,7 +55,9 @@ $signPackage = $jssdk->GetSignPackage();
                 </div>
                     <a id="shortcut" style="width: 60%; margin: 15px auto; padding: 5px;" class="mui-hidden mui-btn mui-btn-block mui-btn-red">创建桌面图标</a>
                 </div>
-                <h5 class="infon-footer">赶紧加入，获取最新促销咨询</h5>
+                <h5 class="infon-footer">注意：如果不能识别二维码</h5>
+                <h5 class="infon-footer">请在微信里搜索"促销大调查",并添加关注</h5>
+
             </div>
         </div>
 

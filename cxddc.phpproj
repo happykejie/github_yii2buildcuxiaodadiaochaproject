@@ -269,7 +269,6 @@
     <Compile Include="modules\cxddc\views\index\errorlogin.php" />
     <Compile Include="modules\cxddc\views\index\index.php" />
     <Compile Include="modules\cxddc\views\layouts\layout.php" />
-    <Compile Include="modules\cxddc\views\lookforcuxiao\detail.php" />
     <Compile Include="modules\cxddc\views\lookforcuxiao\index.php" />
     <Compile Include="modules\cxddc\views\mycuxiao\comfirmorder.php" />
     <Compile Include="modules\cxddc\views\mycuxiao\infoercode.php" />
@@ -481,6 +480,7 @@
     <Content Include="web\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="web\front\Css\mobile_web.css" />
     <Content Include="web\Images\input.png" />
+    <Content Include="web\Images\wxlogonew.jpg" />
     <Content Include="web\Js\ajaxupload.js" />
     <Content Include="web\Js\artDialog\artDialog.js" />
     <Content Include="web\Js\artDialog\artDialog.source.js" />

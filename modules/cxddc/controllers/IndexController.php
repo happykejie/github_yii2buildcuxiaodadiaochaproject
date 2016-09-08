@@ -99,27 +99,23 @@ class IndexController extends Controller{
     
     //微信自动验证
     public function actionIndex($id = 1,$code=null){
-        
-        
-       
-		
-        //$ismobile =  $this->checkmobile();
-        //$user_agent = $_SERVER['HTTP_USER_AGENT'];
-        //if (strpos($user_agent, 'MicroMessenger') === false) {
-        //    // 非微信浏览器禁止浏览
-        //    $ismobile = false;
-        //} else {
-        //    // 微信浏览器，允许访问
-        //    $ismobile = true;
 
-        //}
+        $ismobile =  $this->checkmobile();
+        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+        if (strpos($user_agent, 'MicroMessenger') === false) {
+            // 非微信浏览器禁止浏览
+            $ismobile = false;
+        } else {
+            // 微信浏览器，允许访问
+            $ismobile = true;
+        }
 
-        //if(!$ismobile)
-        //{
-        //    //返回后台登录页面
-        //    Yii::$app->response->redirect(Url::to(['/admin/index'],true));
-        //    return;
-        //}
+        if(!$ismobile)
+        {
+            //返回后台登录页面
+            Yii::$app->response->redirect(Url::to(['/admin/index'],true));
+            return;
+        }
         
         //返回首页
         // yii::$app->response->redirect(url::to(['/cxddc/cxddc/index'],true));
@@ -136,61 +132,71 @@ class IndexController extends Controller{
                 
                 return;
             }
-            
-			Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/loadad'],true));
+			
+			if($this->_user->subscribe==1) //关注了
+			{
+                Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/loadad'],true));
 
-            return ;
+                return ;
+			}
+            
+            
         }
         if($code){
-            //return;
+            // return $code.'codetest';
             if(!$this->_openid)
             {
                 $this->_openid = $this->getWxUserOpenId($code);
             }
             
             if(empty($this->_openid)){
+				
+				//return \yii\helpers\Json::encode($this->_openid); 
                 die("No openid there! Can't add");
             } 
             $jssdk = new  \WxJsSdk(WX_APPID, WX_APPSECRET);
             
             
-         
+			//return $this->_openid;
+            
 
             $this->_access_token =  $jssdk->getAccessTokenfile();
 
             
             
-        			
             $this->_wxuser = $this->getWxUserinfo();
+			
+			//return \yii\helpers\Json::encode($this->_wxuser); 
 			
             
 			
             $this->_user = YiiUser::find()->where(['openid'=>$this->_openid])->one();
-            if($this->_user )
+            if($this->_user&&$this->_user->subscribe==1) //用户存在，并且用户已经关注获取了信息
             {
                 
                 if($this->_user->isenable==1)
                 {
                     //返回错误登录页面
                     Yii::$app->response->redirect(Url::to(['/cxddc/index/errorlogin'],true));
-                    
                     return;
                 }
                 
                 //设置登录成功
                 Yii::$app->user->login($this->_user,3600*24*1);
             }else{
-                if($this->_wxuser['subscribe']==0)
+				
+				if($this->_wxuser['subscribe']==0)
 				{
+                    //Yii::$app->response->redirect(Url::to(['https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIyNzE1NDMwMQ==&scene=110#wechat_redirect'],true));
                     //未找到绑定用户自动注册并登陆
 					$this->_user=new YiiUser();
 					$this->_user->openid =  $this->_openid;
 					$this->_user->user =  $this->_openid;
-                    $this->_user->user =$this->_wxuser['subscribe'];
-					$this->_user->nickname = "未关注(请立即关注)";
+                    $this->_user->subscribe =$this->_wxuser['subscribe'];
+					$this->_user->nickname ='not attention,please attention';
 					$this->_user->thumb ='/web/images/cxddcgetheadimg.jpg';
 					$this->_user->headimgurl = '/web/images/cxddcgetheadimg.jpg';
-					$this->_user->remark = '未关注';
+					$this->_user->remark = 'no attention';
 					$this->_user->userstate =0;
 					$this->_user->createusertime= date('y-m-d h:i:s',time());	
 
@@ -209,32 +215,69 @@ class IndexController extends Controller{
 				if($this->_wxuser['subscribe']==1)
 				{
 					
-					//未找到绑定用户自动注册并登陆
-					$this->_user=new YiiUser();
-					$this->_user->openid =  $this->_openid;
-					$this->_user->user =  $this->_openid;
-					$this->_user->nickname = $this->_wxuser['nickname'];
-					$this->_user->sex = $this->_wxuser['sex'];
-					$this->_user->thumb = $this->_wxuser['headimgurl'];
-					$this->_user->headimgurl = $this->_wxuser['headimgurl'];
-					$this->_user->city = $this->_wxuser['city'];
-					$this->_user->country = $this->_wxuser['country'];
-					$this->_user->remark = $this->_wxuser['remark'];
-					$this->_user->userstate =0;
-					$this->_user->createusertime= date('y-m-d h:i:s',time());
-					
+                    $this->_user = YiiUser::find()->where(['openid'=>$this->_openid])->one();
+                    
+                    if($this->_user)  //如果用户存在只需要更新用户信息
+                    {
+                        
+                        
+                        $this->_user->subscribe =$this->_wxuser['subscribe'];
+                        $this->_user->nickname = $this->_wxuser['nickname'];
+                        $this->_user->sex = $this->_wxuser['sex'];
+                        $this->_user->thumb = $this->_wxuser['headimgurl'];
+                        $this->_user->headimgurl = $this->_wxuser['headimgurl'];
+                        $this->_user->city = $this->_wxuser['city'];
+                        $this->_user->country = $this->_wxuser['country'];
+                        $this->_user->remark = $this->_wxuser['remark'];
+                        $this->_user->userstate =0;
+                        $this->_user->createusertime= date('y-m-d h:i:s',time());
+                        
 
-					if($this->_user->save()){
-						//设置登录成功
-						Yii::$app->user->login($this->_user,3600*24*1);
-						
-						
-					}
-					else{
-						echo "user save fail";
-						die;
-					}
+                        if($this->_user->save()){
+                            //设置登录成功
+                            Yii::$app->user->login($this->_user,3600*24*1);
+                            
+                            
+                        }
+                        else{
+                            echo "user save fail";
+                            die;
+                        }
+                    }
+                    else
+                    {
+                        //未找到绑定用户自动注册并登陆
+                        $this->_user=new YiiUser();
+                        $this->_user->openid =  $this->_openid;
+                        $this->_user->user =  $this->_openid;
+                        $this->_user->subscribe =$this->_wxuser['subscribe'];
+                        $this->_user->nickname = $this->_wxuser['nickname'];
+                        $this->_user->sex = $this->_wxuser['sex'];
+                        $this->_user->thumb = $this->_wxuser['headimgurl'];
+                        $this->_user->headimgurl = $this->_wxuser['headimgurl'];
+                        $this->_user->city = $this->_wxuser['city'];
+                        $this->_user->country = $this->_wxuser['country'];
+                        $this->_user->remark = $this->_wxuser['remark'];
+                        $this->_user->userstate =0;
+                        $this->_user->createusertime= date('y-m-d h:i:s',time());
+                        
+
+                        if($this->_user->save()){
+                            //设置登录成功
+                            Yii::$app->user->login($this->_user,3600*24*1);
+                            
+                            
+                        }
+                        else{
+                            echo "user save fail";
+                            die;
+                        }
+                    }
+					
+					
 				}
+				
+				
             }
             //返回首页
             Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/loadad'],true));
@@ -256,6 +299,8 @@ class IndexController extends Controller{
 		//第一步:取得openid
 		$oauth2Url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$secret&code=$code&grant_type=authorization_code";
 		$oauth2 = $this->getJson($oauth2Url); 
+		
+		//return $oauth2;
         if(isset($oauth2['openid'])){
             return $oauth2['openid'];  
         }
@@ -280,12 +325,18 @@ class IndexController extends Controller{
     
     //字符串转对象
 	function getJson($url){
+		
+		//return "testgetjson";
 		$ch = curl_init();
+		
+		
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE); 
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE); 
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		$output = curl_exec($ch);
+		
+		
 		curl_close($ch);
 		return json_decode($output, true);
 	}
@@ -510,11 +561,4 @@ class IndexController extends Controller{
             exit;
         }
     }
-    
-    
-
-    
-    
-   
-    
 }

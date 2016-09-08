@@ -38,7 +38,7 @@ define("WXFX_DESC",'促销大调查：全国最大的促销分享平台，最专
 
 define("WXFX_LINK",'happykejie.vicp.cc'); // 促销大调查  微信分享详细地址
 
-define("WXFX_IMGPATH",'happykejie.vicp.cc/web/images/cxddcgetheadimg.jpg'); // 促销大调查  微信分享图地址片
+define("WXFX_IMGPATH",'happykejie.vicp.cc/web/images/wxlogonew.jpg'); // 促销大调查  微信分享图地址片
 
 //默认官网
 define("HTTPWWW",'happykejie.vicp.cc'); // 促销大调查  

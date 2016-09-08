@@ -77,6 +77,15 @@ $signPackage = $jssdk->GetSignPackage();
 
 </head>
 <body>
+      <?php if(Yii::$app->session->hasFlash('notattention')):?>
+                    <div class="alert alert-success text">
+                       
+                        <script>
+                            alert('还没关注该公众号，请先关注')
+                            setTimeout('window.location.href=\'/cxddc/mycuxiao/infoercode\'', 1000);
+                        </script>
+                    </div>
+                    <?endif?>
     <div id="mui-wrap" class="mui-content" style="overflow-y: auto; position: relative; ">
         <div id="s">
             <div style="padding: 10px 10px 10px 10px;">

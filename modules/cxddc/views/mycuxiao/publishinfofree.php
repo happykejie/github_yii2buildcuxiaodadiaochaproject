@@ -108,12 +108,6 @@ $signPackage = $jssdk->GetSignPackage();
                     </div>
                     <?endif?>
 
-
-                    
-              
-
-                     <div style="height:500px;background-color:red">dfsdfdlldljfllllddddddddddddddddddddddddddddddddddddddddddddddddddddddd</div>
-
                     <?php $form=ActiveForm::begin([
                         'id'=>'publishinfofree',
                         'enableAjaxValidation'=>false,

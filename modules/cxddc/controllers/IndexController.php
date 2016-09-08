@@ -180,29 +180,61 @@ class IndexController extends Controller{
                 //设置登录成功
                 Yii::$app->user->login($this->_user,3600*24*1);
             }else{
-                //未找到绑定用户自动注册并登陆
-                $this->_user=new YiiUser();
-                $this->_user->openid =  $this->_openid;
-                $this->_user->user =  $this->_openid;
-                $this->_user->nickname = $this->_wxuser['nickname'];
-                $this->_user->sex = $this->_wxuser['sex'];
-                $this->_user->thumb = $this->_wxuser['headimgurl'];
-                $this->_user->city = $this->_wxuser['city'];
-                $this->_user->country = $this->_wxuser['country'];
-                $this->_user->remark = $this->_wxuser['remark'];
-				$this->_user->userstate =0;
-                $this->_user->createusertime= date('y-m-d h:i:s',time());
-                
+                if($this->_wxuser['subscribe']==0)
+				{
+                    //未找到绑定用户自动注册并登陆
+					$this->_user=new YiiUser();
+					$this->_user->openid =  $this->_openid;
+					$this->_user->user =  $this->_openid;
+                    $this->_user->user =$this->_wxuser['subscribe'];
+					$this->_user->nickname = "未关注(请立即关注)";
+					$this->_user->thumb ='/web/images/cxddcgetheadimg.jpg';
+					$this->_user->headimgurl = '/web/images/cxddcgetheadimg.jpg';
+					$this->_user->remark = '未关注';
+					$this->_user->userstate =0;
+					$this->_user->createusertime= date('y-m-d h:i:s',time());	
 
-                if($this->_user->save()){
-                    //设置登录成功
-                    Yii::$app->user->login($this->_user,3600*24*1);
+					if($this->_user->save()){
+						//设置登录成功
+						Yii::$app->user->login($this->_user,3600*24*1);
+						
+						
+					}
+					else{
+						echo "user save fail";
+						die;
+					}
+				}
+				
+				if($this->_wxuser['subscribe']==1)
+				{
 					
+					//未找到绑定用户自动注册并登陆
+					$this->_user=new YiiUser();
+					$this->_user->openid =  $this->_openid;
+					$this->_user->user =  $this->_openid;
+					$this->_user->nickname = $this->_wxuser['nickname'];
+					$this->_user->sex = $this->_wxuser['sex'];
+					$this->_user->thumb = $this->_wxuser['headimgurl'];
+					$this->_user->headimgurl = $this->_wxuser['headimgurl'];
+					$this->_user->city = $this->_wxuser['city'];
+					$this->_user->country = $this->_wxuser['country'];
+					$this->_user->remark = $this->_wxuser['remark'];
+					$this->_user->userstate =0;
+					$this->_user->createusertime= date('y-m-d h:i:s',time());
 					
-                }else{
-                    echo "login  error";
-                    die;
-                }
+
+					if($this->_user->save()){
+						//设置登录成功
+						Yii::$app->user->login($this->_user,3600*24*1);
+						
+						
+					}
+					else{
+						echo "user save fail";
+						die;
+					}
+				}
             }
             //返回首页
             Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/loadad'],true));
@@ -478,4 +510,11 @@ class IndexController extends Controller{
             exit;
         }
     }
+    
+    
+
+    
+    
+   
+    
 }

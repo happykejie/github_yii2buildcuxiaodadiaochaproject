@@ -23,6 +23,15 @@ $signPackage = $jssdk->GetSignPackage();
 	
     <div class="mui-content" >
         
+
+        <?php if(Yii::$app->session->hasFlash('error')):?>
+                    <div class="alert alert-success text">
+                        <div style="text-align:center;color:red;margin-top:20px"><?=Yii::$app->session->getFlash('error')?></div>
+                        <script>
+                            setTimeout('window.location.href=\'/cxddc/mycuxiao/index\'', 2000);
+                        </script>
+                    </div>
+                    <?endif?>
     
             <div style="text-align:left;margin-top:20px; margin-left:10px"> <p style="color:#23ac38">促销大调查发布说明：</p></div>
                 <div style="border-bottom-style:groove;margin-left:20px;margin-right:20px;border:1px solid #23ac38;padding:20px 20px 20px 20px;margin-bottom:10px">
@@ -43,6 +52,8 @@ $signPackage = $jssdk->GetSignPackage();
 			<div class="my-teacher" >
                
                  <a href="publishinfofree">免费发布促销消息</a>  
+
+                 
             </div>
 
             

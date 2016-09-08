@@ -228,49 +228,101 @@ class CuXiaoController extends Controller{
        $urldetail = "/cxddc/cuxiao/detail?id=".$pid;
        
        
-       $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
-       if( $this->_user ){
-           $this->_openid = $this->_user->openid;
-           //返回提问老师页面
-           // return $urlexpert;
-           Yii::$app->response->redirect(Url::to([$urldetail],true));
-           return;
-       }
-       if($code){
-           //return;
-           if(!$this->_openid)
-           {
-               $this->_openid = $this->getWxUserOpenId($code);
-           }
-           //$this->_openid = "oTBP7vhBl8BNsAY-F5DmE1wdRbDw";
-           if(empty($this->_openid)){
-               die("No openid there! Can't add");
-           } 
-           $jssdk = new  \WxJsSdk(WX_APPID, WX_APPSECRET);
+       $ismobile =  $this->checkmobile();
+        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+        if (strpos($user_agent, 'MicroMessenger') === false) {
+            // 非微信浏览器禁止浏览
+           $ismobile = false;
+        } else {
+            // 微信浏览器，允许访问
+            $ismobile = true;
 
-           $this->_access_token =  $jssdk->getAccessTokenfile();
+        }
 
-           $this->_wxuser = $this->getWxUserinfo();
-           $this->_user = YiiUser::find()->where(['openid'=>$this->_openid])->one();
-           if($this->_user )
-           {
-               //设置登录成功
-               Yii::$app->user->login($this->_user,3600*24*1);
+       if(!$ismobile)
+        {
+           //返回后台登录页面
+            Yii::$app->response->redirect(Url::to(['/admin/index'],true));
+            return;
+        }
+        
+        //返回首页
+        // yii::$app->response->redirect(url::to(['/cxddc/cxddc/index'],true));
+        // return;
+        $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
+        if( $this->_user ){
+            $this->_openid = $this->_user->openid;
+            //返回首页
+            
+            if($this->_user->isenable==1)
+            {
+                //返回错误登录页面
+                Yii::$app->response->redirect(Url::to(['/cxddc/index/errorlogin'],true));
+                
+                return;
+            }
+            
+			Yii::$app->response->redirect(Url::to([$urldetail],true));
 
-           }else{
-               //未找到绑定用户自动注册并登陆
-               $this->_user=new YiiUser();
-               $this->_user->openid =  $this->_openid;
-               $this->_user->user =  $this->_openid;
-               $this->_user->nickname = $this->_wxuser['nickname'];
-               $this->_user->sex = $this->_wxuser['sex'];
-               $this->_user->thumb = $this->_wxuser['headimgurl'];
-               $this->_user->city = $this->_wxuser['city'];
-               $this->_user->country = $this->_wxuser['country'];
-               $this->_user->remark = $this->_wxuser['remark'];
-               $this->_user->userstate =0;
-               $this->_user->createusertime= date('y-m-d h:i:s',time());
-               
+            return ;
+        }
+        if($code){
+            //return;
+            if(!$this->_openid)
+            {
+                $this->_openid = $this->getWxUserOpenId($code);
+            }
+            
+            if(empty($this->_openid)){
+                die("No openid there! Can't add");
+            } 
+            $jssdk = new  \WxJsSdk(WX_APPID, WX_APPSECRET);
+            
+            
+         
+
+            $this->_access_token =  $jssdk->getAccessTokenfile();
+
+            
+            
+        			
+            $this->_wxuser = $this->getWxUserinfo();
+			
+            
+			
+            $this->_user = YiiUser::find()->where(['openid'=>$this->_openid])->one();
+            if($this->_user )
+            {
+                
+                if($this->_user->isenable==1)
+                {
+                    //返回错误登录页面
+                    Yii::$app->response->redirect(Url::to(['/cxddc/index/errorlogin'],true));
+                    return;
+                }
+                
+                //设置登录成功
+                Yii::$app->user->login($this->_user,3600*24*1);
+            }else{
+                //未找到绑定用户自动注册并登陆
+                $this->_user=new YiiUser();
+                $this->_user->openid =  $this->_openid;
+                $this->_user->user =  $this->_openid;
+				
+				if(!$this-_wxuser)
+				{
+					return 'get userinfo faillse';
+				}
+				
+                $this->_user->nickname = $this->_wxuser['nickname'];
+                $this->_user->sex = $this->_wxuser['sex'];
+                $this->_user->thumb = $this->_wxuser['headimgurl'];
+                $this->_user->headimgurl = $this->_wxuser['headimgurl'];
+                $this->_user->city = $this->_wxuser['city'];
+                $this->_user->country = $this->_wxuser['country'];
+                $this->_user->remark = $this->_wxuser['remark'];
+				$this->_user->userstate =0;
+                $this->_user->createusertime= date('y-m-d h:i:s',time());
                if($this->_user->save()){
                    //设置登录成功
                    Yii::$app->user->login($this->_user,3600*24*1);
@@ -402,6 +454,7 @@ class CuXiaoController extends Controller{
         
         return $this->render('search',['user'=>$user,'askproblem'=>$askproblem,'search'=>$search]);
     }
+
     
 
    

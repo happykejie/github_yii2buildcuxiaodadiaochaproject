@@ -393,21 +393,47 @@ class MyCuXiaoController extends Controller{
         ///判断当前用户是否发送过了
        
          $userinfo=User::findOne(['id'=>$currentuserid]);
-        
+         $currenttime =date('y-m-d',time());
          if($userinfo)
          {
             $isfp =  $userinfo->isfreepublished;
             
             $fptime =  $userinfo->freepublishtime;
             
+          
             
-         Yii::$app->session->setFlash('msg','添加失败！');
-            
-         return $this->render('publishdeclare',['currentuserid'=>$currentuserid]);
+            if($fptime==null)
+            {
+               $userinfo->freepublishtime= $currenttime; //发布成功了才添加免费发布时间和次数
+            }
+            else{
+                
+                //获取上一次免费发布的年月
+               $oldy = date('y', strtotime($fptime));
+               $oldm= date('m', strtotime($fptime));
+                
+                //获取当前发布消息的年月
+               
+             $newy =  date('y', strtotime($currenttime));
+               
+             $newm =  date('m', strtotime($currenttime));
+             
+             
+             if($oldy==$newy&&$oldm==$newm)
+             {
+                 if($isfp==1) ///如果当月以及发送了。
+                 {
+                     Yii::$app->session->setFlash('error','注意：每月只能免费发一次。');
+                     
+                     return $this->render('publishdeclare',['currentuserid'=>$currentuserid]);
+                 }
+  
+             }
+   
+            }
+
          }
-        
-        
-        
+
         ///结束判断
       
         $group= Category::find()->all();
@@ -458,7 +484,22 @@ class MyCuXiaoController extends Controller{
             
             if( $model->validate()){
                 if($model->save()){
-                    Yii::$app->response->redirect("/cxddc/mycuxiao/index");
+                    
+                    $userinfo->freepublishtime=$currenttime;
+                    $userinfo->isfreepublished =1;
+                    
+                  $usresult =  $userinfo->save();
+                  
+                  if($usresult)
+                  {
+                      Yii::$app->response->redirect("/cxddc/mycuxiao/index");
+                  }
+                  else//免费发布失败
+                  {
+                      Activity::deleteAll(['id'=>$model->id]);
+                      Yii::$app->session->setFlash('error','添加失败！');
+                  }
+
                 }else{
                     Yii::$app->session->setFlash('error','添加失败！');
                 }
@@ -538,6 +579,7 @@ class MyCuXiaoController extends Controller{
         return $this->render('publishinfopay',['model'=>$model,'to'=>$to,'currentuserid'=>$currentuserid]);
     }
     
+
   
     
 

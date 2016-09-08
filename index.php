@@ -12,25 +12,9 @@ require(__DIR__ . '/vendor/autoload.php');
 require(__DIR__ . '/vendor/yiisoft/yii2/Yii.php');
 
 
-$domain =  $_SERVER['HTTP_HOST'];//获取当前域名
 
+  require(__DIR__ . '/config/cuxiaodadiaochaconfig.php'); ///引入默认公共常量
 
-if($domain =='www.tatahaoyun.com')
-{
-    require(__DIR__ . '/config/tatahaoyunconfig.php'); ///引入".DOMAITDESC."公共常量
-}
-
-
-
-else if($domain =='www.boshizhidao.com')
-{
-    require(__DIR__ . '/config/boshizhidaoconfig.php'); ///引入博士知道公共常量
-}
-
-else
-{
-    require(__DIR__ . '/config/cuxiaodadiaochaconfig.php'); ///引入默认公共常量
-}
 
 
 

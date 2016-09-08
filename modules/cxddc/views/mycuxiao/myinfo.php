@@ -70,25 +70,21 @@ $signPackage = $jssdk->GetSignPackage();
             <b><?=Yii::$app->session->getFlash('success')?></b>
             <script>
                 //setTimeout('parent.location.reload()', 2000);
-
                 window.location.href = "/cxddc/mycuxiao/index";
-
             </script>
         </div>
         <?endif?>
 
+           <?php if(Yii::$app->session->hasFlash('error')):?>
+                <div class="alert alert-error text">
+                    <b><?=Yii::$app->session->getFlash('error')?></b>
+                </div>
+           <?endif?>
 
         <div class="teacher-back">
            
 
-                <?php if(Yii::$app->session->hasFlash('error')):?>
-                <div class="alert alert-error text">
-                    <b><?=Yii::$app->session->getFlash('error')?></b>
-                    <script>
-                       
-                    </script>
-                </div>
-                <?endif?>
+             
                 <?php $form=ActiveForm::begin(['id'=>'becometeacher123','enableAjaxValidation'=>false]); ?>
 				<div class="q"></div>
 
@@ -150,11 +146,7 @@ $signPackage = $jssdk->GetSignPackage();
           
               <div class="q"></div>
                 <div class="back-footer">
-				
-				
 
-              
-             
                   <div style="padding:10px;margin-bottom:50px;">
 				
                         <?=Html::submitButton('保存',['id'=>'sub','class'=>'mui-btn mui-btn-primary mui-btn-block s','onclick'=>'return reg()'])?>

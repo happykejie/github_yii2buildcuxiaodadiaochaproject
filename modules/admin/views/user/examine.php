@@ -56,15 +56,15 @@ use yii\bootstrap\Alert;
                     <?php $form=ActiveForm::begin(['id'=>'edit','enableAjaxValidation'=>false]); ?>
                     <lable>昵称：<?echo $model->nickname?> </lable>
 
-                    <lable>头衔：<?echo $model->title?> </lable>
+                   
 
-                    <lable>老师介绍：<?echo $model->description?> </lable>
+                    <lable>真实姓名：<?echo $model->realname?></lable>
 
                     <lable>电话号码：<?echo $model->phone?> </lable>
 
-                    <lable>老师提问的价格：<?echo $model->questionprice?> </lable>
+                    <lable>微信号：<?echo $model->wechatnumber?> </lable>
 
-                    <lable>成为老师的时间：<?echo $model->createteachertime?> </lable>
+                    <lable>个人介绍：<?echo $model->description?> </lable>
 
                     <?= $form->field($model,'userorder')->textinput();?>
 

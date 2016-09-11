@@ -73,15 +73,21 @@ class CuXiaoController extends Controller{
      */
 
     public function actionIndex(){
-        
-        
+		
+		
+		      
      
         
+
+        $Sqlitem="select b.* from sm_banner  as b  where b.remark ='启动页' order by ordernum asc limit 3";
+        
+        
+        $banner=Banner::findBySql($Sqlitem)->all();
 
         $value=Yii::$app->cache->get('citynamenew'); 
         if($value===false) ///没有获取到所属城市
         {
-            return $this->renderPartial('loadad');
+            return $this->renderPartial('loadad',['banner'=>$banner]);
         }
         
         $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
@@ -119,8 +125,7 @@ class CuXiaoController extends Controller{
     
     public function actionCuxiaoindex()
     {   
-        
-        //判断当前用户是否关注，如果没有关注跳转让用户关注
+           //判断当前用户是否关注，如果没有关注跳转让用户关注
         $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
         $items =User::findOne(['id'=>$currentuserid]);
         
@@ -129,15 +134,30 @@ class CuXiaoController extends Controller{
         {
 			Yii::$app->session->setFlash('notattention','还没有关注，请先关注');
 
-            
         }
         ///跳转关注结束
-        
-        $value=Yii::$app->cache->get('citynamenew'); 
-        if($value===false) ///没有获取到所属城市
-        {
-            return $this->renderPartial('loadad');
-        }
+
+		//获取当前用户定位城市
+		$getcity =$items->locationcity;
+
+		if(!$getcity)//如果定位城市不存在设定默认城市
+		{
+			
+			///获取微信关注默认获取城市
+			
+			$wxcity =$items->city;
+			
+			if($wxcity)
+			{
+				$getcity =$wxcity;
+			}
+			else
+			{
+				$getcity = '成都市';
+			}
+		}
+		
+		///结束获取城市
 
         $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
         if( $this->_user ){
@@ -148,7 +168,7 @@ class CuXiaoController extends Controller{
             //获取组别信息
             $category=Category::find()->orderBy('id asc')->all();
             
-            $Sqlitem="select a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id where a.belongarea ='$value'";
+            $Sqlitem="select a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id where a.belongarea ='$getcity'";
             
             $search=new Activity();
             
@@ -158,12 +178,12 @@ class CuXiaoController extends Controller{
                     $Sqlitem= $Sqlitem.' and intro like "%'.($search->name).'%"';
                 }
             }
-            $Sqlitem=$Sqlitem." order by ordernum asc,createtime DESC";
+            $Sqlitem=$Sqlitem." order by paynum DESC,ordernum asc";
             //获取所有问题信息
             $items=\app\models\Activity::findBySql($Sqlitem)->all();
-            
+                        
             $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
-            return $this->render('cuxiaoindex',['items'=>$items,'category'=>$category,'banner'=>$banner,'search'=>$search,'cityname'=>$value,'currentuserid'=>$currentuserid]);
+            return $this->render('cuxiaoindex',['items'=>$items,'category'=>$category,'banner'=>$banner,'search'=>$search,'cityname'=>$getcity,'currentuserid'=>$currentuserid]);
         }
         else
         {
@@ -180,9 +200,9 @@ class CuXiaoController extends Controller{
         $Sqlitem="select b.* from sm_banner  as b  where b.remark ='启动页' order by ordernum asc limit 3";
         
         
-        $banner=Banner::findBySql($Sqlitem)->all();
+       $banner=Banner::findBySql($Sqlitem)->all();
         
-        return $this->renderPartial('loadad',['banner'=>$banner]);
+      return $this->renderPartial('loadad',['banner'=>$banner]);
 
     }
     
@@ -202,27 +222,39 @@ class CuXiaoController extends Controller{
 
         $this->cityname = $city;
 
-        //表达式依赖
+         //表达式依赖
         //$dependency = new \yii\caching\ExpressionDependency(
         //    ['expression' => '\Yii::$app->request->get("cityname")']
         //);
-        
-        
-        $bool1 = Yii::$app->cache->set('citynamenew',$this->cityname,7200);
-        
-        $value=Yii::$app->cache->get('citynamenew'); 
 
-        if(isset($this->cityname))
-        {
-
-            return $city;      
-        }
+        // $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+        //$item =User::findOne(['id'=>$currentuserid]);
+		
+        //if($item->locationcity==$city)
+        //{
+        //    //如果获取用户城市和当前一样就不更新数据库
+        //}
+		
+        //else{ //如果不一样就更新数据库
+        //    if($city)
+        //    {
+        //        $item->locationcity=$city;
+				
+        //        $item->save();
+        //    }
+			
+        //}
         
-        return $this->renderPartial('loadad');
+        return $city;
+
+      
+        
+        
+
     }
     
     
-    public  function getcitynamebyjw($lng,$lat)
+   public  function getcitynamebyjw($lng,$lat)
     {
 
         $q1="http://api.map.baidu.com/geocoder/v2/?ak=lmZLZ77R2a7dDznD114r5g813rXWhUSY&location=30.548397,104.04701&output=json&pois=1";
@@ -236,38 +268,38 @@ class CuXiaoController extends Controller{
         
 
     }
-    
-    
-    /**分享连接过来查看详情的
-     * Summary of actionFxDetail
-     */
-    public function actionFxdetail($fxren=-1,$pid=-1,$code=null)
-    {
-        
-        
-        // return $fxren.'ewewe'.$pid;
-        
-        if($fxren!=-1&&$pid!=-1)
-        {
-            $this->urldetail = "/cxddc/cuxiao/detail?id=".$pid;
-        }
+   
+   
+   /**分享连接过来查看详情的
+    * Summary of actionFxDetail
+    */
+   public function actionFxdetail($fxren=-1,$pid=-1,$code=null)
+   {
+	   
+	   
+	 // return $fxren.'ewewe'.$pid;
+	  
+	  if($fxren!=-1&&$pid!=-1)
+	  {
+		   $this->urldetail = "/cxddc/cuxiao/detail?id=".$pid;
+	  }
 
-        
-        
-        $ismobile =  false;
+	
+       
+      $ismobile =  false;
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
         if (strpos($user_agent, 'MicroMessenger') === false) {
             // 非微信浏览器禁止浏览
-            $ismobile = false;
+           $ismobile = false;
         } else {
             // 微信浏览器，允许访问
             $ismobile = true;
 
         }
 
-        if(!$ismobile)
+       if(!$ismobile)
         {
-            //返回后台登录页面
+           //返回后台登录页面
             Yii::$app->response->redirect(Url::to(['/admin/index'],true));
             return;
         }
@@ -277,7 +309,7 @@ class CuXiaoController extends Controller{
         // return;
         $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
 		
-        
+	
         if( $this->_user ){
             $this->_openid = $this->_user->openid;
             //返回首页
@@ -295,7 +327,7 @@ class CuXiaoController extends Controller{
             return ;
         }
 		
-        
+	
         if($code){
             //return;
             if(!$this->_openid)
@@ -309,19 +341,19 @@ class CuXiaoController extends Controller{
             $jssdk = new  \WxJsSdk(WX_APPID, WX_APPSECRET);
             
             
-            
+         
 
             $this->_access_token =  $jssdk->getAccessTokenfile();
 
             
             
-            
+        			
             $this->_wxuser = $this->getWxUserinfo();
 			
             //return \yii\helpers\Json::encode($this->_wxuser); 
 			
             $this->_user = YiiUser::find()->where(['openid'=>$this->_openid])->one();
-            if($this->_user&&$this->_user->subscribe==1) //用户存在，并且用户已经关注获取了信息
+             if($this->_user&&$this->_user->subscribe==1) //用户存在，并且用户已经关注获取了信息
             {
                 
                 if($this->_user->isenable==1)
@@ -335,10 +367,10 @@ class CuXiaoController extends Controller{
                 Yii::$app->user->login($this->_user,3600*24*1);
             }else
 			{
-                if($this->_wxuser['subscribe']==0)
+               if($this->_wxuser['subscribe']==0)
 				{
                     //Yii::$app->response->redirect(Url::to(['https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIyNzE1NDMwMQ==&scene=110#wechat_redirect'],true));
-                    //未找到绑定用户自动注册并登陆
+					 //未找到绑定用户自动注册并登陆
 					$this->_user=new YiiUser();
 					$this->_user->openid =  $this->_openid;
 					$this->_user->user =  $this->_openid;
@@ -365,7 +397,7 @@ class CuXiaoController extends Controller{
 				if($this->_wxuser['subscribe']==1)
 				{
 					
-                    $this->_user = YiiUser::find()->where(['openid'=>$this->_openid])->one();
+					 $this->_user = YiiUser::find()->where(['openid'=>$this->_openid])->one();
                     
                     if($this->_user)  //如果用户存在只需要更新用户信息
                     {
@@ -425,58 +457,58 @@ class CuXiaoController extends Controller{
                     }
 					
 				}
-            }
-            
-            //return $urldetail;
-            //返回首页
-            Yii::$app->response->redirect(Url::to([$this->urldetail],true));
-        }else{
-            
-            $returl="http://".WWW."/cxddc/cuxiao/fxdetail";//Url::to(['/wx/wxapi/login'],true);
-            
-            Yii::$app->response->redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->WX_APPID.'&redirect_uri='.$returl.'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect');
-        }
-        
-    }
-    
-    
-    
-    
-    //private Oauth 用户登录方法 
-    //获取openid
-    function getWxUserOpenId($code)
-    {
-        $appid =$this->WX_APPID;  
-        $secret = $this->WX_APPSECRET;  
-        //第一步:取得openid
-        $oauth2Url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$secret&code=$code&grant_type=authorization_code";
-        $oauth2 = $this->getJson($oauth2Url); 
-        if(isset($oauth2['openid'])){
-            return $oauth2['openid'];  
-        }
-        return null;
-    }
+           }
+           
+           //return $urldetail;
+           //返回首页
+           Yii::$app->response->redirect(Url::to([$this->urldetail],true));
+       }else{
+           
+           $returl="http://".WWW."/cxddc/cuxiao/fxdetail";//Url::to(['/wx/wxapi/login'],true);
+           
+           Yii::$app->response->redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->WX_APPID.'&redirect_uri='.$returl.'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect');
+       }
+       
+   }
+   
+   
+   
+   
+   //private Oauth 用户登录方法 
+   //获取openid
+   function getWxUserOpenId($code)
+   {
+       $appid =$this->WX_APPID;  
+       $secret = $this->WX_APPSECRET;  
+       //第一步:取得openid
+       $oauth2Url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$secret&code=$code&grant_type=authorization_code";
+       $oauth2 = $this->getJson($oauth2Url); 
+       if(isset($oauth2['openid'])){
+           return $oauth2['openid'];  
+       }
+       return null;
+   }
 
-    //获取用户信息
-    function getWxUserinfo(){
-        $get_user_info_url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$this->_access_token."&openid=".$this->_openid."&lang=zh_CN";
-        $wxuserinfo =$this->getJson($get_user_info_url);
+   //获取用户信息
+   function getWxUserinfo(){
+       $get_user_info_url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$this->_access_token."&openid=".$this->_openid."&lang=zh_CN";
+       $wxuserinfo =$this->getJson($get_user_info_url);
 
-        return $wxuserinfo;
-    }
-    
-    //字符串转对象
-    function getJson($url){
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE); 
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE); 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $output = curl_exec($ch);
-        curl_close($ch);
-        return json_decode($output, true);
-    }
-    
+       return $wxuserinfo;
+   }
+   
+   //字符串转对象
+   function getJson($url){
+       $ch = curl_init();
+       curl_setopt($ch, CURLOPT_URL, $url);
+       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE); 
+       curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE); 
+       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+       $output = curl_exec($ch);
+       curl_close($ch);
+       return json_decode($output, true);
+   }
+   
     
     
     
@@ -491,29 +523,29 @@ class CuXiaoController extends Controller{
         
         if(isset($item)) 
         {
-            ///添加浏览次数：
-            $currentviewnum = $item->viewcount;
-            
-            // $currentviewnum=$currentviewnum+range(1,10);
-            
-            $currentviewnum =$currentviewnum+1;
-            
-            $item->viewcount = $currentviewnum;
-            
-            $result = $item->save();
-            
-            ///结束添加浏览次数
-            
-            
-            
-            $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+        ///添加浏览次数：
+        $currentviewnum = $item->viewcount;
+        
+       // $currentviewnum=$currentviewnum+range(1,10);
+        
+         $currentviewnum =$currentviewnum+1;
+         
+         $item->viewcount = $currentviewnum;
+         
+          $result = $item->save();
+          
+          ///结束添加浏览次数
+          
+     
+        
+          $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
             
             $arryimg = $item->newspictures;
 
             return $this->render('detail',['item'=>$item,'arryimg'=>$arryimg,'currentuserid'=>$currentuserid]);
         }
         
-        
+       
     }
     
     public function actionSearch()
@@ -547,5 +579,5 @@ class CuXiaoController extends Controller{
     }
     
 
-    
+   
 }

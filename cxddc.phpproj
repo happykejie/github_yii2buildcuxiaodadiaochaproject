@@ -268,6 +268,7 @@
     <Compile Include="modules\cxddc\views\cuxiao\loadad.php" />
     <Compile Include="modules\cxddc\views\index\errorlogin.php" />
     <Compile Include="modules\cxddc\views\index\index.php" />
+    <Compile Include="modules\cxddc\views\index\updatesystem.php" />
     <Compile Include="modules\cxddc\views\layouts\layout.php" />
     <Compile Include="modules\cxddc\views\lookforcuxiao\index.php" />
     <Compile Include="modules\cxddc\views\mycuxiao\comfirmorder.php" />
@@ -276,6 +277,7 @@
     <Compile Include="modules\cxddc\views\mycuxiao\commonuser.php" />
     <Compile Include="modules\cxddc\views\mycuxiao\cooperation.php" />
     <Compile Include="modules\cxddc\views\mycuxiao\feedback.php" />
+    <Compile Include="modules\cxddc\views\mycuxiao\locationcity.php" />
     <Compile Include="modules\cxddc\views\mycuxiao\myinfo.php" />
     <Compile Include="modules\cxddc\views\mycuxiao\mypublished.php" />
     <Compile Include="modules\cxddc\views\mycuxiao\nopayorder.php" />

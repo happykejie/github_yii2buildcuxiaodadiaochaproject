@@ -220,6 +220,73 @@ class MyCuXiaoController extends Controller{
         
     }
     
+    /**
+     * 定位城市
+     * @return string
+     */
+    public function actionLocationcity()
+    {
+       
+      
+        
+        $baiducity= new User();
+        if ($baiducity->load(Yii::$app->request->post())) {
+            if (strlen($baiducity->locationcity))
+            {
+                $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
+                $this->_user->locationcity = $baiducity->locationcity;
+                
+                $this->_user->save();
+            }
+        }
+        
+        
+        $selectcity = new User();
+        if ($selectcity->load(Yii::$app->request->post())) {
+            if (strlen($selectcity->city))
+            {
+                
+                $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
+                
+                $this->_user->locationcity = $selectcity->city;
+               
+                
+               $result =  $this->_user->save();
+               
+               
+            }
+        }
+        
+        
+        $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
+        
+        $getcityname ='成都市';
+        
+        if($this->_user)
+        {
+            $getcityname=  $this->_user->locationcity;
+            
+            if(!$getcityname)
+            {
+                if($this->_user->city)
+                {
+                    $getcityname = $this->_user->city;
+                }
+                else
+                {
+                    $getcityname ='成都市';
+                    
+                }
+                
+                
+            }
+        }
+        
+        
+        
+        return $this->render('locationcity',['cityname'=>$getcityname,'baiducity'=>$baiducity,'selectcity'=>$selectcity]);
+    }
+    
     
     
     /**
@@ -364,6 +431,7 @@ class MyCuXiaoController extends Controller{
     {
       
         $model=User::findOne(['id'=>$id]);
+        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
         if($model->load(Yii::$app->request->post())//判断是否是表单提交
             
             
@@ -378,7 +446,7 @@ class MyCuXiaoController extends Controller{
             if($model->save()){
                 Yii::$app->session->setFlash('success','发送成功！');
                 $items =$model;
-                return $this->render('commonuser',['items'=>$items]);    
+                return $this->render('commonuser',['items'=>$items,'currentuserid'=>$currentuserid]);    
             }else{
                 Yii::$app->session->setFlash('error','发送失败！');
             }
@@ -386,7 +454,7 @@ class MyCuXiaoController extends Controller{
         
        
          
-        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+      
                                           
         
                                  

@@ -34,7 +34,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['userorder','phone','qqnum'], 'integer'],
            
             
-            [['description','nickname','attentionname','city','country','headimgurl','wechatnumber','explain','belongfirm','belongfirmphone','managecity','user','realname','remark'], 'string'],
+            [['description','nickname','attentionname','city','country','pwd','locationcity','headimgurl','wechatnumber','explain','belongfirm','belongfirmphone','managecity','user','realname','remark'], 'string'],
             [['questionprice'],'double'],
             [['title'], 'string', 'max' =>225]
         ];
@@ -405,6 +405,8 @@ class User extends ActiveRecord implements IdentityInterface
            'belongfirm'=>'所属机构',
            'belongfirmphone'=>'所属机构电话',
            'managecity'=>'管理城市',
+           'locationcity'=>'定位城市',
+           
 
        ];
     }

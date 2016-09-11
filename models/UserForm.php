@@ -52,6 +52,9 @@ class UserForm extends Model{
      */
     public function getUser(){
         if($this->_user===false){
+            
+            $getmd5 = md5($this->pwd);
+            
             $this->_user=YiiUser::find()->where(['user'=>$this->user,'pwd'=>md5($this->pwd)])->one();
         }
         return $this->_user;

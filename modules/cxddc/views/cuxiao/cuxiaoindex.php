@@ -65,6 +65,8 @@ $signPackage = $jssdk->GetSignPackage();
                 height:67px;
                 margin-right:10px;
             }
+
+         
 		</style>
 
         
@@ -87,25 +89,26 @@ $signPackage = $jssdk->GetSignPackage();
 <div class="mui-indexed-list-search mui-input-row mui-search">
 
 
-
-     
-
      <div id="look-header" class="row">
-
-
-               
+           
 					<div class="col-md-12">
                     
-
                       <div class="col-md-6">
                    
-                     <input id="selctarea" name="selectarea" style="float:left;width:70px;margin-top:10px; margin-left:10px; border:0px;"  value="<?php echo $cityname ?>"/> 
+                
+
+                        
 
                          <div id="divsearch" style="margin-top:10px;margin-left:5px">
 
                               <?php $form=ActiveForm::begin(['id'=>'index','enableAjaxValidation'=>false]); ?>
 
-                    <?=$form->field($search,'name')->textinput(['placeholder'=>'请输入关键字查询']);?>
+                             <div style="float:left;width:70px;margin-top:10px; margin-left:10px; border:0px; color:#23ac38">
+                                    <a href="/web/cxddc/mycuxiao/locationcity" style="color:#23ac38">上海市</a>
+                             </div>
+                            
+
+                    <?=$form->field($search,'name')->textinput(['placeholder'=>'请输入关键字查询','maxlength'=>8]);?>
                                <?=Html::submitButton('',['class'=>'btn btn-primary mui-input-clear mui-indexed-list-search-input mui-icon mui-icon-search'])?>
                             </div>
          
@@ -119,7 +122,7 @@ $signPackage = $jssdk->GetSignPackage();
                          
             </div>
 
-</div>      
+     
 	  <div style="padding: 0 10px 10px 10px; background-color: #FFFFFF; position: relative;">
             <div id="segmentedControl" class="segmented-control segmented-control-inverted segmented-control-primary">
                 <a class="mui-control-item mui-active" aindex='1' href="#item1">全部
@@ -150,26 +153,53 @@ $signPackage = $jssdk->GetSignPackage();
         <!--轮播-->
         <div id="slider" class="mui-slider">
             <div class="mui-slider-group mui-slider-loop">
-                <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+                <?php 
+                $lastimgpath ='';
+                
+                ?>
+
                 <div class="mui-slider-item mui-slider-item-duplicate">
                     <a id="lasts" href="#">
-                        <img src="/web/assets/mui/images/yuantiao.jpg">
+                        <img src="/../<?=  $lastimgpath?>">
+
                     </a>
                 </div>
-                <?php if(count($banner)>0):?>
+
+                <?php 
+                $count =0;
+                $firstimgpath ='';
+                $hrefurl='#';
+                ?>
+                 <?php if(count($banner)>0):?>
+                
                 <?php foreach($banner as $b):?>
-                <!-- 第一张 -->
+
+                <?php 
+                if($count==0)
+                {
+                    $firstimgpath =$b->bannerimgpath;
+                }
+                if($count==4)
+                {
+                    $lastimgpath =$b->bannerimgpath;
+                    $hrefurl ='cuxiaoindex';
+                    
+                }
+                $count++;
+                ?>
                 <div class="mui-slider-item">
-                    <a href="http://<?=$b->linkurl;?>">
+                    <a href="<?=$hrefurl?>">
                         <img src="/../<?=$b->bannerimgpath;?>">
                     </a>
                 </div>
+
                 <?endforeach?>
                 <?endif?>
+
                 <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 				<div class="mui-slider-item mui-slider-item-duplicate">
                     <a  id="fists" href="#">
-                        <img src="/web/assets/mui/images/shuijiao.jpg">
+                        <img src="/../<?=$firstimgpath?>">
                     </a>
                 </div>
             </div>
@@ -215,7 +245,7 @@ $signPackage = $jssdk->GetSignPackage();
                 <?endif?>
                 <?php if(count($items)<=0&&!isset($askone)):?>
                 <li style="background-color: #efeff4;">
-                    <div style="margin-top: 30px;">
+                    <div style="margin-top: 0px;">
                         <div class="face">
                             <img src="/web/assets/mui/images/face.png" />
                         </div>

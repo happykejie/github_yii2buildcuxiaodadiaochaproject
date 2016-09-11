@@ -127,7 +127,7 @@ $signPackage = $jssdk->GetSignPackage();
                  <h4 >&nbsp;&nbsp;&nbsp;结束时间</h4>
                 
 
-                     <?= $form->field($model,'end_time')->textinput(['value'=>date('y-m-d',time()).' '.'59:59:59','readonly'=>'readonly'])?>
+                     <?= $form->field($model,'end_time')->textinput(['value'=>date('y-m-d',time()).' '.'23:59:59','readonly'=>'readonly'])?>
 
 
 

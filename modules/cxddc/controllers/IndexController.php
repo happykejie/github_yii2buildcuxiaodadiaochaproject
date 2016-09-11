@@ -100,22 +100,22 @@ class IndexController extends Controller{
     //微信自动验证
     public function actionIndex($id = 1,$code=null){
 
-        $ismobile =  $this->checkmobile();
-        $user_agent = $_SERVER['HTTP_USER_AGENT'];
-        if (strpos($user_agent, 'MicroMessenger') === false) {
-            // 非微信浏览器禁止浏览
-            $ismobile = false;
-        } else {
-            // 微信浏览器，允许访问
-            $ismobile = true;
-        }
+        //$ismobile =  $this->checkmobile();
+        //$user_agent = $_SERVER['HTTP_USER_AGENT'];
+        //if (strpos($user_agent, 'MicroMessenger') === false) {
+        //     非微信浏览器禁止浏览
+        //    $ismobile = false;
+        //} else {
+        //     微信浏览器，允许访问
+        //    $ismobile = true;
+        //}
 
-        if(!$ismobile)
-        {
-            //返回后台登录页面
-            Yii::$app->response->redirect(Url::to(['/admin/index'],true));
-            return;
-        }
+        //if(!$ismobile)
+        //{
+        //    返回后台登录页面
+        //    Yii::$app->response->redirect(Url::to(['/admin/index'],true));
+        //    return;
+        //}
         
         //返回首页
         // yii::$app->response->redirect(url::to(['/cxddc/cxddc/index'],true));
@@ -132,12 +132,33 @@ class IndexController extends Controller{
                 
                 return;
             }
-			
+
 			if($this->_user->subscribe==1) //关注了
 			{
-                Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/loadad'],true));
 
-                return ;
+                if(UPSYS=='yes') //判断是否进入维护状态
+                {
+
+                    if($this->_user->isdevelop==1)
+                    {
+                        
+                        Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/cuxiaoindex'],true));
+                        return;
+                    }
+                    
+                    else
+                    {
+                        Yii::$app->response->redirect(Url::to(['/cxddc/index/updatesystem'],true));
+                        return;
+                    }
+                }
+				
+				
+				Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/cuxiaoindex'],true));
+				
+				return;
+				
+				
 			}
             
             
@@ -279,6 +300,30 @@ class IndexController extends Controller{
 				
 				
             }
+            
+            if(UPSYS=='yes') //判断是否进入维护状态
+            {
+
+                if($this->_user->isdevelop==1)
+                {
+                    
+                    Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/cuxiaoindex'],true));
+                    return;
+                }
+                
+                else
+                {
+                    Yii::$app->response->redirect(Url::to(['/cxddc/index/updatesystem'],true));
+                    return;
+                }
+            }
+            
+            
+            Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/cuxiaoindex'],true));
+            
+            return;
+            
+            
             //返回首页
             Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/loadad'],true));
         }else{
@@ -306,6 +351,9 @@ class IndexController extends Controller{
         }
         return null;
 	}
+    
+    
+
     
     
     
@@ -351,6 +399,16 @@ class IndexController extends Controller{
     public function actionErrorlogin()
     {
         return $this->renderPartial('errorlogin');
+    }
+    
+    /**
+     * 系统维修
+     * @return string
+     */
+    public function actionUpdatesystem()
+    {
+        return $this->renderPartial('updatesystem');
+        
     }
 	
     

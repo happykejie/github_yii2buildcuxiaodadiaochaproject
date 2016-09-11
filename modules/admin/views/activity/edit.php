@@ -110,6 +110,7 @@ function getinitialPreview($imgs){
                       <?= $form->field($model,'belongarea')->textinput();?>
                      <?= $form->field($model,'ispay')->dropDownList(['是'=>'是','否'=>'否']);?>
                     <?= $form->field($model,'paynum')->textinput();?>
+                     <?= $form->field($model,'lableremark')->textinput();?>
 
                    
 	<h4 >&nbsp;&nbsp;&nbsp;开始时间</h4>

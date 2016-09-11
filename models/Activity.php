@@ -257,8 +257,8 @@ class Activity extends \yii\db\ActiveRecord
             'start_time' => '起始时间',
             'end_time' => '截止日期',
             'intro'=>'活动介绍',
-            'rule' => '促销地点',
-            'rule2' => '联系方式',
+            'address' => '促销地点',
+            'contacttype' => '联系方式',
             'sponsor'=>'主办方',
             'publish'=>'是否发布',
             'surface' => '封面',
@@ -268,6 +268,7 @@ class Activity extends \yii\db\ActiveRecord
             'ispay'=>'是否支付',
             'paynum'=>'支付金额',
             'viewcount'=>'浏览次数',
+            'lableremark'=>'标签',
             
             
 

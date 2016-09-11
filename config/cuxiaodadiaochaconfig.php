@@ -13,28 +13,24 @@
 
 
 define('Wx_Title','促销大调查');
-define('WX_APPID','wx40af8cb4c6dd1f67'); //促销大调查 wx40af8cb4c6dd1f67   
-define('WX_APPSECRET','86b8c4edc4fbcc39896ab14dec449d41');  ///促销大调查86b8c4edc4fbcc39896ab14dec449d41   
-
+define('WX_APPID','wx767e5b1a77a04439'); //促销大调查 wx40af8cb4c6dd1f67   //爱排名wx767e5b1a77a04439
+define('WX_APPSECRET','f792b490bcfa0b7c59aa1a106e54c3a9');  ///促销大调查86b8c4edc4fbcc39896ab14dec449d41    //爱排名f792b490bcfa0b7c59aa1a106e54c3a9
 
 define("CURR_DOMAIN",'happykejie.vicp.cc');//配置当前域名
 
 define("DOMAITDESC",'促销大调查');
 
-define("YHTWTZ",'KwpE1b0IyukwmfBLd18M5UxzM4pEnhq1dXqE2cOi91o'); // 促销大调查  用户提问通知
+define("YHTWTZ",'6aCph9d-BB8PElgKi7wZpaizEXllGb_GfQ18ALImGf8'); // 促销大调查  用户提问通知
 
-define("SDHFTZ",'vfVV009pVO4ZkXwM4C1LiJvJ1ot7HFe4x32ISvfwW7k'); // 促销大调查  收到回复通知
+define("UPSYS",'yes'); //是否进入维护系统页面
 
-define("TKTZ",'xTBEu1vh5rZxRlSzL_tO90gsSai-z4HHl2ASPLeyU3k'); // 促销大调查  退款通知
-
-define("JJGQTX",'Ik8CJmg69xjVrdduWIvemsFsLG1Lm77aljMAIyEQMCE'); // 促销大调查  即将过期提醒
 
 
 ///微信分享配置
 
 define("WXFX_TITLE",'促销大调查'); // 促销大调查  微信分享——标题
 
-define("WXFX_DESC",'促销大调查：全国最大的促销分享平台，最专业，最快捷的发布促销信息'); // 促销大调查  微信分享——分享描述
+define("WXFX_DESC",'促销大调查：全国最大的促销信息分享平台'); // 促销大调查  微信分享——分享描述
 
 define("WXFX_LINK",'happykejie.vicp.cc'); // 促销大调查  微信分享详细地址
 
@@ -42,8 +38,6 @@ define("WXFX_IMGPATH",'happykejie.vicp.cc/web/images/wxlogonew.jpg'); // 促销�
 
 //默认官网
 define("HTTPWWW",'happykejie.vicp.cc'); // 促销大调查  
-
-
 
 //默认官网
 define("WWW",'happykejie.vicp.cc'); // 促销大调查  

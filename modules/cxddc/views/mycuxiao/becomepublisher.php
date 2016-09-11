@@ -17,9 +17,8 @@ $signPackage = $jssdk->GetSignPackage();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title>申请成为发布者</title>
-    <?=Html::cssFile('@web/web/assets/mui/css/mui.min.css')?>
-    <?=Html::cssFile('@web/web/assets/mui/css/css/bepublisher.css')?>
-         <?=Html::cssFile('@web/web/assets/cxddc/css/user.css')?>
+     <?=Html::cssFile('@web/web/assets/mui/css/mui.min.css')?>
+    <?=Html::cssFile('@web/web/assets/cxddc/css/bepublisher.css')?>
 	<style>
 		.checks_div_select{
 			background-color:#23ac38;
@@ -162,8 +161,7 @@ $signPackage = $jssdk->GetSignPackage();
                     <p class="tongy">
 			
 						<input id="check" checked=""   name="checkbox" value="" type="checkbox" >
-						
-                      
+
 						我已阅读并同意<a href="">《 <?php echo DOMAITDESC ?>用户协议》</a>
                     </p>
 	
@@ -171,8 +169,6 @@ $signPackage = $jssdk->GetSignPackage();
                </div>
                     </div>
                       <?php ActiveForm::end()?>
-
-          
         </div>
 
 

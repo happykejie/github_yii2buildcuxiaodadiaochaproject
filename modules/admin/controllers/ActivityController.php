@@ -114,6 +114,12 @@ class ActivityController extends Controller{
             }
             
             if( $model->validate()){
+                
+                $userid=Yii::$app->user->getId();  //获取当前用户；
+                $model->publishpeople=$userid;
+                $model->viewcount=range(1,10000);
+                
+                
                 if($model->save()){
                     Yii::$app->response->redirect("/admin/activity/index");
                 }else{

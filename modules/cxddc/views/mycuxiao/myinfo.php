@@ -88,7 +88,32 @@ $signPackage = $jssdk->GetSignPackage();
                 <?php $form=ActiveForm::begin(['id'=>'becometeacher123','enableAjaxValidation'=>false]); ?>
 				<div class="q"></div>
 
+
+            <?php if($model->userstate==1):?>
+            		<div class="mui-content-padded">
+					<h4 class="s">真实姓名(必填)</h4>
+					<div class="dianh  s">
+						<?= $form->field($model,'realname')->textinput(['readonly'=>'readonly']);?>
+					</div>
+				</div>
+
+                <div class="q"></div>
 				<div class="mui-content-padded">
+					<h4 class="s">你的电话(必填)</h4>
+					<div class="dianh s">
+						<?= $form->field($model,'phone')->textinput(['readonly'=>'readonly']);?>
+					</div>
+				</div>
+
+            <div class="q"></div>
+				<div class="mui-content-padded">
+					<h4 class="s">微信号(必填)</h4>
+					<div class="dianh  s">
+						<?= $form->field($model,'wechatnumber')->textinput(['readonly'=>'readonly']);?>
+					</div>
+				</div>
+            <?php else:?>
+            		<div class="mui-content-padded">
 					<h4 class="s">真实姓名(必填)</h4>
 					<div class="dianh  s">
 						<?= $form->field($model,'realname')->textinput();?>
@@ -110,6 +135,9 @@ $signPackage = $jssdk->GetSignPackage();
 						<?= $form->field($model,'wechatnumber')->textinput();?>
 					</div>
 				</div>
+            <?endif?>
+
+		
 
 
              <div class="q"></div>

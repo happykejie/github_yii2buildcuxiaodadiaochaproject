@@ -292,7 +292,7 @@ function getinitialPreview($imgs){
         hideCityInput: '#city',
         hideProvinceInput: '#province',
         callback: function (city_id) {
-            alert(city_id);
+           // alert(city_id);
         }
     });
 

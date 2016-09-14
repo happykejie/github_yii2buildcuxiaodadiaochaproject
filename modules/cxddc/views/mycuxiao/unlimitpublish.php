@@ -54,7 +54,7 @@ $signPackage = $jssdk->GetSignPackage();
 <head>
     <meta charset="UTF-8">
     <?= Html::csrfMetaTags() ?>
-    <title>新增活动</title>
+    <title>无限制发布活动</title>
     <?=Html::cssFile('@web/web/css/bootstrap.min.css')?>
     <?=Html::cssFile('@web/web/css/site.css')?>
 
@@ -84,8 +84,7 @@ $signPackage = $jssdk->GetSignPackage();
 
         <script>
 
-            function changepay()
-            {
+            function changepay() {
                 alert('test');
             }
 
@@ -156,8 +155,7 @@ $signPackage = $jssdk->GetSignPackage();
                 ]);?>
 
 
-                     <h4 >应支付金额</h4>
-                    <?= $form->field($model,'paynum')->textinput(['readonly'=>'readonly']);?>
+              
 
 
 
@@ -288,13 +286,12 @@ $signPackage = $jssdk->GetSignPackage();
             //开始时间改变
             $("#activity-start_time").change(function () {
 
-                $("#activity-paynum").val("");
+               // $("#activity-paynum").val("");
 
 
                 var start_time = $("#activity-start_time").val();
-               // alert(start_time);
-                if (start_time == "")
-                {
+                // alert(start_time);
+                if (start_time == "") {
                     return false;
                 }
                 else //如果开始时间不为空
@@ -302,7 +299,7 @@ $signPackage = $jssdk->GetSignPackage();
                     //查看有无结束时间
 
                     var end_time = $("#activity-end_time").val();
-                   // alert(end_time);
+                    // alert(end_time);
                     if (end_time == "") {
                         //alert('empty');
                         return false;
@@ -311,10 +308,10 @@ $signPackage = $jssdk->GetSignPackage();
                     else {  ///如果有结束时间则先计算开始时间是否小于结束时间， 如果是则计算天数
 
                         var beginDate = new Date(start_time).Format("yyyy-MM-dd hh:mm:ss");
-                      // alert(beginDate);
+                        // alert(beginDate);
 
                         var endDate = new Date(end_time).Format("yyyy-MM-dd hh:mm:ss");
-                       //alert(endDate);
+                        //alert(endDate);
 
 
                         if (beginDate >= endDate) {
@@ -322,12 +319,17 @@ $signPackage = $jssdk->GetSignPackage();
                             $("#activity-start_time").val("");
                             return false;
                         } else {
-                            
-                            var daysnum = DateDiff(beginDate, endDate)+1;
 
-                            var paynum = parseInt(daysnum) * 10;
+                            var daysnum = DateDiff(beginDate, endDate) + 1;
 
-                            $("#activity-paynum").val(paynum);
+                            if (daysnum > 10) {
+                                alert('时间跨度大于10点,请联系平台商免费发布');
+                                $("#activity-start_time").val("");
+                            }
+
+                          //  var paynum = parseInt(daysnum) * 10;
+
+                           // $("#activity-paynum").val(paynum);
                         }
 
                     }
@@ -337,11 +339,10 @@ $signPackage = $jssdk->GetSignPackage();
             //结束时间改变
             $("#activity-end_time").change(function () {
 
-                $("#activity-paynum").val("");
-
+               // $("#activity-paynum").val("");
 
                 var end_time = $("#activity-end_time").val();
-               // alert(end_time);
+                // alert(end_time);
                 if (end_time == "") {
                     //alert('empty');
                     return false;
@@ -360,7 +361,7 @@ $signPackage = $jssdk->GetSignPackage();
                     else {  ///如果有结束时间则先计算开始时间是否小于结束时间， 如果是则计算天数
 
                         var beginDate = new Date(start_time).Format("yyyy-MM-dd hh:mm:ss");
-                      //   alert(beginDate);
+                        //   alert(beginDate);
 
                         var endDate = new Date(end_time).Format("yyyy-MM-dd hh:mm:ss");
                         // alert(endDate);
@@ -372,12 +373,19 @@ $signPackage = $jssdk->GetSignPackage();
                             return false;
                         } else {
 
-                            var daysnum = DateDiff(beginDate, endDate)+1;
+                            var daysnum = DateDiff(beginDate, endDate) + 1;
 
 
-                            var paynum = parseInt(daysnum) * 10;
+                            if (daysnum > 10)
+                            {
+                                alert('时间跨度大于10点,请联系平台商免费发布');
+                                $("#activity-end_time").val("");
+                            }
 
-                            $("#activity-paynum").val(paynum);
+
+                           /// var paynum = parseInt(daysnum) * 10;
+
+                           /// $("#activity-paynum").val(paynum);
                         }
 
                     }
@@ -415,16 +423,16 @@ $signPackage = $jssdk->GetSignPackage();
                 return iDays
             }
 
-           
+
 
         })
 
 
-       
-      
 
 
-      
+
+
+
 
 
 
@@ -458,7 +466,7 @@ $signPackage = $jssdk->GetSignPackage();
                 $('.field-activity-surface_file .help-block-error').text('');
             }
 
-         
+
 
             var newspictures_val = $('#newspictures_val').val();
             if (!newspictures_val) {

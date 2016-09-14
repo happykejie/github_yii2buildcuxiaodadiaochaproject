@@ -117,7 +117,7 @@ $signPackage = $jssdk->GetSignPackage();
 						<h4 >所属分类</h4>
 					 <?=$form->field($model,'group_id')->dropDownList($to)?>
                     <h4 >发布城市</h4>
-                     <?= $form->field($model,'belongarea')->textinput(['readonly'=>'readonly','value'=>Yii::$app->cache->get('citynamenew')]);?>
+                     <?= $form->field($model,'belongarea')->textinput(['readonly'=>'readonly','value'=>$getcity]);?>
                   
                    
 	            <h4 >&nbsp;&nbsp;&nbsp;开始时间</h4>

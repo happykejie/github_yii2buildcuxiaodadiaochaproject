@@ -75,8 +75,6 @@ class MyCuXiaoController extends Controller{
      */
     public function actionIndex()
     {
-        
-        //判断当前用户是否关注，如果没有关注跳转让用户关注
         $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
         $items =User::findOne(['id'=>$currentuserid]);
         
@@ -89,7 +87,6 @@ class MyCuXiaoController extends Controller{
             
 			return $this->render('commonuser',['items'=>$items,'currentuserid'=>$currentuserid]);
         }
-        ///跳转关注结束
         
         
         if ($items->userstate==1)
@@ -219,8 +216,8 @@ class MyCuXiaoController extends Controller{
         return $this->render('infoercode',['currentuserid'=>$currentuserid]);
         
     }
-    
-    /**
+	
+	 /**
      * 定位城市
      * @return string
      */
@@ -286,6 +283,7 @@ class MyCuXiaoController extends Controller{
         
         return $this->render('locationcity',['cityname'=>$getcityname,'baiducity'=>$baiducity,'selectcity'=>$selectcity]);
     }
+    
     
     
     
@@ -429,9 +427,8 @@ class MyCuXiaoController extends Controller{
      */
     public function actionBecomepublisher($id)
     {
-      
+         $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
         $model=User::findOne(['id'=>$id]);
-        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
         if($model->load(Yii::$app->request->post())//判断是否是表单提交
             
             
@@ -454,7 +451,7 @@ class MyCuXiaoController extends Controller{
         
        
          
-      
+     
                                           
         
                                  
@@ -471,6 +468,35 @@ class MyCuXiaoController extends Controller{
     public function actionPublishinfofree()
     {
         $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+		
+		
+		//获取当前用户定位城市
+		
+		
+        $items =User::findOne(['id'=>$currentuserid]);
+		
+		$getcity =$items->locationcity;			
+		if(!$getcity)//如果定位城市不存在设定默认城市
+		{
+
+			///获取微信关注默认获取城市
+			
+			$wxcity =$items->city;
+			
+			if($wxcity)
+			{
+				$getcity =$wxcity.'市';
+			}
+			else
+			{
+				$getcity = '成都市';
+			}
+		}
+		
+		
+		
+		
+		
         ///判断当前用户是否发送过了
        
          $userinfo=User::findOne(['id'=>$currentuserid]);
@@ -562,6 +588,7 @@ class MyCuXiaoController extends Controller{
             $model->publishpeople=$userid;
             $model->ispay='免费';
             $model->paynum=0;
+			$model->viewcount=0;
             
             if( $model->validate()){
                 if($model->save()){
@@ -588,7 +615,7 @@ class MyCuXiaoController extends Controller{
         }
        
         
-        return $this->render('publishinfofree',['model'=>$model,'to'=>$to,'currentuserid'=>$currentuserid]);
+        return $this->render('publishinfofree',['model'=>$model,'to'=>$to,'currentuserid'=>$currentuserid,'getcity'=>$getcity]);
     }
     
     
@@ -596,6 +623,32 @@ class MyCuXiaoController extends Controller{
      * @add
      */
     public function actionPublishinfopay(){
+		
+		
+		//获取当前用户定位城市
+		
+		
+		 $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+        $items =User::findOne(['id'=>$currentuserid]);
+		
+		$getcity =$items->locationcity;			
+		if(!$getcity)//如果定位城市不存在设定默认城市
+		{
+
+			///获取微信关注默认获取城市
+			
+			$wxcity =$items->city;
+			
+			if($wxcity)
+			{
+				$getcity =$wxcity.'市';
+			}
+			else
+			{
+				$getcity = '成都市';
+			}
+		}
+		
 
         $group= Category::find()->all();
         $to=array();
@@ -644,6 +697,8 @@ class MyCuXiaoController extends Controller{
             $userid=Yii::$app->user->getId();
             $model->publishpeople=$userid;
             $model->ispay='否';
+			 $model->viewcount=0;
+			
            
             
             if( $model->validate()){
@@ -657,10 +712,139 @@ class MyCuXiaoController extends Controller{
         
         $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
         
-        return $this->render('publishinfopay',['model'=>$model,'to'=>$to,'currentuserid'=>$currentuserid]);
+        return $this->render('publishinfopay',['model'=>$model,'to'=>$to,'currentuserid'=>$currentuserid,'getcity'=>$getcity]);
     }
     
+    
+    
+    
+    
+    
+    ///////////////////////////////////////////////无限制发布促销信息
+    
+    
+    
+    
+    /**
+     * 无限制发布信息用户
+     */
+    public function actionUnlimitindex()
+    {
+        
+        
+        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+        $items =User::findOne(['id'=>$currentuserid]);
+        
+		
+		if($items->subscribe==0) //如果用户没用关注，跳转用户关注
+        {
+			Yii::$app->session->setFlash('notattention','还没有关注，请先关注');
 
+        }
+
+            return $this->render('unlimitindex',['items'=>$items,'currentuserid'=>$currentuserid]);
+         
+    }
+    
+    
+    
+    
+    
+    /**无限制发布消息
+     * @add
+     */
+    public function actionUnlimitpublish(){
+		
+		
+		//获取当前用户定位城市
+		
+		
+        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+        $items =User::findOne(['id'=>$currentuserid]);
+		
+		$getcity =$items->locationcity;			
+		if(!$getcity)//如果定位城市不存在设定默认城市
+		{
+
+			///获取微信关注默认获取城市
+			
+			$wxcity =$items->city;
+			
+			if($wxcity)
+			{
+				$getcity =$wxcity.'市';
+			}
+			else
+			{
+				$getcity = '成都市';
+			}
+		}
+		
+
+        $group= Category::find()->all();
+        $to=array();
+        foreach($group as $v){
+            $to[$v->id]=$v->categoryname;
+        }
+        $model=new Activity();
+        
+        if($model->load(Yii::$app->request->post())//判断是否是表单提交s
+            ){
+            
+            if (Yii::$app->request->isPost) {
+                $surface_files = UploadedFile::getInstance($model, 'surface_file');
+                if($surface_files){
+                    $model->surface = $model->fileInput($surface_files);
+                    $model->setAttr("surface",$model->surface);
+                }
+                $homepictures_val=  Yii::$app->request->post("homepictures_val");
+                if($homepictures_val){
+                    $model->homepictures= explode('-',$homepictures_val);
+                    $model->setAttr("homepictures",$homepictures_val);
+                }else{
+                    $homepictures_files = UploadedFile::getInstances($model, 'homepictures');
+                    if($homepictures_files)
+                    {
+                        $model->homepictures=$model->fileInput($homepictures_files);
+                        $model->setAttr("homepictures",$model->homepictures);
+                    }
+                }
+                $newspictures_val=  Yii::$app->request->post("newspictures_val");
+                if($newspictures_val){
+                    $model->newspictures= explode('-',$newspictures_val);
+                    $model->setAttr("newspictures",$newspictures_val);
+                }else{
+                    $newspictures_files = UploadedFile::getInstances($model, 'newspictures');
+                    if($newspictures_files)
+                    {
+                        $model->newspictures=$model->fileInput($newspictures_files);
+                        $model->setAttr("newspictures",$model->newspictures);
+                    }
+                }
+            }
+            
+            
+            
+            $userid=Yii::$app->user->getId();
+            $model->publishpeople=$userid;
+            $model->ispay='否';
+            $model->viewcount=0;
+			
+            
+            
+            if( $model->validate()){
+                if($model->save()){
+                    Yii::$app->response->redirect("/cxddc/cuxiao/detail?id=$model->id");
+                }else{
+                    Yii::$app->session->setFlash('error','添加失败！');
+                }
+            }
+        }
+        
+        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+        
+        return $this->render('unlimitpublish',['model'=>$model,'to'=>$to,'currentuserid'=>$currentuserid,'getcity'=>$getcity]);
+    }
   
     
 

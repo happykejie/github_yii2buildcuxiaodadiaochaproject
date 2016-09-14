@@ -285,6 +285,8 @@
     <Compile Include="modules\cxddc\views\mycuxiao\publishinfofree.php" />
     <Compile Include="modules\cxddc\views\mycuxiao\publishinfopay.php" />
     <Compile Include="modules\cxddc\views\mycuxiao\publishuser.php" />
+    <Compile Include="modules\cxddc\views\mycuxiao\unlimitindex.php" />
+    <Compile Include="modules\cxddc\views\mycuxiao\unlimitpublish.php" />
     <Compile Include="modules\cxddc\views\wxapi\pay.php" />
     <Compile Include="modules\cxddc\views\wxapi\paynotify.php" />
     <Compile Include="modules\cxddc\cxddc.php" />

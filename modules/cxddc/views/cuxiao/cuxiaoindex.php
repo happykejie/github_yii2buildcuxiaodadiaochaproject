@@ -104,7 +104,7 @@ $signPackage = $jssdk->GetSignPackage();
                               <?php $form=ActiveForm::begin(['id'=>'index','enableAjaxValidation'=>false]); ?>
 
                              <div style="float:left;width:70px;margin-top:10px; margin-left:10px; border:0px; color:#23ac38">
-                                    <a href="/web/cxddc/mycuxiao/locationcity" style="color:#23ac38">上海市</a>
+                                    <a href="/web/cxddc/mycuxiao/locationcity" style="color:#23ac38"><?php echo $cityname?></a>
                              </div>
                             
 

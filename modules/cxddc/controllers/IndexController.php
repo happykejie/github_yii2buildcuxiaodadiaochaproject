@@ -4,6 +4,7 @@ namespace app\modules\cxddc\controllers;
 use app\models\Follow;
 use app\models\Msg;
 use \app\models\Users;
+use \app\models\fxandbfx;
 use Yii;
 use yii\web\Controller;
 use app\models\YiiUser;
@@ -22,7 +23,8 @@ class IndexController extends Controller{
     private $WX_APPID = WX_APPID; ///张杰开发测试账号wxf861f60fbb144cb9  //李朝先wxe474c6e60ea8f0c8
     private $WX_APPSECRET = WX_APPSECRET; //张杰开发测试账号2da66bd2cf0dccf0fb8d5db1e3ca6122  //李朝先33b1241f97a2803440b34bf30c33d57e
     private $_openid,$_access_token,$_wxuser,$_user,$_users;
-
+	
+    
     /**
      * 
      * 根据php的$_SERVER['HTTP_USER_AGENT'] 中各种浏览器访问时所包含各个浏览器特定的字符串来判断是属于PC还是移动端
@@ -98,21 +100,21 @@ class IndexController extends Controller{
 	
     
     //微信自动验证
-    public function actionIndex($id = 1,$code=null){
+    public function actionIndex($id = 1,$code=null,$fxren=-1){
 
         //$ismobile =  $this->checkmobile();
         //$user_agent = $_SERVER['HTTP_USER_AGENT'];
         //if (strpos($user_agent, 'MicroMessenger') === false) {
-        //     非微信浏览器禁止浏览
+        //    // 非微信浏览器禁止浏览
         //    $ismobile = false;
         //} else {
-        //     微信浏览器，允许访问
+        //    // 微信浏览器，允许访问
         //    $ismobile = true;
         //}
 
         //if(!$ismobile)
         //{
-        //    返回后台登录页面
+        //    //返回后台登录页面
         //    Yii::$app->response->redirect(Url::to(['/admin/index'],true));
         //    return;
         //}
@@ -132,10 +134,12 @@ class IndexController extends Controller{
                 
                 return;
             }
+			
+            
 
 			if($this->_user->subscribe==1) //关注了
 			{
-
+                
                 if(UPSYS=='yes') //判断是否进入维护状态
                 {
 
@@ -189,6 +193,11 @@ class IndexController extends Controller{
 			
 			//return \yii\helpers\Json::encode($this->_wxuser); 
 			
+			if(!$this->_wxuser)
+			{
+				return 'access_token expire';
+			}
+			
             
 			
             $this->_user = YiiUser::find()->where(['openid'=>$this->_openid])->one();
@@ -208,29 +217,64 @@ class IndexController extends Controller{
 				
 				if($this->_wxuser['subscribe']==0)
 				{
+					
+					
+                    
+                    
                     //Yii::$app->response->redirect(Url::to(['https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIyNzE1NDMwMQ==&scene=110#wechat_redirect'],true));
                     //未找到绑定用户自动注册并登陆
-					$this->_user=new YiiUser();
-					$this->_user->openid =  $this->_openid;
-					$this->_user->user =  $this->_openid;
-                    $this->_user->subscribe =$this->_wxuser['subscribe'];
-					$this->_user->nickname ='not attention,please attention';
-					$this->_user->thumb ='/web/images/cxddcgetheadimg.jpg';
-					$this->_user->headimgurl = '/web/images/cxddcgetheadimg.jpg';
-					$this->_user->remark = 'no attention';
-					$this->_user->userstate =0;
-					$this->_user->createusertime= date('y-m-d h:i:s',time());	
+                    
+                    $model=YiiUser::findOne(['openid'=>$this->_openid]);
+                    
+                    if(!$model)//如果数据库没有记录
+                    {
 
-					if($this->_user->save()){
-						//设置登录成功
-						Yii::$app->user->login($this->_user,3600*24*1);
-						
-						
-					}
-					else{
-						echo "user save fail";
-						die;
-					}
+                        $this->_user=new YiiUser();
+                        $this->_user->openid =  $this->_openid;
+                        $this->_user->user =  $this->_openid;
+                        $this->_user->subscribe =$this->_wxuser['subscribe'];
+                        $this->_user->nickname ='未关注(请立即关注)';
+                        $this->_user->thumb ='/web/images/cxddcgetheadimg.jpg';
+                        $this->_user->headimgurl = '/web/images/cxddcgetheadimg.jpg';
+                        $this->_user->remark = '未关注';
+                        $this->_user->userstate =0;
+                        $this->_user->createusertime= date('y-m-d h:i:s',time());	
+
+                        if($this->_user->save()){
+                            //设置登录成功
+                            Yii::$app->user->login($this->_user,3600*24*1);
+                            
+                            
+							
+                            ///添加分享人与被分享人关系表。
+
+                            if($fxren!=-1)
+                            {
+                                
+                                $model=fxandbfx::findOne(['bfxopenid'=>$this->_user->openid]);
+                                
+                                if(!$model)//如果没有添加分享记录
+                                {
+                                    $fxitem = new  \app\models\fxandbfx();
+                                    $fxitem->fxrenid=$fxren;
+                                    $fxitem->bfxrenid =$this->_user->id;
+                                    $fxitem->createtime =date('y-m-d h:i:s',time());	
+                                    $fxitem->remark ='share log';
+                                    $fxitem->bfxopenid =$this->_user->openid;
+                                    
+                                    $fxresult =  $fxitem->save();
+                                }
+
+                            }
+                            ///结束添加分享人
+
+                        }
+                        else{
+                            echo "user save fail";
+                            die;
+						}
+                        
+                    }
 				}
 				
 				if($this->_wxuser['subscribe']==1)
@@ -300,34 +344,32 @@ class IndexController extends Controller{
 				
 				
             }
+			
             
+			
             if(UPSYS=='yes') //判断是否进入维护状态
             {
-
+                
+                
                 if($this->_user->isdevelop==1)
                 {
                     
                     Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/cuxiaoindex'],true));
-                    return;
+                    return false;
                 }
                 
                 else
                 {
                     Yii::$app->response->redirect(Url::to(['/cxddc/index/updatesystem'],true));
-                    return;
+                    return false;
                 }
             }
             
-            
-            Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/cuxiaoindex'],true));
-            
-            return;
-            
-            
+			
             //返回首页
-            Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/loadad'],true));
+            Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/cuxiaoindex'],true));
         }else{
-            $returl="http://".WWW."/cxddc/index";//Url::to(['/wx/wxapi/login'],true);
+            $returl="http://".WWW."/cxddc/index?fxren=$fxren";//Url::to(['/wx/wxapi/login'],true);
             Yii::$app->response->redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid='.$this->WX_APPID.'&redirect_uri='.$returl.'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect');
         }
     }
@@ -351,9 +393,6 @@ class IndexController extends Controller{
         }
         return null;
 	}
-    
-    
-
     
     
     
@@ -400,10 +439,11 @@ class IndexController extends Controller{
     {
         return $this->renderPartial('errorlogin');
     }
-    
+	
     /**
-     * 系统维修
-     * @return string
+     *  系统维修
+     * 
+     * 
      */
     public function actionUpdatesystem()
     {

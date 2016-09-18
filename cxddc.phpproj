@@ -48,6 +48,7 @@
     <Folder Include="modules\admin\views\lovelistenquestion\" />
     <Folder Include="modules\admin\views\incomecost\" />
     <Folder Include="modules\admin\views\category\" />
+    <Folder Include="modules\admin\views\mindex\" />
     <Folder Include="modules\admin\views\publishinfo\" />
     <Folder Include="modules\admin\views\tools\" />
     <Folder Include="modules\admin\views\question\" />
@@ -88,6 +89,7 @@
     <Folder Include="web\assets\mui\" />
     <Folder Include="web\assets\mui\css\" />
     <Folder Include="web\assets\mui\css\css\" />
+    <Folder Include="web\assets\mui\css\adminmcss\" />
     <Folder Include="web\assets\mui\fonts\" />
     <Folder Include="web\assets\mui\images\" />
     <Folder Include="web\assets\mui\js\" />
@@ -147,6 +149,7 @@
     <Compile Include="models\Follow.php" />
     <Compile Include="models\Answerquestion.php" />
     <Compile Include="models\Askproblem.php" />
+    <Compile Include="models\fxandbfx.php" />
     <Compile Include="models\Img.php" />
     <Compile Include="models\Incomecost.php" />
     <Compile Include="models\LinkPager.php" />
@@ -176,6 +179,7 @@
     <Compile Include="modules\admin\controllers\EnterprisepayController.php" />
     <Compile Include="modules\admin\controllers\IndexController.php" />
     <Compile Include="modules\admin\controllers\CategoryController.php" />
+    <Compile Include="modules\admin\controllers\MindexController.php" />
     <Compile Include="modules\admin\controllers\PublishinfoController.php" />
     <Compile Include="modules\admin\controllers\RestController.php" />
     <Compile Include="modules\admin\controllers\StatisticsController.php" />
@@ -202,6 +206,15 @@
     <Compile Include="modules\admin\views\banner\index.php" />
     <Compile Include="modules\admin\views\enterprisepay\index.php" />
     <Compile Include="modules\admin\views\index\indexbszd.php" />
+    <Compile Include="modules\admin\views\mindex\allpublished.php" />
+    <Compile Include="modules\admin\views\mindex\banuser.php" />
+    <Compile Include="modules\admin\views\mindex\index.php" />
+    <Compile Include="modules\admin\views\mindex\login.php" />
+    <Compile Include="modules\admin\views\mindex\mypublished.php" />
+    <Compile Include="modules\admin\views\mindex\publishinfo.php" />
+    <Compile Include="modules\admin\views\mindex\statistics.php" />
+    <Compile Include="modules\admin\views\mindex\userinfo.php" />
+    <Compile Include="modules\admin\views\mindex\usermanage.php" />
     <Compile Include="modules\admin\views\publishinfo\add.php" />
     <Compile Include="modules\admin\views\publishinfo\edit.php" />
     <Compile Include="modules\admin\views\publishinfo\index.php" />
@@ -272,6 +285,7 @@
     <Compile Include="modules\cxddc\views\layouts\layout.php" />
     <Compile Include="modules\cxddc\views\lookforcuxiao\index.php" />
     <Compile Include="modules\cxddc\views\mycuxiao\comfirmorder.php" />
+    <Compile Include="modules\cxddc\views\mycuxiao\fxercode.php" />
     <Compile Include="modules\cxddc\views\mycuxiao\infoercode.php" />
     <Compile Include="modules\cxddc\views\mycuxiao\becomepublisher.php" />
     <Compile Include="modules\cxddc\views\mycuxiao\commonuser.php" />
@@ -349,6 +363,7 @@
     <Content Include="web\assets\js\prettify.js" />
     <Content Include="web\assets\js\toolbar-min.js" />
     <Content Include="web\assets\js\tree-min.js" />
+    <Content Include="web\assets\mui\css\adminmcss\mlogin.css" />
     <Content Include="web\assets\mui\css\app.css" />
     <Content Include="web\assets\mui\css\css\BecomeTeacher.css" />
     <Content Include="web\assets\mui\css\css\expert.css" />

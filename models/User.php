@@ -31,7 +31,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['userorder','phone','qqnum'], 'integer'],
+            [['userorder','phone','qqnum','id'], 'integer'],
            
             
             [['description','nickname','attentionname','city','country','pwd','locationcity','headimgurl','wechatnumber','explain','belongfirm','belongfirmphone','managecity','user','realname','remark'], 'string'],
@@ -369,6 +369,23 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->pwd === $password;
     }
+    
+    
+    
+    //得到当前用户发布的消息数量
+    public function getUserpublishcount()
+    {
+        $model =\app\models\Activity::find()->where(['publishpeople'=>$this->id])->all();
+        return $model;
+    }
+    
+    //得到当前用户分享推广人数量
+    public function getUserfenxiangcount()
+    {
+        $model = fxandbfx::find()->where(['fxrenid'=>$this->id])->all();
+        return $model;
+    }
+    
     
     
     /**

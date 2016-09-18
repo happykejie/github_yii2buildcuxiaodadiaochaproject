@@ -113,9 +113,11 @@ class MyCuXiaoController extends Controller{
     public function actionPublishuser()
     {
        
-        
+     
+    
         $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
-        return $this->render('publishuser',['currentuserid'=>$currentuserid]);
+        $items =User::findOne(['id'=>$currentuserid]);
+        return $this->render('publishuser',['items'=>$items,'currentuserid'=>$currentuserid]);
     }
     
     /**
@@ -125,7 +127,8 @@ class MyCuXiaoController extends Controller{
     {
         
         $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
-        return $this->render('commonuser',['currentuserid'=>$currentuserid]);
+        $items =User::findOne(['id'=>$currentuserid]);
+        return $this->render('publishuser',['items'=>$items,'currentuserid'=>$currentuserid]);
        
     }
     
@@ -146,12 +149,54 @@ class MyCuXiaoController extends Controller{
      * 我的发布
      */
     public function actionMypublished()
-    {             
+    {    
+        
+        
+        ///开始删除促销活动
+        $activity= new Activity();
+
+   if($activity->load(Yii::$app->request->post()))//判断是否是表单提交
+        {
+            
+            ///先获取该活动关联图片
+            $model = Activity::findOne(['id'=>$activity->id]);
+            
+            $surfaceimg = $model->surface; //封面图片
+            
+            
+            $newspicturesarraryimg = $model->newspictures;  // 展示图片
+            
+            $resultint =  Activity::deleteAll(['id'=>$activity->id]);
+            
+            if($resultint>0)
+            {
+                $app_root =APP_ROOT;
+
+                $del=unlink($app_root.$surfaceimg);
+                
+                foreach($newspicturesarraryimg as  $item)
+                {
+                    if(strlen($item)>5)
+                    {
+                        $del=unlink($app_root.$item);
+                        
+                    }
+                    
+                    
+                }
+            }
+          
+                Yii::$app->session->setFlash('success','删除成功！');
+           
+        }
+   
+        ///结束删除促销活动
+        
+        
         $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
         $userid =Yii::$app->user->getId();
         if( $this->_user ){
-           
-            
+
             $Sqlitem="select a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id where a.publishpeople ='$userid'";
           
             $Sqlitem=$Sqlitem." order by ordernum asc,createtime DESC";
@@ -216,6 +261,42 @@ class MyCuXiaoController extends Controller{
         return $this->render('infoercode',['currentuserid'=>$currentuserid]);
         
     }
+    
+    /**
+     * 分享二维码
+     */
+    
+    public function actionFxercode()
+    {
+        $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+        
+        $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
+        if( $this->_user ){
+            
+            $value = 'http://'.WWW.'/cxddc/index?fxren='.$this->_user->id; //二维码内容   
+            $errorCorrectionLevel = 'L';//容错级别   
+            $matrixPointSize = 6;//生成图片大小   
+            //生成二维码图片
+            
+            $fileyuantu = BASE_PATH.'web/images/'.$this->_user->openid.'qrcode.png';
+            
+            \QRcode::png($value, $fileyuantu, $errorCorrectionLevel, $matrixPointSize, 2);
+            
+            
+            $imgurl = '/web/images/'.$this->_user->openid.'qrcode.png';
+            
+            return $this->render('fxercode',['currentuserid'=>$currentuserid,'imgurl'=>$imgurl]);
+       
+            
+        }
+        
+    
+        return   Yii::$app->response->redirect(Url::to(['/cxddc/mycuxiao/index'],true));
+        
+    
+        
+    }
+    
 	
 	 /**
      * 定位城市

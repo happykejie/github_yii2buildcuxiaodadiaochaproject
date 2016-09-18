@@ -37,7 +37,7 @@ class Activity extends \yii\db\ActiveRecord
         return [
            [['name','group_id','start_time','end_time'], 'required'],
             //[['group_id'], 'integer'],
-            [['group_id','paynum','viewcount'], 'integer'],
+            [['group_id','paynum','viewcount','id'], 'integer'],
             [['name','start_time','end_time','intro','address','contacttype','sponsor','belongarea','ispay'], 'string'],
             [['name'], 'string', 'max' => 225],
             [['surface','belongarea'], 'required'],

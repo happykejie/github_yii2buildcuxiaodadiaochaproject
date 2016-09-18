@@ -39,11 +39,11 @@ $signPackage = $jssdk->GetSignPackage();
             </div>
 
 			<div class="my-teacher">
-                <?php if($items->userstate==1):?>
+               
           
                 <a href="unlimitpublish">发布促销消息</a>  
                 
-                <?endif?>
+                
             </div>
 
              <ul class="teacher-ul">

@@ -50,13 +50,13 @@ $signPackage = $jssdk->GetSignPackage();
                 <li>
                     <a href="infoercode">
                         <img src="/web/assets/mui/images/icon8.png" alt="" />
-                        <div class="">二维码</div>
+                        <div class="">关注</div>
                     </a>
                 </li>
                 <li>
-                    <a href="myinfo">
-                        <img style="width: 28px;" src="/web/assets/mui/images/icon9.png" alt="" />
-                        <div class="bj">编辑</div>
+                       <a href="fxercode">
+                        <img style="width: 28px;" src="/web/assets/mui/images/icon8.png" alt="" />
+                        <div class="bj">分享</div>
                     </a>
                 </li>
             </ul>

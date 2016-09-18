@@ -1,0 +1,223 @@
+{
+  "main.html": {
+    "resources": [
+      "images/add-icon_14.png",
+      "images/add-icon_13.png",
+      "images/add-icon_19.png",
+      "images/add-icon_03.png",
+      "fonts/mui.ttf",
+      "images/add-icon_05.png",
+      "images/add-icon_20.png",
+      "images/add-icon_08.png",
+      "images/add-icon_15.png",
+      "js/app.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/login.js",
+      "js/mui.enterfocus.js",
+      "images/weixin.png",
+      "images/qq.png",
+      "images/sinaweibo.png",
+      "images/personal.png",
+      "images/mail-list.png",
+      "images/add.png",
+      "images/application.png",
+      "images/news.png",
+      "g/message.html",
+      "g/index.html"
+    ],
+    "refer": [
+      "setting.html",
+      "index.html",
+      "g/message.html",
+      "g/index.html",
+      "my.html",
+      "g/contact.html",
+      "personal.html",
+      "g/app.html",
+      "g/add.html"
+    ]
+  },
+  "login.html": {
+    "resources": [
+      "js/app.js",
+      "js/mui.min.js",
+      "images/sinaweibo.png",
+      "css/mui.min.css",
+      "css/style.css",
+      "images/weixin.png",
+      "images/qq.png",
+      "js/mui.enterfocus.js"
+    ],
+    "refer": [
+      "main.html",
+      "reg.html",
+      "unlock.html",
+      "forget_password.html"
+    ]
+  },
+  "setting.html": {
+    "resources": [
+      "libs/easymob-webim-sdk/easemob.im-1.0.5.js",
+      "libs/easymob-webim-sdk/json2.js",
+      "libs/easymob-webim-sdk/jquery-1.11.1.js",
+      "js/mui.locker.js",
+      "js/feedback.js",
+      "css/feedback-page.css",
+      "js/feedback-page.js",
+      "libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
+      "js/mui.view.js",
+      "images/iconfont-tianjia.png",
+      "js/app.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "images/header-X.png"
+    ],
+    "refer": [
+      "login.html"
+    ]
+  },
+  "index.html": {
+    "resources": [
+      "js/mui.min.js",
+      "images/add-icon_03.png",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "images/add-icon_08.png",
+      "images/add-icon_13.png",
+      "images/add-icon_19.png",
+      "images/add-icon_20.png"
+    ],
+    "refer": []
+  },
+  "reg.html": {
+    "refer": [
+      "login.html"
+    ],
+    "resources": []
+  },
+  "unlock.html": {
+    "resources": [
+      "js/mui.locker.js"
+    ],
+    "refer": []
+  },
+  "personal.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "libs/easymob-webim-sdk/easemob.im-1.0.5.js",
+      "libs/easymob-webim-sdk/json2.js",
+      "libs/easymob-webim-sdk/jquery-1.11.1.js",
+      "js/feedback.js",
+      "js/feedback-page.js",
+      "libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
+      "js/mui.view.js",
+      "images/logo.png"
+    ],
+    "refer": []
+  },
+  "g/setting.html": {
+    "resources": [
+      "images/The-bell.png",
+      "images/header-X.png",
+      "images/add.png",
+      "images/set-up.png",
+      "images/application.png",
+      "js/mui.min.js",
+      "images/mail-list.png",
+      "fonts/mui.ttf",
+      "images/news.png",
+      "css/mui.min.css",
+      "images/personal-1.png"
+    ],
+    "refer": []
+  },
+  "g/app.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "images/muwu.jpg",
+      "images/yuantiao.jpg",
+      "images/shuijiao.jpg",
+      "images/cbd.jpg",
+      "css/app.css",
+      "images/add-icon_08.png",
+      "images/add-icon_03.png",
+      "images/add-icon_05.png",
+      "images/add-icon_13.png",
+      "images/add-icon_14.png",
+      "images/add-icon_15.png",
+      "images/add-icon_19.png",
+      "images/add-icon_20.png",
+      "js/mui.indexedlist.js"
+    ],
+    "refer": []
+  },
+  "g/contact.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/mui.indexedlist.css",
+      "js/mui.indexedlist.js",
+      "images/cbd.jpg",
+      "images/header-X.png"
+    ],
+    "refer": []
+  },
+  "g/message.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/app.css",
+      "images/cbd.jpg",
+      "images/muwu.jpg",
+      "images/shuijiao.jpg",
+      "images/add-icon_13.png",
+      "css/mui.indexedlist.css",
+      "images/header-X.png",
+      "images/add-icon_19.png",
+      "images/add-icon_03.png",
+      "images/add-icon_20.png"
+    ],
+    "refer": []
+  },
+  "g/add.html": {
+    "resources": [
+      "images/add-icon_14.png",
+      "images/add-icon_13.png",
+      "images/add-icon_19.png",
+      "images/yuantiao.jpg",
+      "images/add-icon_03.png",
+      "images/add-icon_05.png",
+      "images/add-icon_20.png",
+      "images/add-icon_08.png",
+      "images/add-icon_15.png",
+      "images/cbd.jpg",
+      "images/muwu.jpg",
+      "css/app.css",
+      "images/shuijiao.jpg",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "/js/mui.min.js"
+    ],
+    "refer": []
+  },
+  "y/view-the-approval.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "images/shuijiao.jpg"
+    ],
+    "refer": []
+  }
+}

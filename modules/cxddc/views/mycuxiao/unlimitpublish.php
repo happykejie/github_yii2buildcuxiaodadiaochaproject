@@ -323,7 +323,7 @@ $signPackage = $jssdk->GetSignPackage();
                             var daysnum = DateDiff(beginDate, endDate) + 1;
 
                             if (daysnum > 10) {
-                                alert('时间跨度大于10点,请联系平台商免费发布');
+                                alert('时间跨度大于10天,请联系平台商免费发布');
                                 $("#activity-start_time").val("");
                             }
 
@@ -378,7 +378,7 @@ $signPackage = $jssdk->GetSignPackage();
 
                             if (daysnum > 10)
                             {
-                                alert('时间跨度大于10点,请联系平台商免费发布');
+                                alert('时间跨度大于10天,请联系平台商免费发布');
                                 $("#activity-end_time").val("");
                             }
 

@@ -78,7 +78,7 @@ $signPackage = $jssdk->GetSignPackage();
 
 
                 <li class="mui-table-view-cell mui-media">
-					<a href="/cxddc/cuxiao/detail?id=<?=$v->id?>">
+					<a href="detail?id=<?=$v->id?>">
 						<img class="cuxiao-little-img !important  mui-pull-left" src="<?=$v->surface?>">
 						<div class="mui-media-body">
 							<?=$v->name?>

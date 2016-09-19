@@ -41,6 +41,11 @@ function getinitialPreview($imgs){
 <?php $this->beginPage() ?>
 
 
+<?php
+require_once "models/WxJsSdk.php";
+$jssdk = new WxJsSdk(WX_APPID, WX_APPSECRET);  
+$signPackage = $jssdk->GetSignPackage();
+?>
 
 
 
@@ -49,6 +54,21 @@ function getinitialPreview($imgs){
 <head>
     <meta charset="UTF-8">
     <?= Html::csrfMetaTags() ?>
+
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--标准mui.css-->
+   
+    <?=Html::cssFile('@web/web/assets/mui/css/mui.min.css')?>
+    <?=Html::cssFile('@web/web/assets/mui/css/app.css')?>
+    <?=Html::cssFile('@web/web/assets/mui/css/mui.indexedlist.css')?>
+    <?=Html::jsFile('@web/web/assets/mui/js/mui.min.js')?>
+
+  
+    
     <title>发布活动</title>
     <?=Html::cssFile('@web/web/css/bootstrap.min.css')?>
     <?=Html::cssFile('@web/web/css/site.css')?>
@@ -58,6 +78,8 @@ function getinitialPreview($imgs){
   
     <?=Html::jsFile('@web/web/Js/jquery.js')?>
     <?=Html::jsFile('@web/web/Js/bootstrap.js')?>
+
+     <?=Html::cssFile('@web/web/assets/citypicker/css/cityPicker.css')?>
 
     <?php $this->head() ?>
 
@@ -112,12 +134,20 @@ function getinitialPreview($imgs){
                         'id'=>'publishinfonew',
                         'enableAjaxValidation'=>false,
                         'options' => ['enctype' => 'multipart/form-data']]); ?>
-						<h4 >活动名称(12字以内 )</h4>
+						<h4>活动名称(12字以内 )</h4>
 					<?= $form->field($model,'name')->textarea(['rows'=>1,'maxlength'=>25,'placeholder'=>'阿欢阿杰科技促销平台']);?>
-						<h4 >所属分类</h4>
+						<h4>所属分类</h4>
 					 <?=$form->field($model,'group_id')->dropDownList($to)?>
-                    <h4 >发布城市</h4>
-                     <?= $form->field($model,'belongarea')->textinput(['readonly'=>'readonly','value'=>$getcity]);?>
+                
+
+                     <h4>发布城市</h4>
+                        <?= $form->field($model,'belongarea')->textinput();?>
+                     <h4>是否支付</h4>
+                    <?= $form->field($model,'ispay')->dropDownList(['是'=>'是','否'=>'否']);?>
+                     <h4>支付金额</h4>
+                    <?= $form->field($model,'paynum')->textinput();?>
+                     <h4>活动标签</h4>
+                    <?= $form->field($model,'lableremark')->textinput();?>
                 
                    
                    
@@ -317,8 +347,8 @@ function getinitialPreview($imgs){
 
                             var daysnum = DateDiff(beginDate, endDate) + 1;
 
-                            if (daysnum > 10) {
-                                alert('时间跨度大于10点,请联系平台商免费发布');
+                            if (daysnum > 60) {
+                                alert('时间跨度大于60天,请联系平台商免费发布');
                                 $("#activity-start_time").val("");
                             }
 
@@ -371,8 +401,8 @@ function getinitialPreview($imgs){
                             var daysnum = DateDiff(beginDate, endDate) + 1;
 
 
-                            if (daysnum > 10) {
-                                alert('时间跨度大于10点,请联系平台商免费发布');
+                            if (daysnum > 60) {
+                                alert('时间跨度大于60天,请联系平台商免费发布');
                                 $("#activity-end_time").val("");
                             }
 
@@ -475,7 +505,24 @@ function getinitialPreview($imgs){
         });
     </script>
 
-  
+    <?=Html::jsFile('@web/web/assets/citypicker/js/cityData.js')?>
+    <?=Html::jsFile('@web/web/assets/citypicker/js/cityPicker.js')?>
+
+
+    <script>
+        var cityPicker = new IIInsomniaCityPicker({
+            data: cityData,
+            target: '#activity-belongarea',
+            valType: 'k-v',
+            hideCityInput: '#city',
+            hideProvinceInput: '#province',
+            callback: function (city_id) {
+                // alert(city_id);
+            }
+        });
+
+        cityPicker.init();
+</script>
 
 </body>
 </html>

@@ -208,6 +208,7 @@
     <Compile Include="modules\admin\views\index\indexbszd.php" />
     <Compile Include="modules\admin\views\mindex\allpublished.php" />
     <Compile Include="modules\admin\views\mindex\banuser.php" />
+    <Compile Include="modules\admin\views\mindex\detail.php" />
     <Compile Include="modules\admin\views\mindex\index.php" />
     <Compile Include="modules\admin\views\mindex\login.php" />
     <Compile Include="modules\admin\views\mindex\mypublished.php" />

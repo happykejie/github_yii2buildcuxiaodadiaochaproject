@@ -46,7 +46,7 @@ class MindexController extends Controller{
         $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
         $items =YiiUser::findOne(['id'=>$currentuserid]);
 
-        return $this->render('index',['items'=>$items]);
+        return $this->renderPartial('index',['items'=>$items]);
         
     
         
@@ -72,11 +72,11 @@ class MindexController extends Controller{
                 return $this->redirect(['mindex/index']);
                 
             }else{
-                return $this->render('login',['model'=>$model]);
+                return $this->renderPartial('login',['model'=>$model]);
             }
         }
 
-        return $this->render('login',['model'=>$model]);
+        return $this->renderPartial('login',['model'=>$model]);
         
         
     }
@@ -113,7 +113,7 @@ class MindexController extends Controller{
 		}
 		
 
-        $group= Category::find()->all();
+        $group= \app\models\Category::find()->all();
         $to=array();
         foreach($group as $v){
             $to[$v->id]=$v->categoryname;
@@ -166,14 +166,14 @@ class MindexController extends Controller{
             
             if( $model->validate()){
                 if($model->save()){
-                    Yii::$app->response->redirect("/cxddc/cuxiao/detail?id=$model->id");
+                    Yii::$app->response->redirect("/admin/mindex/detail?id=$model->id");
                 }else{
                     Yii::$app->session->setFlash('error','添加失败！');
                 }
             }
         }
         $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
-        return $this->render('publishinfo',['model'=>$model,'to'=>$to,'currentuserid'=>$currentuserid,'getcity'=>$getcity]);
+        return $this->renderPartial('publishinfo',['model'=>$model,'to'=>$to,'currentuserid'=>$currentuserid,'getcity'=>$getcity]);
     }
     
     
@@ -238,7 +238,7 @@ class MindexController extends Controller{
                 
                 $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
                 
-                return $this->render('mypublished',['mypublishitems'=>$mypublishitems,'currentuserid'=>$currentuserid]);
+                return $this->renderPartial('mypublished',['mypublishitems'=>$mypublishitems,'currentuserid'=>$currentuserid]);
             }
             else
             {
@@ -262,7 +262,7 @@ class MindexController extends Controller{
                 
                 $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
                 
-                return $this->render('mypublished',['mypublishitems'=>$mypublishitems,'currentuserid'=>$currentuserid]);
+                return $this->renderPartial('mypublished',['mypublishitems'=>$mypublishitems,'currentuserid'=>$currentuserid]);
             }
             else
             {
@@ -339,7 +339,7 @@ class MindexController extends Controller{
             
             $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
             
-            return $this->render('mypublished',['mypublishitems'=>$mypublishitems,'currentuserid'=>$currentuserid]);
+            return $this->renderPartial('mypublished',['mypublishitems'=>$mypublishitems,'currentuserid'=>$currentuserid]);
         }
         else
         {
@@ -388,7 +388,7 @@ class MindexController extends Controller{
         //获取所有问题信息
         $items=\app\models\User::findBySql($Sqlitem)->all();
         
-        return $this->render('usermanage',['items'=>$items]);
+        return $this->renderPartial('usermanage',['items'=>$items]);
         
     }
     
@@ -426,7 +426,7 @@ class MindexController extends Controller{
         //获取所有问题信息
         $items=\app\models\User::findBySql($Sqlitem)->all();
         
-        return $this->render('banuser',['items'=>$items]);
+        return $this->renderPartial('banuser',['items'=>$items]);
     }
 
 
@@ -504,6 +504,22 @@ class MindexController extends Controller{
     public function actionStatistics()
     {
         
+    }
+    
+    
+    public function actionDetail($id)
+    {
+        $item = Activity::findOne(['id'=>$id]);
+
+        if(isset($item)) 
+        {
+
+            $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
+            
+            $arryimg = $item->newspictures;
+
+            return $this->render('detail',['item'=>$item,'arryimg'=>$arryimg,'currentuserid'=>$currentuserid]);
+        }
     }
     
 

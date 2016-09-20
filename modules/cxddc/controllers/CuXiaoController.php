@@ -185,9 +185,42 @@ class CuXiaoController extends Controller{
             $Sqlitem=$Sqlitem." order by paynum DESC,ordernum asc";
             //获取所有问题信息
             $items=\app\models\Activity::findBySql($Sqlitem)->all();
+            
+            
+            
+            ///开始活动内容直接用于轮播展示
+            
+            
+            $activitybanner = array();
+            
+            $Sqlitem1="select a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id where a.belongarea ='$getcity' and lableremark='banner' order by ordernum asc limit 5";
+            $localactivitybanner=\app\models\Activity::findBySql($Sqlitem1)->all();
+            
+            if(count($localactivitybanner)==5)
+            {
+                $activitybanner =$localactivitybanner;
+            }
+            else
+            {
+                $Sqlitem1="select a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id where a.belongarea ='全国' and lableremark='banner' order by ordernum asc limit 5";
+                $quanguoactivitybanner=\app\models\Activity::findBySql($Sqlitem1)->all();
+                
+                $activitybanner =$quanguoactivitybanner;
+            }
+            
+            
+            
+            
+            
+            ////结束
+            
+            
+            
+            
+            
                         
             $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
-            return $this->render('cuxiaoindex',['items'=>$items,'category'=>$category,'banner'=>$banner,'search'=>$search,'cityname'=>$getcity,'currentuserid'=>$currentuserid]);
+            return $this->render('cuxiaoindex',['items'=>$items,'category'=>$category,'banner'=>$banner,'search'=>$search,'cityname'=>$getcity,'currentuserid'=>$currentuserid,'activitybanner'=>$activitybanner]);
         }
         else
         {

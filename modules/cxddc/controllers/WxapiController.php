@@ -196,7 +196,55 @@ class WxapiController extends Controller{
 	
 	
 	
-	//endbegion 企业付款
+	//bengin 删除过期的信息
+
+    public  function actionDeleteactivity()
+    {
+
+        ///查询哪些超过三天没有回答的，如果没有回答，就发起退款服务。
+        $Sql="SELECT a.* FROM sm_activity as a  where a.end_time < curdate()";
+
+        $activityitmes=\app\models\Activity::findBySql($Sql);
+        $items=$activityitmes->all();
+        
+        foreach($items as $v){
+            
+            
+            $id=$v->id;
+            
+            
+            ///先获取该活动关联图片
+            $model = \app\models\Activity::findOne(['id'=>$id]);
+            
+            $surfaceimg = $model->surface; //封面图片
+            
+            
+            $newspicturesarraryimg = $model->newspictures;  // 展示图片
+            
+            $resultint =  \app\models\Activity::deleteAll(['id'=>$id]);
+            
+            if($resultint>0)
+            {
+                $app_root =APP_ROOT;
+
+                $del=unlink($app_root.$surfaceimg);
+                
+                foreach($newspicturesarraryimg as  $item)
+                {
+                    if(strlen($item)>5)
+                    {
+                        $del=unlink($app_root.$item);
+                        
+                    }
+                    
+                    
+                }
+            }
+        }
+
+    }
+    
+    ////结束过期的信息
     
     
     

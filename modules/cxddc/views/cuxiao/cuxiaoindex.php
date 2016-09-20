@@ -153,41 +153,42 @@ $signPackage = $jssdk->GetSignPackage();
             <div class="mui-slider-group mui-slider-loop">
                   <?php 
                 $lastimgpath ='';
+                $lasthrefurl ='';
+                $firsthrefurl='';
+                
                 
                 ?>
 
-                <div class="mui-slider-item mui-slider-item-duplicate">
-                    <a id="lasts" href="#">
-                        <img src="/../<?=  $lastimgpath?>">
-
-                    </a>
-                </div>
+             
 
                 <?php 
                 $count =0;
                 $firstimgpath ='';
                 $hrefurl='#';
                 ?>
-                 <?php if(count($banner)>0):?>
+                 <?php if(count($activitybanner)>0):?>
                 
-                <?php foreach($banner as $b):?>
+                <?php foreach($activitybanner as $b):?>
 
                 <?php 
                 if($count==0)
                 {
-                    $firstimgpath =$b->bannerimgpath;
+                    $firstimgpath =$b->surface;
+                    $firsthrefurl ='/cxddc/cuxiao/detail?id='.$b->id;
                 }
                 if($count==4)
                 {
-                    $lastimgpath =$b->bannerimgpath;
-                    $hrefurl ='cuxiaoindex';
+                    $lastimgpath =$b->surface;
+                    $lasthrefurl ='/cxddc/cuxiao/detail?id='.$b->id;
+                   
                     
                 }
+                $hrefurl ='/cxddc/cuxiao/detail?id='.$b->id;
                 $count++;
                 ?>
                 <div class="mui-slider-item">
                     <a href="<?=$hrefurl?>">
-                        <img src="/../<?=$b->bannerimgpath;?>">
+                        <img src="/../<?=$b->surface;?>">
                     </a>
                 </div>
 
@@ -196,10 +197,19 @@ $signPackage = $jssdk->GetSignPackage();
 
                 <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 				<div class="mui-slider-item mui-slider-item-duplicate">
-                    <a  id="fists" href="#">
+                    <a  id="fists" href="<?= $firsthrefurl?>">
                         <img src="/../<?=$firstimgpath?>">
                     </a>
                 </div>
+
+
+                   <div class="mui-slider-item mui-slider-item-duplicate">
+                    <a id="lasts" href="<?= $lasthrefurl?>">
+                        <img src="/../<?=  $lastimgpath?>">
+
+                    </a>
+                </div>
+
             </div>
             <div id="indicator"  class="mui-slider-indicator">
                 <div class="mui-indicator mui-active"></div>

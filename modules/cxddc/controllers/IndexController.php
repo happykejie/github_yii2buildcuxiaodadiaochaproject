@@ -102,22 +102,22 @@ class IndexController extends Controller{
     //Î¢ÐÅ×Ô¶¯ÑéÖ¤
     public function actionIndex($id = 1,$code=null,$fxren=-1){
 
-        $ismobile =  $this->checkmobile();
-        $user_agent = $_SERVER['HTTP_USER_AGENT'];
-        if (strpos($user_agent, 'MicroMessenger') === false) {
-            // ·ÇÎ¢ÐÅä¯ÀÀÆ÷½ûÖ¹ä¯ÀÀ
-           $ismobile = false;
-        } else {
-            // Î¢ÐÅä¯ÀÀÆ÷£¬ÔÊÐí·ÃÎÊ
-            $ismobile = true;
-        }
+       // $ismobile =  $this->checkmobile();
+       // $user_agent = $_SERVER['HTTP_USER_AGENT'];
+       // if (strpos($user_agent, 'MicroMessenger') === false) {
+       //     // ·ÇÎ¢ÐÅä¯ÀÀÆ÷½ûÖ¹ä¯ÀÀ
+       //    $ismobile = false;
+       // } else {
+       //     // Î¢ÐÅä¯ÀÀÆ÷£¬ÔÊÐí·ÃÎÊ
+       //     $ismobile = true;
+       // }
 
-       if(!$ismobile)
-        {
-           //·µ»ØºóÌ¨µÇÂ¼Ò³Ãæ
-            Yii::$app->response->redirect(Url::to(['/admin/index'],true));
-            return;
-        }
+       //if(!$ismobile)
+       // {
+       //    //·µ»ØºóÌ¨µÇÂ¼Ò³Ãæ
+       //     Yii::$app->response->redirect(Url::to(['/admin/index'],true));
+       //     return;
+       // }
         
         //·µ»ØÊ×Ò³
         // yii::$app->response->redirect(url::to(['/cxddc/cxddc/index'],true));

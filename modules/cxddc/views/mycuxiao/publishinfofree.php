@@ -51,7 +51,7 @@ $signPackage = $jssdk->GetSignPackage();
 <head>
     <meta charset="UTF-8">
     <?= Html::csrfMetaTags() ?>
-    <title>新增活动</title>
+    <title>免费发布活动</title>
     <?=Html::cssFile('@web/web/css/bootstrap.min.css')?>
     <?=Html::cssFile('@web/web/css/site.css')?>
 

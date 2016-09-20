@@ -65,8 +65,6 @@ $signPackage = $jssdk->GetSignPackage();
                 height:67px;
                 margin-right:10px;
             }
-
-         
 		</style>
 
         
@@ -74,7 +72,7 @@ $signPackage = $jssdk->GetSignPackage();
 </head>
 <body>
 
-           <?php if(Yii::$app->session->hasFlash('notattention')):?>
+  <?php if(Yii::$app->session->hasFlash('notattention')):?>
                     <div class="alert alert-success text">
                        
                         <script>
@@ -89,31 +87,31 @@ $signPackage = $jssdk->GetSignPackage();
 <div class="mui-indexed-list-search mui-input-row mui-search">
 
 
+
+     
+
      <div id="look-header" class="row">
-           
+
+
+               
 					<div class="col-md-12">
                     
+
                       <div class="col-md-6">
                    
-                
-
-                        
+                   
 
                          <div id="divsearch" style="margin-top:10px;margin-left:5px">
 
                               <?php $form=ActiveForm::begin(['id'=>'index','enableAjaxValidation'=>false]); ?>
-
-                             <div style="float:left;width:70px;margin-top:10px; margin-left:10px; border:0px; color:#23ac38">
-                                    <a href="/web/cxddc/mycuxiao/locationcity" style="color:#23ac38"><?php echo $cityname?></a>
+							  
+							      <div style="float:left;width:70px;margin-top:10px; margin-left:10px; border:0px; color:#23ac38">
+                                    <a href="/cxddc/mycuxiao/locationcity" style="color:#23ac38"><?php echo $cityname?></a>
                              </div>
-                            
 
                     <?=$form->field($search,'name')->textinput(['placeholder'=>'请输入关键字查询','maxlength'=>8]);?>
                                <?=Html::submitButton('',['class'=>'btn btn-primary mui-input-clear mui-indexed-list-search-input mui-icon mui-icon-search'])?>
                             </div>
-         
-                  
-            
 					</div>
                 <?php ActiveForm::end()?>
 
@@ -122,7 +120,7 @@ $signPackage = $jssdk->GetSignPackage();
                          
             </div>
 
-     
+</div>      
 	  <div style="padding: 0 10px 10px 10px; background-color: #FFFFFF; position: relative;">
             <div id="segmentedControl" class="segmented-control segmented-control-inverted segmented-control-primary">
                 <a class="mui-control-item mui-active" aindex='1' href="#item1">全部
@@ -153,7 +151,7 @@ $signPackage = $jssdk->GetSignPackage();
         <!--轮播-->
         <div id="slider" class="mui-slider">
             <div class="mui-slider-group mui-slider-loop">
-                <?php 
+                  <?php 
                 $lastimgpath ='';
                 
                 ?>
@@ -245,13 +243,13 @@ $signPackage = $jssdk->GetSignPackage();
                 <?endif?>
                 <?php if(count($items)<=0&&!isset($askone)):?>
                 <li style="background-color: #efeff4;">
-                    <div style="margin-top: 0px;">
+                    <div style="margin-top: 30px;">
                         <div class="face">
                             <img src="/web/assets/mui/images/face.png" />
                         </div>
                         <p class="remind-text">暂时还没有相关促销信息！</p>
                         <div class="mui-button-row">
-                            <a href="/cxddc/lookforpeople/lookforpeople">
+                            <a href="/cxddc/mycuxiao/unlimitpublish">
                                 <button type="button" class="mui-btn-primary remind-button">
                                     去发布
                                 </button>
@@ -297,8 +295,8 @@ $signPackage = $jssdk->GetSignPackage();
                         </div>
                         <p class="remind-text">暂时还没有相关促销信息！</p>
                         <div class="mui-button-row">
-                            <a href="/cxddc/lookforpeople/lookforpeople">
-                                <button type="button" class="mui-btn-primary remind-button">去免费发布促销信息</button>
+                            <a href="/cxddc/mycuxiao/unlimitpublish">
+                                <button type="button" class="mui-btn-primary remind-button">去发布</button>
                             </a>
                         </div>
                     </div>

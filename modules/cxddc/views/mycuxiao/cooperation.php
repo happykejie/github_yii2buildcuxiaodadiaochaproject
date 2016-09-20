@@ -17,7 +17,7 @@ $signPackage = $jssdk->GetSignPackage();
 
 	<head>
 		<meta charset="utf-8">
-		<title>Hello MUI</title>
+		<title>平台合作</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -74,7 +74,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="mui-content">
 			<div class="mui-content-padded">
 
-               <div style="text-align:left;color:#23ac38"> 平台合作：</div>
+               <div style="text-align:left;color:#23ac38"> 平台简介：</div>
                <div style="padding-left:20px;text-align:left"><p> 促销大调查是阿欢阿杰科技自主开发和运营的全国首家促销信息平台。全国最大的促销信息分享平台。阿欢阿杰科技专注微信领域开发，提供微信运营解决方案。</p></div>
             </div>
                
@@ -93,9 +93,7 @@ $signPackage = $jssdk->GetSignPackage();
 						手机(微信): <span id="bill_no">徐总：18980946169</span>
 					</li>
 					
-					<li class="mui-table-view-cell">
-						手机(微信):<span id="status">徐总：15208203813</span>
-					</li>
+					
 
                     <li class="mui-table-view-cell">
 						手机(微信): <span id="total_fee">张先生：15198029360</span>

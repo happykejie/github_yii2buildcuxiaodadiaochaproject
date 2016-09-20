@@ -37,11 +37,7 @@ $signPackage = $jssdk->GetSignPackage();
             display:none;
         }
 
-        .phone-input{ 
-padding-right:20px; 
-background:url("/web/images/icon6.png") no-repeat scroll right center transparent; 
-background-color:red;
-} 
+
 
     </style>
      
@@ -57,24 +53,11 @@ background-color:red;
 		<div class="mui-content">
 			<div class="mui-content-padded" style="margin: 5px;">
 
-
-
-                 
-
                 <div class="q"></div>
 				<div class="mui-content-padded">
-					<h4 class="s">当前设置城市</h4>
-					<div class="dianh s">
-						<?=  $cityname?>
-					</div>
+					<h4 class="s">当前设置城市: <span style="color:#23ac38"><?=  $cityname?></span>   </h4>
+				
 				</div>
-
-
-                <input class='phone-input' value="test" type="text" id="phone"/> 
-
-              
-
-
 
                  <?php $form=ActiveForm::begin(['id'=>'locationcity','enableAjaxValidation'=>false]); ?>
 

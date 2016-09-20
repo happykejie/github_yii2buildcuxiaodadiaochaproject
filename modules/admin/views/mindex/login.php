@@ -44,7 +44,7 @@ use yii\widgets\ActiveForm;
 
             
 				
-				        <?=$form->field($model,'pwd')->passwordInput(['placeholder'=>'请输入密码','class'=>'mui-input-clear mui-input']); ?>
+				        <?=$form->field($model,'pwd')->textInput(['placeholder'=>'请输入密码','class'=>'mui-input-clear mui-input']); ?>
 				
         
     

@@ -16,7 +16,7 @@ $signPackage = $jssdk->GetSignPackage();
 <html>
 <head>
     <meta charset="utf-8">
-    <title>二维码</title>
+    <title>分享二维码</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -33,12 +33,12 @@ $signPackage = $jssdk->GetSignPackage();
     <div class="mui-content infon" style="position: relative;">
         <div class="infon-cont">
             <div class="infon-h4">
-                <h4>请关注促销大调查的官方微信</h4>
+                <h4>谢谢关注促销大调查的官方微信</h4>
             </div>
             <div style="line-height:5px;padding-top:5px;" >
-             <p>第一步：长按住二维码3秒以上出现弹层</p>
-           <p>第二步：在弹层中选择"识别图中的二维码"</p>
-            <p>第三步：点击下方的关注按钮关注</p>
+             <p>(1)每获取一个用户关注，就获取10个积分</p>
+           <p>(2)分享给朋友,进入系统可获取10个积分</p>
+            <p>(3)所有积分可以后期可用于提现，支付</p>
             </div>
          
            

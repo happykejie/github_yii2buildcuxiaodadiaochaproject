@@ -18,7 +18,9 @@ use Yii;
  */
 class fxandbfx extends \yii\db\ActiveRecord
 {
-
+    public $homepictures=[];
+    public $newspictures=[];
+    public $surface_file;
     /**
      * @inheritdoc
      */
@@ -55,9 +57,6 @@ class fxandbfx extends \yii\db\ActiveRecord
             'bfxrenid' => '被分享人ID',
             'createtime' => '创建时间',
             'remark' => '备注',
-           
-            
-            
 
         ];
     }

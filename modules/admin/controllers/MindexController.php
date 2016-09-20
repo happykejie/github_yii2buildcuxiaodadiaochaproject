@@ -46,7 +46,7 @@ class MindexController extends Controller{
         $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
         $items =YiiUser::findOne(['id'=>$currentuserid]);
 
-        return $this->renderPartial('index',['items'=>$items]);
+        return $this->render('index',['items'=>$items]);
         
     
         
@@ -63,7 +63,15 @@ class MindexController extends Controller{
 
         if($model->load(Yii::$app->request->post())){
 
-            if($model->login()){
+			
+			
+			
+			
+			
+		
+            if($model->loginm()){
+				
+			
                 //查询未读消息
                 $count=Msg::find()->andwhere(['tid'=>Yii::$app->user->getId(),'status'=>0])->count();
                 $session=Yii::$app->session;
@@ -72,11 +80,11 @@ class MindexController extends Controller{
                 return $this->redirect(['mindex/index']);
                 
             }else{
-                return $this->renderPartial('login',['model'=>$model]);
+                return $this->render('login',['model'=>$model]);
             }
         }
 
-        return $this->renderPartial('login',['model'=>$model]);
+        return $this->render('login',['model'=>$model]);
         
         
     }
@@ -113,6 +121,7 @@ class MindexController extends Controller{
 		}
 		
 
+       
         $group= \app\models\Category::find()->all();
         $to=array();
         foreach($group as $v){
@@ -173,7 +182,7 @@ class MindexController extends Controller{
             }
         }
         $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
-        return $this->renderPartial('publishinfo',['model'=>$model,'to'=>$to,'currentuserid'=>$currentuserid,'getcity'=>$getcity]);
+        return $this->render('publishinfo',['model'=>$model,'to'=>$to,'currentuserid'=>$currentuserid,'getcity'=>$getcity]);
     }
     
     
@@ -238,12 +247,12 @@ class MindexController extends Controller{
                 
                 $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
                 
-                return $this->renderPartial('mypublished',['mypublishitems'=>$mypublishitems,'currentuserid'=>$currentuserid]);
+                return $this->render('mypublished',['mypublishitems'=>$mypublishitems,'currentuserid'=>$currentuserid]);
             }
             else
             {
                 //返回登陆
-                Yii::$app->response->redirect(Url::to(['/cxddc/index'],true));
+                           Yii::$app->response->redirect(Url::to(['/admin/mindex/login'],true));
                 return false;			
             }
         }
@@ -262,12 +271,12 @@ class MindexController extends Controller{
                 
                 $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
                 
-                return $this->renderPartial('mypublished',['mypublishitems'=>$mypublishitems,'currentuserid'=>$currentuserid]);
+                return $this->render('mypublished',['mypublishitems'=>$mypublishitems,'currentuserid'=>$currentuserid]);
             }
             else
             {
                 //返回登陆
-                Yii::$app->response->redirect(Url::to(['/cxddc/index'],true));
+                          Yii::$app->response->redirect(Url::to(['/admin/mindex/login'],true));
                 return false;			
             }
         }
@@ -339,12 +348,12 @@ class MindexController extends Controller{
             
             $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
             
-            return $this->renderPartial('mypublished',['mypublishitems'=>$mypublishitems,'currentuserid'=>$currentuserid]);
+            return $this->render('mypublished',['mypublishitems'=>$mypublishitems,'currentuserid'=>$currentuserid]);
         }
         else
         {
             //返回登陆
-            Yii::$app->response->redirect(Url::to(['/cxddc/index'],true));
+            Yii::$app->response->redirect(Url::to(['/admin/mindex/login'],true));
             return false;			
         }
     }
@@ -388,7 +397,7 @@ class MindexController extends Controller{
         //获取所有问题信息
         $items=\app\models\User::findBySql($Sqlitem)->all();
         
-        return $this->renderPartial('usermanage',['items'=>$items]);
+        return $this->render('usermanage',['items'=>$items]);
         
     }
     
@@ -426,7 +435,7 @@ class MindexController extends Controller{
         //获取所有问题信息
         $items=\app\models\User::findBySql($Sqlitem)->all();
         
-        return $this->renderPartial('banuser',['items'=>$items]);
+        return $this->render('banuser',['items'=>$items]);
     }
 
 
@@ -506,8 +515,7 @@ class MindexController extends Controller{
         
     }
     
-    
-    public function actionDetail($id)
+	 public function actionDetail($id)
     {
         $item = Activity::findOne(['id'=>$id]);
 
@@ -521,7 +529,6 @@ class MindexController extends Controller{
             return $this->render('detail',['item'=>$item,'arryimg'=>$arryimg,'currentuserid'=>$currentuserid]);
         }
     }
-    
 
 
  

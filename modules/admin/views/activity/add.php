@@ -91,8 +91,7 @@ function getinitialPreview($imgs){
                     <?= $form->field($model,'belongarea')->textinput();?>
                     <?= $form->field($model,'ispay')->dropDownList(['是'=>'是','否'=>'否']);?>
                     <?= $form->field($model,'paynum')->textinput();?>
-                    <?= $form->field($model,'lableremark')->textinput();?>
-
+					 <?= $form->field($model,'lableremark')->textinput();?>
                     <input type="hidden" id="province" value="">
                     <input type="hidden" id="city" value="">
 
@@ -292,7 +291,7 @@ function getinitialPreview($imgs){
         hideCityInput: '#city',
         hideProvinceInput: '#province',
         callback: function (city_id) {
-           // alert(city_id);
+            //alert(city_id);
         }
     });
 

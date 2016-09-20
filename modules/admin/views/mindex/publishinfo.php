@@ -348,7 +348,7 @@ $signPackage = $jssdk->GetSignPackage();
                             var daysnum = DateDiff(beginDate, endDate) + 1;
 
                             if (daysnum > 60) {
-                                alert('时间跨度大于60天,请联系平台商免费发布');
+                                alert('时间跨度大于60点,请联系平台商免费发布');
                                 $("#activity-start_time").val("");
                             }
 

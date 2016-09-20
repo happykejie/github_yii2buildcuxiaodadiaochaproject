@@ -63,14 +63,11 @@ class IndexController extends Controller{
      */
     public function actionIndex()
     {
-        if(CURR_DOMAIN =="boshizhidao.com") 
-        {
-            return $this->render('indexbszd');
-        }
+    
         
         
         
-        return $this->render('indexbszd');
+        return $this->render('index');
     }
 
 
@@ -316,20 +313,9 @@ class IndexController extends Controller{
      * @用户头像上传
      */
     public function  actionThumb(){
-       //$user=YiiUser::findOne(Yii::$app->user->getId());
-      //  return $this->render('thumb',array('user'=>$user));
-        
-        return $this->renderPartial('mlogin');
+       $user=YiiUser::findOne(Yii::$app->user->getId());
+        return $this->render('thumb',array('user'=>$user));
     }
-    
- 
-    
-    
-
-    
-    
-   
-    
 
     /**
      * @
@@ -370,10 +356,6 @@ class IndexController extends Controller{
         }
 
     }
-    
-
-    
-
 
     /**
      * @裁剪头像
@@ -413,8 +395,6 @@ class IndexController extends Controller{
             exit;
         }
     }
-    
-
 
 
 

@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>后台管理系统</title>
+    <title>促销大调查后台管理系统</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=9" />
     <?=Html::cssFile('@web/web/assets/css/dpl-min.css')?>

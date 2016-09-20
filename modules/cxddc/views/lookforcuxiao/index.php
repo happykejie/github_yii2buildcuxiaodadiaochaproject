@@ -77,7 +77,8 @@ $signPackage = $jssdk->GetSignPackage();
 
 </head>
 <body>
-      <?php if(Yii::$app->session->hasFlash('notattention')):?>
+
+   <?php if(Yii::$app->session->hasFlash('notattention')):?>
                     <div class="alert alert-success text">
                        
                         <script>
@@ -86,6 +87,7 @@ $signPackage = $jssdk->GetSignPackage();
                         </script>
                     </div>
                     <?endif?>
+
     <div id="mui-wrap" class="mui-content" style="overflow-y: auto; position: relative; ">
         <div id="s">
             <div style="padding: 10px 10px 10px 10px;">
@@ -138,7 +140,7 @@ $signPackage = $jssdk->GetSignPackage();
                                 </div>
                                 <p class="remind-text">您暂时还没有信息哦！</p>
                                 <div class="mui-button-row">
-                                    <a href="/cxddc/lookforpeople/lookforpeople">
+                                    <a href="/cxddc/mycuxiao/unlimitpublish">
                                         <button type="button" class="mui-btn-primary remind-button">去发布</button>
                                     </a>
                                 </div>
@@ -182,7 +184,7 @@ $signPackage = $jssdk->GetSignPackage();
                                 </div>
                                 <p class="remind-text">您暂时还没有信息哦！</p>
                                 <div class="mui-button-row">
-                                   <a href="/cxddc/mycuxiao/publishinfonew">
+                                  <a href="/cxddc/mycuxiao/unlimitpublish">
                                         <button type="button" class="mui-btn-primary remind-button">去发布</button>
                                     </a>
                                 </div>
@@ -226,7 +228,7 @@ $signPackage = $jssdk->GetSignPackage();
                                 </div>
                                 <p class="remind-text">您暂时还没有信息哦！</p>
                                 <div class="mui-button-row">
-                                    <a href="/cxddc/mycuxiao/publishinfonew">
+                                    <a href="/cxddc/mycuxiao/unlimitpublish">
                                         <button type="button" class="mui-btn-primary remind-button">去发布</button>
                                     </a>
                                 </div>
@@ -267,7 +269,7 @@ $signPackage = $jssdk->GetSignPackage();
                                 </div>
                                 <p class="remind-text">您暂时还没有信息哦！</p>
                                 <div class="mui-button-row">
-                                  <a href="/cxddc/mycuxiao/publishinfonew">
+                                  <a href="/cxddc/mycuxiao/unlimitpublish">
                                         <button type="button" class="mui-btn-primary remind-button">去发布</button>
                                     </a>
                                 </div>
@@ -311,7 +313,7 @@ $signPackage = $jssdk->GetSignPackage();
                                 </div>
                                 <p class="remind-text">您暂时还没有信息哦！</p>
                                 <div class="mui-button-row">
-                                    <a href="/cxddc/mycuxiao/publishinfonew">
+                                    <a href="/cxddc/mycuxiao/unlimitpublish">
                                         <button type="button" class="mui-btn-primary remind-button">去发布</button>
                                     </a>
                                 </div>

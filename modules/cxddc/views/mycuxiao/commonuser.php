@@ -26,18 +26,17 @@ $signPackage = $jssdk->GetSignPackage();
 </head>
 <body>
     <div class="mui-content" >
-
-          <?php if(Yii::$app->session->hasFlash('notattention')):?>
+	
+	      <?php if(Yii::$app->session->hasFlash('notattention')):?>
                     <div class="alert alert-success text">
                        
                         <script>
-                            alert('还没关注该公众号，请先关注')
+							alert('还没关注该公众号，请先关注')
                             setTimeout('window.location.href=\'/cxddc/mycuxiao/infoercode\'', 1000);
                         </script>
                     </div>
                     <?endif?>
-
-
+	
         <div class="my-header">
             <div class="oa-contact-avatar " style="margin-top:5px">
                 <img src="<?=$items->headimgurl?>">
@@ -67,13 +66,13 @@ $signPackage = $jssdk->GetSignPackage();
                 <li>
                     <a href="infoercode">
                         <img src="/web/assets/mui/images/icon8.png" alt="" />
-                        <div class="">关注</div>
+                        <div class="">二维码</div>
                     </a>
                 </li>
                 <li>
-                    <a href="fxercode">
-                        <img style="width: 28px;" src="/web/assets/mui/images/icon8.png" alt="" />
-                        <div class="bj">分享</div>
+                    <a href="myinfo">
+                        <img style="width: 28px;" src="/web/assets/mui/images/icon9.png" alt="" />
+                        <div class="bj">编辑</div>
                     </a>
                 </li>
             </ul>

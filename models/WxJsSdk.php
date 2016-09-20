@@ -80,73 +80,46 @@ class WxJsSdk  {
                 return false;
             }
         }
-          
-          
-          
 
-       
-
-    
-    
-   
-	
-	
 	
 	//有人老师审核与否通知用户消息模板
     public function sendapproveresulttouser($touser,$issuccess,$reason){
-		
-		
-        
+
         if($issuccess)
         {
-            $first = "你好,你在".DOMAITDESC."上申请成为老师已经通过";
-            $keyword1 = DOMAITDESC;
-            $t=time(); 
-            $datetime = date("Y-m-d H:i:s",$t); 
-            $keyword2 =$datetime;
-            $keyword3 ="尊敬的用户，感谢你使用".DOMAITDESC."平台。你申请成为老师已经通过审核";
+            $first = "你好,你在".DOMAITDESC."上申请成为发布者已经通过";
+            $keyword1 = time();
+            $keyword2 ="尊敬的用户，感谢你使用".DOMAITDESC."平台。你申请成为发布者已经通过审核";
         }
-        
         else
         {
-            $first = "你好,你在".DOMAITDESC."上申请成为老师未通过";
-            $keyword1 = "".DOMAITDESC."";
-            $t=time(); 
-            $datetime = date("Y-m-d H:i:s",$t); 
-            $keyword2 =$datetime;           
-            $keyword3 ="尊敬的用户，感谢你使用".DOMAITDESC."平台。你申请成为老师未通过审核，具体原因：".$reason;
+            $first = "你好,你在".DOMAITDESC."上申请成为发布者未通过";
+            $keyword1 = time();     
+            $keyword2 ="尊敬的用户，感谢你使用".DOMAITDESC."平台。你申请成为发布者未通过审核，具体原因：".$reason;
         }
-        
 		
-        
 		$url = HTTPWWW;
 
         //模板消息	
         $template=array(
-       'touser'=>$touser,//提问人
-       'template_id'=>SDHFTZ,  //收到回复通知模板ID
+       'touser'=>$touser,//申请人
+       'template_id'=>SHJGTZ,  //审核结果通知              
        'url'=>$url,
        'topcolor'=>"#7B68EE",
        'data'=>array(
        'first'=>array('value'=>urlencode($first),'color'=>"#743A3A"),
        'keyword1'=>array('value'=>urlencode($keyword1),'color'=>'#743A3A'),
        'keyword2'=>array('value'=>urlencode($keyword2),'color'=>'#743A3A'),
-       'keyword3'=>array('value'=>urlencode($keyword3),'color'=>'#743A3A'),
-
        'remark'=>array('value'=>urlencode('此消息有'.DOMAITDESC.'提供'),'color'=>'#743A3A'),
                )
                );
         //  $json_template=json_encode($template);
-		
-        
+
         $accessToken = $this->getAccessTokenfile();
         $url="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$accessToken;
-		
-		
+
         $res= $this->http_request($url,urldecode(json_encode($template)));
-		
-        
-		
+
 	    return $res;
 		
 

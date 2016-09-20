@@ -113,10 +113,9 @@ class MyCuXiaoController extends Controller{
     public function actionPublishuser()
     {
        
-     
-    
+        
         $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
-        $items =User::findOne(['id'=>$currentuserid]);
+          $items =User::findOne(['id'=>$currentuserid]);
         return $this->render('publishuser',['items'=>$items,'currentuserid'=>$currentuserid]);
     }
     
@@ -127,7 +126,7 @@ class MyCuXiaoController extends Controller{
     {
         
         $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
-        $items =User::findOne(['id'=>$currentuserid]);
+         $items =User::findOne(['id'=>$currentuserid]);
         return $this->render('publishuser',['items'=>$items,'currentuserid'=>$currentuserid]);
        
     }
@@ -149,17 +148,24 @@ class MyCuXiaoController extends Controller{
      * 我的发布
      */
     public function actionMypublished()
-    {    
-        
-        
-        ///开始删除促销活动
+    {             
+	
+		  ///开始删除促销活动
         $activity= new Activity();
 
    if($activity->load(Yii::$app->request->post()))//判断是否是表单提交
         {
             
+	
+			
             ///先获取该活动关联图片
             $model = Activity::findOne(['id'=>$activity->id]);
+			
+			if(!$model)
+			{
+				  Yii::$app->session->setFlash('success','删除失败！');
+				  return;
+			}
             
             $surfaceimg = $model->surface; //封面图片
             
@@ -191,12 +197,11 @@ class MyCuXiaoController extends Controller{
         }
    
         ///结束删除促销活动
-        
-        
         $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
         $userid =Yii::$app->user->getId();
         if( $this->_user ){
-
+           
+            
             $Sqlitem="select a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id where a.publishpeople ='$userid'";
           
             $Sqlitem=$Sqlitem." order by ordernum asc,createtime DESC";
@@ -261,8 +266,9 @@ class MyCuXiaoController extends Controller{
         return $this->render('infoercode',['currentuserid'=>$currentuserid]);
         
     }
-    
-    /**
+	
+	
+	   /**
      * 分享二维码
      */
     
@@ -296,7 +302,7 @@ class MyCuXiaoController extends Controller{
     
         
     }
-    
+	
 	
 	 /**
      * 定位城市
@@ -795,13 +801,9 @@ class MyCuXiaoController extends Controller{
         
         return $this->render('publishinfopay',['model'=>$model,'to'=>$to,'currentuserid'=>$currentuserid,'getcity'=>$getcity]);
     }
-    
-    
-    
-    
-    
-    
-    ///////////////////////////////////////////////无限制发布促销信息
+	
+	
+	 ///////////////////////////////////////////////无限制发布促销信息
     
     
     
@@ -811,27 +813,20 @@ class MyCuXiaoController extends Controller{
      */
     public function actionUnlimitindex()
     {
-        
-        
         $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
         $items =User::findOne(['id'=>$currentuserid]);
-        
-		
+
 		if($items->subscribe==0) //如果用户没用关注，跳转用户关注
         {
 			Yii::$app->session->setFlash('notattention','还没有关注，请先关注');
 
+        
         }
-
             return $this->render('unlimitindex',['items'=>$items,'currentuserid'=>$currentuserid]);
-         
     }
     
-    
-    
-    
-    
-    /**无限制发布消息
+  
+     /**无限制发布消息
      * @add
      */
     public function actionUnlimitpublish(){

@@ -268,7 +268,7 @@ class Activity extends \yii\db\ActiveRecord
             'ispay'=>'是否支付',
             'paynum'=>'支付金额',
             'viewcount'=>'浏览次数',
-            'lableremark'=>'标签',
+			 'lableremark'=>'标签',
             
             
 

@@ -71,9 +71,7 @@ class UseradminController extends Controller{
              //验证表单提交的内容正确性
             ){
             $model->userstate=3;
-
-            $model->pwd=md5($model->pwd);
-
+            $model->pwd=md5( $model->pwd);
             if($model->save()){
                 Yii::$app->session->setFlash('success','新增成功！');
             }else{
@@ -105,9 +103,6 @@ class UseradminController extends Controller{
         if($model->load(Yii::$app->request->post())//判断是否是表单提交
             && $model->validate() //验证表单提交的内容正确性
             ){
-            
-         
-            
             $model->pwd=md5($model->pwd);
             if($model->save()){
                 Yii::$app->session->setFlash('success','修改成功！');

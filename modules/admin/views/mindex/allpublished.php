@@ -18,11 +18,7 @@ ini_set('date.timezone','Asia/Shanghai');
  */
 ?>
 
-<?php
-require_once "models/WxJsSdk.php";
-$jssdk = new WxJsSdk(WX_APPID, WX_APPSECRET);  
-$signPackage = $jssdk->GetSignPackage();
-?>
+
 
 <!DOCTYPE html>
 <html>
@@ -166,12 +162,7 @@ $signPackage = $jssdk->GetSignPackage();
     </script>
 
 
-  <input type="hidden" value="<?= $currentuserid?>" id="userid"/>
-      	<!--Start 引入分享功能-->
-	<?php 
-    require(BASE_PATH.'/config/wxfxzhuyejs.php'); ///引入微信分享
-    ?> 
-    <!--End 结束分享功能-->
+ 
 
 </body>
 </html>

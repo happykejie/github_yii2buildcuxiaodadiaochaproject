@@ -180,8 +180,7 @@ class UserController extends Controller{
     
       //审核用户通过
     public function actionExamine($id){
-        
-        
+
         $model=User::findOne(['id'=>$id]);
         if($model->load(Yii::$app->request->post())//判断是否是表单提交
             && $model->validate() //验证表单提交的内容正确性
@@ -237,8 +236,6 @@ class UserController extends Controller{
         
         return $this->render('examineno' ,['model'=>$model]);
     }
-    
-
     
 } 
     

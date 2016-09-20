@@ -43,20 +43,15 @@ $signPackage = $jssdk->GetSignPackage();
           
                 <a href="unlimitpublish">发布促销消息</a>  
                 
-                
+           
             </div>
 
              <ul class="teacher-ul">
+             
                 <li>
-                    <a href="infoercode">
-                        <img src="/web/assets/mui/images/icon8.png" alt="" />
-                        <div class="">分享二维码</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="myinfo">
-                        <img style="width: 28px;" src="/web/assets/mui/images/icon9.png" alt="" />
-                        <div class="bj">编辑</div>
+                   <a href="fxercode">
+                        <img style="width: 28px;" src="/web/assets/mui/images/icon8.png" alt="" />
+                        <div class="bj">分享</div>
                     </a>
                 </li>
             </ul>

@@ -35,7 +35,7 @@
                   title: '<?php echo WXFX_TITLE ?>',
                   desc: '<?php echo WXFX_DESC ?>',
                   link: '<?php echo WXFX_LINK ?>' + '/cxddc/index?fxren=' + userid + '',
-                  imgUrl: '<?php echo WXFX_IMGPATH ?>'
+                  imgUrl:'<?php echo WXFX_IMGPATH ?>'
               };
 
               wx.onMenuShareAppMessage(shareData);

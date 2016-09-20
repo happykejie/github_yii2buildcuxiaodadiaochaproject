@@ -33,7 +33,7 @@ class YiiUser extends ActiveRecord implements IdentityInterface
          
         
             [['userorder','phone'], 'integer'],
-            [['description','locationcity'], 'string'],
+            [['description'], 'string'],
             [['title'], 'string', 'max' =>225]
         ];
     }
@@ -161,8 +161,6 @@ class YiiUser extends ActiveRecord implements IdentityInterface
             'qqnum'=>'QQ号码',
             'belongfirm'=>'所属机构',
             'belongfirmphone'=>'所属机构电话',
-            
-            'locationcity'=>'定位城市',
             
             
             

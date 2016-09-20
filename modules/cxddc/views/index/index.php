@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 
 <head>
     <meta charset="utf-8">
-    <title>他她好孕</title>
+    <title>促销大调查</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -26,13 +26,7 @@ use yii\widgets\ActiveForm;
 
 <body>
     <nav class="mui-bar footer mui-bar-tab">
-        <a id="defaultTab" class="mui-tab-item mui-active" href="<?=Yii::$app->urlManager->createUrl('cxddc/cxddc/index')?>"">问答
-		    </a>
-        <a class="mui-tab-item" href="#tabbar-with-chat">找人
-		    </a>
-        <a class="mui-tab-item" href="#tabbar-with-contact">我		    
-		    </a>
-
+       
     </nav>
 
     <div class="mui-content">

@@ -52,9 +52,6 @@ class UserForm extends Model{
      */
     public function getUser(){
         if($this->_user===false){
-            
-            $getmd5 = md5($this->pwd);
-            
             $this->_user=YiiUser::find()->where(['user'=>$this->user,'pwd'=>md5($this->pwd)])->one();
         }
         return $this->_user;
@@ -66,11 +63,30 @@ class UserForm extends Model{
      */
     public function login(){
 
+		
         if($this->validate()){
+			
             return Yii::$app->user->login($this->getUser(),3600*24*1);
         }else{
             return false;
         }
+
+    }
+	
+	 /**
+     * @用户登录移动端
+     */
+    public function loginm(){
+		
+
+		if($this->_user===false){
+            $this->_user=YiiUser::find()->where(['user'=>$this->user,'pwd'=>md5($this->pwd)])->one();
+        }
+
+            return Yii::$app->user->login($this->getUser(),3600*24*1);
+      
+
+     
 
     }
 

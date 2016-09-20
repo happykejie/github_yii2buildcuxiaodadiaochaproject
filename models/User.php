@@ -31,10 +31,10 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['userorder','phone','qqnum','id'], 'integer'],
-           
+            [['userorder','phone','qqnum','isdevelop','id'], 'integer'],
+       
             
-            [['description','nickname','attentionname','city','country','pwd','locationcity','headimgurl','wechatnumber','explain','belongfirm','belongfirmphone','managecity','user','realname','remark'], 'string'],
+            [['description','nickname','attentionname','city','pwd','locationcity','country','headimgurl','wechatnumber','explain','belongfirm','belongfirmphone','managecity','user','realname','remark'], 'string'],
             [['questionprice'],'double'],
             [['title'], 'string', 'max' =>225]
         ];
@@ -369,10 +369,9 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->pwd === $password;
     }
-    
-    
-    
-    //得到当前用户发布的消息数量
+	
+	
+	 //得到当前用户发布的消息数量
     public function getUserpublishcount()
     {
         $model =\app\models\Activity::find()->where(['publishpeople'=>$this->id])->all();
@@ -422,8 +421,6 @@ class User extends ActiveRecord implements IdentityInterface
            'belongfirm'=>'所属机构',
            'belongfirmphone'=>'所属机构电话',
            'managecity'=>'管理城市',
-           'locationcity'=>'定位城市',
-           
 
        ];
     }

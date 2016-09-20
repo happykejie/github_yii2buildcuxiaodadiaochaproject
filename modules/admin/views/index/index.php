@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>后台管理系统</title>
+    <title>促销大调查后台管理系统</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=9" />
     <?=Html::cssFile('@web/web/assets/css/dpl-min.css')?>
@@ -81,23 +81,56 @@ use yii\widgets\ActiveForm;
         var userattention = "<?= Yii::$app->urlManager->createUrl('admin/userattention/index')?>";
 
         var user = "<?= Yii::$app->urlManager->createUrl('admin/user/index')?>";
+
+        var banner = "<?= Yii::$app->urlManager->createUrl('admin/banner/index')?>";
+
         var enterprisepay = "<?= Yii::$app->urlManager->createUrl('admin/enterprisepay/index')?>";
+        var useradmin = "<?= Yii::$app->urlManager->createUrl('admin/useradmin/index')?>";
+
+        var userdisable = "<?= Yii::$app->urlManager->createUrl('admin/userdisable/index')?>";
+
+        var uploadimg = "<?= Yii::$app->urlManager->createUrl('admin/tools/uploadimg')?>";
+
+        var publishinfo = "<?= Yii::$app->urlManager->createUrl('admin/publishinfo/index')?>";
+
+        var activity = "<?= Yii::$app->urlManager->createUrl('admin/activity/index')?>";
+
+
+
+
 
         BUI.use('common/main', function () {
             var config = [
                 {
                     id: '1', homePage: "6", menu: [
+                          //{
+                          //    text: '系统管理', items: [
+                          //          { id: '1', text: '朋友圈', href: moments },
+                          //          { id: '2', text: '头像管理', href: thumb }
+                          //    ]
+                          //},
+                          //{
+                          //    text: '私信管理', items: [
+                          //        { id: '3', text: '我的私信', href: msg },
+                          //        { id: '4', text: '我发送的', href: mysend },
+                          //        { id: '5', text: '发送私信', href: sendmsg }
+                          //    ]
+                          //}
+                          //,
                           {
                               text: '后台管理', items: [
-                                 { id: '6', text: '问题列表', href: askproblem },
+                                { id: '6', text: '活动管理', href: activity },
                                  { id: '7', text: '组别分类', href: category },
-                                 { id: '8', text: '爱听列表', href: lovelistenquestion },
-                                 { id: '9', text: '统计页面', href: statistics },
-                                 { id: '10', text: '老师列表', href: teacher },
-                                 { id: '11', text: '用户关注列表', href: userattention },
+                                 
+                                 { id: '10', text: '发布者列表', href: teacher },
+                           
                                  { id: '12', text: '用户表', href: user },
-                                 { id: '13', text: '问题回答列表', href: answerquestion },
-                                 { id: '14', text: '金额提现列表', href: enterprisepay }
+                                 { id: '16', text: '管理员用户列表', href: useradmin },
+                                 { id: '17', text: '禁用的用户', href: userdisable },
+                                 { id: '14', text: '轮播图片', href: banner },
+                                 { id: '15', text: '金额提现列表', href: enterprisepay },
+                           
+
                               ]
                           }
                     ]

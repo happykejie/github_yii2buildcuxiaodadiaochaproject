@@ -54,11 +54,7 @@ use yii\bootstrap\Alert;
                     <?endif?>
 
                     <?php $form=ActiveForm::begin(['id'=>'edit','enableAjaxValidation'=>false]); ?>
-                    <lable>昵称：<?echo $model->nickname?> </lable>
-
-                   
-
-                    <lable>真实姓名：<?echo $model->realname?></lable>
+                      <lable>真实姓名：<?echo $model->realname?></lable>
 
                     <lable>电话号码：<?echo $model->phone?> </lable>
 

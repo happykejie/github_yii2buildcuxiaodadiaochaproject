@@ -5,6 +5,11 @@ use yii\widgets\ActiveForm;
 
 ini_set('date.timezone','Asia/Shanghai');
 
+
+
+
+
+
 //echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
 
 //printf_info($order);
@@ -37,6 +42,7 @@ $signPackage = $jssdk->GetSignPackage();
     <?=Html::cssFile('@web/web/assets/mui/css/app.css')?>
     <?=Html::cssFile('@web/web/assets/mui/css/css/cxddc.css')?>
 
+
           <style>
 			.title {
 				margin:  20px 15px 10px;
@@ -54,10 +60,9 @@ $signPackage = $jssdk->GetSignPackage();
               width:5px;
 
             }
-
-
-
-            .delete-button{  position: absolute;  top: 50%; right: 0;  -webkit-transform: translateY(-50%);  transform: translateY(-50%);  border-radius:25px ;  font-size: 14px; padding:4px 10px;}
+			
+			
+			            .delete-button{  position: absolute;  top: 50%; right: 0;  -webkit-transform: translateY(-50%);  transform: translateY(-50%);  border-radius:25px ;  font-size: 14px; padding:4px 10px;}
 .delete-button img{width: 15px;vertical-align: middle;    margin-right: 3px;}
 .delete{background: #23ac38;  border: 1px solid #23ac38;}
 .delete:enabled:active{background-color: ; border: 1px solid ;}
@@ -88,9 +93,10 @@ $signPackage = $jssdk->GetSignPackage();
                            
                                   <p> 共<?=$v->viewcount?>人查看</p>
                          </div>
-                        </a>
-
-                    <div>
+                            </a>
+							
+							
+							 <div>
 
                         <?php $form=ActiveForm::begin(['id'=>'mypublished','enableAjaxValidation'=>false]); ?>
 
@@ -106,11 +112,7 @@ $signPackage = $jssdk->GetSignPackage();
                                 <?php ActiveForm::end()?>
 
                     </div>
-
 				</li>
-
-
-              
 
                 <?endforeach?>
                 <?endif?>
@@ -123,7 +125,7 @@ $signPackage = $jssdk->GetSignPackage();
                                 </div>
                                 <p class="remind-text">您暂时还没有信息哦！</p>
                                 <div class="mui-button-row">
-                                    <a href="/cxddc/mycuxiao/publishdeclare">
+                                    <a href="/cxddc/mycuxiao/unlimitpublish">
                                         <button type="button" class="mui-btn-primary remind-button">去发布</button>
                                     </a>
                                 </div>
@@ -141,8 +143,9 @@ $signPackage = $jssdk->GetSignPackage();
             swipeBack: true, //
             tap: true
         });
-
-        /*添加心形图片*/
+		
+		
+		 /*添加删除图片*/
         add();
         function add() {
             var deletebtn = $('.delete');
@@ -151,7 +154,7 @@ $signPackage = $jssdk->GetSignPackage();
             deletebtn.prepend(icon10);
          
         }
-        /*添加心形图片*/
+        /*添加删除图片*/
 
         /*mui.ready(function(){
         var h = window.innerHeight

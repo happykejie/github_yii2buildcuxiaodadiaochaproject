@@ -83,7 +83,7 @@ use yii\widgets\ActiveForm;
 		sessionStorage.setItem("tabNum","2")
     })
     mui("#nav").on("tap", "#defaultTab3", function () {
-        window.location = "/cxddc/mycuxiao/index";
+        window.location = "/cxddc/mycuxiao/unlimitindex";
 		sessionStorage.setItem("tabNum","3")
     })
 </script>

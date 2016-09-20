@@ -9,6 +9,14 @@ var cityData = {
 
 
     hot: [
+
+        {
+            id: "4000",
+            name: "全国",
+            id: "4001",
+            name: "全国"
+        },
+
         {
         id: "2589",
         name: "四川",

@@ -45,9 +45,10 @@ class LookForCuXiaoController extends Controller{
      */
 
     public function actionIndex(){
+		
+		
         
-        
-        //判断当前用户是否关注，如果没有关注跳转让用户关注
+           //判断当前用户是否关注，如果没有关注跳转让用户关注
         $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
         $items =User::findOne(['id'=>$currentuserid]);
         
@@ -59,16 +60,32 @@ class LookForCuXiaoController extends Controller{
           
         }
         ///跳转关注结束
+		
+		
+		//获取当前用户定位城市
+		$getcity =$items->locationcity;
+
+		if(!$getcity)//如果定位城市不存在设定默认城市
+		{
+
+			///获取微信关注默认获取城市
+			
+			$wxcity =$items->city;
+			
+			if($wxcity)
+			{
+				$getcity =$wxcity.'市';
+			}
+			else
+			{
+				$getcity = '成都市';
+			}
+		}
+		
+		///结束获取城市
+		
         
-        
-        
-        
-        
-        $value=Yii::$app->cache->get('citynamenew'); 
-        if($value===false) ///没有获取到所属城市
-        {
-            return $this->renderPartial('loadad');
-        }
+     
         
 
         $this->_user = YiiUser::findOne(['id'=>Yii::$app->user->getId()]);
@@ -79,8 +96,8 @@ class LookForCuXiaoController extends Controller{
             //获取当前服务器时间
             $time= date('Y-m-d H:i:s',time());
             
-            $Sqlitem="select a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id  where  belongarea='$value' and start_time<'$time' and end_time>'$time' ";
-            $Sqlitem=$Sqlitem." order by ordernum asc,createtime DESC";
+            $Sqlitem="select a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id  where  belongarea='$getcity' and start_time<'$time' and end_time>'$time' ";
+            $Sqlitem=$Sqlitem." order by paynum DESC, ordernum asc";
             //获取所有问题信息
             $todayitems=\app\models\Activity::findBySql($Sqlitem)->all();
             
@@ -88,15 +105,9 @@ class LookForCuXiaoController extends Controller{
             $time1= date('Y-m-d',strtotime("+1 day"));
             
             $strtime1   =$time1.' '.'00:00:00';
+
             
-            
-           
-            
-            
-          
-         
-            
-            $Sqlitem1="select a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id  where belongarea='$value' and start_time<'$strtime1' and end_time>'$strtime1' ";
+            $Sqlitem1="select a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id  where belongarea='$getcity' and start_time<'$strtime1' and end_time>'$strtime1' ";
             $Sqlitem1=$Sqlitem1." order by ordernum asc,createtime DESC";
             //获取所有问题信息
             $tomorrowitems=\app\models\Activity::findBySql($Sqlitem1)->all();
@@ -108,7 +119,7 @@ class LookForCuXiaoController extends Controller{
             
         
             
-            $Sqlitem2="select a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id  where belongarea='$value' and start_time>'$strtime2'";
+            $Sqlitem2="select a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id  where belongarea='$getcity' and start_time>'$strtime2'";
             $Sqlitem2=$Sqlitem2." order by ordernum asc,createtime DESC";
             //获取所有问题信息
             $prevueitems=\app\models\Activity::findBySql($Sqlitem2)->all();
@@ -119,7 +130,7 @@ class LookForCuXiaoController extends Controller{
             //获取当前服务器时间
         
             
-            $Sqlitem3="select  a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id  where belongarea='$value' ";
+            $Sqlitem3="select  a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id  where belongarea='$getcity' ";
             $Sqlitem3=$Sqlitem3." order by viewcount DESC limit 10";
             //获取所有问题信息
             $hotitems=\app\models\Activity::findBySql($Sqlitem3)->all();
@@ -127,7 +138,7 @@ class LookForCuXiaoController extends Controller{
             
             //大型活动
             
-            $Sqlitem4="select a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id  where belongarea='$value' and lableremark='大型活动'";
+            $Sqlitem4="select a.* from sm_activity  as a inner join sm_category as b on a.group_id=b.id  where belongarea='$getcity' and lableremark='大型活动'";
             $Sqlitem4=$Sqlitem4." order by viewcount DESC limit 10";
             //获取所有问题信息
             $bigitems=\app\models\Activity::findBySql($Sqlitem4)->all();
@@ -144,12 +155,6 @@ class LookForCuXiaoController extends Controller{
             Yii::$app->response->redirect(Url::to(['/cxddc/index'],true));
             return false;			
         }
-        
-        
-        
-        
-        
-
     }
  
     

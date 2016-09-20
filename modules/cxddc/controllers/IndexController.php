@@ -23,8 +23,8 @@ class IndexController extends Controller{
     private $WX_APPID = WX_APPID; ///张杰开发测试账号wxf861f60fbb144cb9  //李朝先wxe474c6e60ea8f0c8
     private $WX_APPSECRET = WX_APPSECRET; //张杰开发测试账号2da66bd2cf0dccf0fb8d5db1e3ca6122  //李朝先33b1241f97a2803440b34bf30c33d57e
     private $_openid,$_access_token,$_wxuser,$_user,$_users;
-	
-    
+	public  static $getfxrrenid=-1;
+  
     /**
      * 
      * 根据php的$_SERVER['HTTP_USER_AGENT'] 中各种浏览器访问时所包含各个浏览器特定的字符串来判断是属于PC还是移动端
@@ -98,26 +98,26 @@ class IndexController extends Controller{
     
     
 	
-    
+ 
     //微信自动验证
     public function actionIndex($id = 1,$code=null,$fxren=-1){
 
-        //$ismobile =  $this->checkmobile();
-        //$user_agent = $_SERVER['HTTP_USER_AGENT'];
-        //if (strpos($user_agent, 'MicroMessenger') === false) {
-        //    // 非微信浏览器禁止浏览
-        //    $ismobile = false;
-        //} else {
-        //    // 微信浏览器，允许访问
-        //    $ismobile = true;
-        //}
+        $ismobile =  $this->checkmobile();
+        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+        if (strpos($user_agent, 'MicroMessenger') === false) {
+            // 非微信浏览器禁止浏览
+           $ismobile = false;
+        } else {
+            // 微信浏览器，允许访问
+            $ismobile = true;
+        }
 
-        //if(!$ismobile)
-        //{
-        //    //返回后台登录页面
-        //    Yii::$app->response->redirect(Url::to(['/admin/index'],true));
-        //    return;
-        //}
+       if(!$ismobile)
+        {
+           //返回后台登录页面
+            Yii::$app->response->redirect(Url::to(['/admin/index'],true));
+            return;
+        }
         
         //返回首页
         // yii::$app->response->redirect(url::to(['/cxddc/cxddc/index'],true));
@@ -135,27 +135,27 @@ class IndexController extends Controller{
                 return;
             }
 			
-            
+		
 
 			if($this->_user->subscribe==1) //关注了
 			{
-                
-                if(UPSYS=='yes') //判断是否进入维护状态
-                {
+	
+					if(UPSYS=='yes') //判断是否进入维护状态
+					{
 
-                    if($this->_user->isdevelop==1)
-                    {
-                        
-                        Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/cuxiaoindex'],true));
-                        return;
-                    }
-                    
-                    else
-                    {
-                        Yii::$app->response->redirect(Url::to(['/cxddc/index/updatesystem'],true));
-                        return;
-                    }
-                }
+						if($this->_user->isdevelop==1)
+						{
+									
+							Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/cuxiaoindex'],true));
+							return;
+						}
+						
+						else
+						{
+							Yii::$app->response->redirect(Url::to(['/cxddc/index/updatesystem'],true));
+							return;
+						}
+					}
 				
 				
 				Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/cuxiaoindex'],true));
@@ -165,10 +165,10 @@ class IndexController extends Controller{
 				
 			}
             
-            
+		
         }
         if($code){
-            // return $code.'codetest';
+           // return $code.'codetest';
             if(!$this->_openid)
             {
                 $this->_openid = $this->getWxUserOpenId($code);
@@ -183,12 +183,12 @@ class IndexController extends Controller{
             
             
 			//return $this->_openid;
-            
+		
 
             $this->_access_token =  $jssdk->getAccessTokenfile();
 
-            
-            
+          
+        			
             $this->_wxuser = $this->getWxUserinfo();
 			
 			//return \yii\helpers\Json::encode($this->_wxuser); 
@@ -219,125 +219,118 @@ class IndexController extends Controller{
 				{
 					
 					
-                    
-                    
+				
+			
                     //Yii::$app->response->redirect(Url::to(['https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzIyNzE1NDMwMQ==&scene=110#wechat_redirect'],true));
-                    //未找到绑定用户自动注册并登陆
-                    
-                    $model=YiiUser::findOne(['openid'=>$this->_openid]);
-                    
-                    if(!$model)//如果数据库没有记录
-                    {
+					 //未找到绑定用户自动注册并登陆
+					$this->_user=new YiiUser();
+					$this->_user->openid =  $this->_openid;
+					$this->_user->user =  $this->_openid;
+                    $this->_user->subscribe =$this->_wxuser['subscribe'];
+					$this->_user->nickname ='not attention,please attention';
+					$this->_user->thumb ='/web/images/cxddcgetheadimg.jpg';
+					$this->_user->headimgurl = '/web/images/cxddcgetheadimg.jpg';
+					$this->_user->remark = 'no attention';
+					$this->_user->userstate =0;
+					$this->_user->createusertime= date('y-m-d h:i:s',time());	
 
-                        $this->_user=new YiiUser();
-                        $this->_user->openid =  $this->_openid;
-                        $this->_user->user =  $this->_openid;
-                        $this->_user->subscribe =$this->_wxuser['subscribe'];
-                        $this->_user->nickname ='未关注(请立即关注)';
-                        $this->_user->thumb ='/web/images/cxddcgetheadimg.jpg';
-                        $this->_user->headimgurl = '/web/images/cxddcgetheadimg.jpg';
-                        $this->_user->remark = '未关注';
-                        $this->_user->userstate =0;
-                        $this->_user->createusertime= date('y-m-d h:i:s',time());	
-
-                        if($this->_user->save()){
-                            //设置登录成功
-                            Yii::$app->user->login($this->_user,3600*24*1);
-                            
-                            
+					if($this->_user->save()){
+						//设置登录成功
+						Yii::$app->user->login($this->_user,3600*24*1);
+						
+						
+					
+						///添加分享人与被分享人关系表。
+						
+						
+						
+						if($fxren!=-1)
+						{
 							
-                            ///添加分享人与被分享人关系表。
+							   $model=fxandbfx::findOne(['bfxopenid'=>$this->_user->openid]);
+							   
+							   if(!$model)//如果没有添加分享记录
+							   {
+								    $fxitem = new  \app\models\fxandbfx();
+									$fxitem->fxrenid=$fxren;
+									$fxitem->bfxrenid =$this->_user->id;
+									$fxitem->createtime =date('y-m-d h:i:s',time());	
+									$fxitem->remark ='share log';
+									$fxitem->bfxopenid =$this->_user->openid;
+									
+								   $fxresult =  $fxitem->save();
+							   }
 
-                            if($fxren!=-1)
-                            {
-                                
-                                $model=fxandbfx::findOne(['bfxopenid'=>$this->_user->openid]);
-                                
-                                if(!$model)//如果没有添加分享记录
-                                {
-                                    $fxitem = new  \app\models\fxandbfx();
-                                    $fxitem->fxrenid=$fxren;
-                                    $fxitem->bfxrenid =$this->_user->id;
-                                    $fxitem->createtime =date('y-m-d h:i:s',time());	
-                                    $fxitem->remark ='share log';
-                                    $fxitem->bfxopenid =$this->_user->openid;
-                                    
-                                    $fxresult =  $fxitem->save();
-                                }
-
-                            }
-                            ///结束添加分享人
-
-                        }
-                        else{
-                            echo "user save fail";
-                            die;
 						}
-                        
-                    }
+                        ///结束添加分享人
+
+					}
+					else{
+						echo "user save fail";
+						die;
+					}
 				}
 				
 				if($this->_wxuser['subscribe']==1)
 				{
 					
-                    $this->_user = YiiUser::find()->where(['openid'=>$this->_openid])->one();
-                    
-                    if($this->_user)  //如果用户存在只需要更新用户信息
-                    {
-                        
-                        
-                        $this->_user->subscribe =$this->_wxuser['subscribe'];
-                        $this->_user->nickname = $this->_wxuser['nickname'];
-                        $this->_user->sex = $this->_wxuser['sex'];
-                        $this->_user->thumb = $this->_wxuser['headimgurl'];
-                        $this->_user->headimgurl = $this->_wxuser['headimgurl'];
-                        $this->_user->city = $this->_wxuser['city'];
-                        $this->_user->country = $this->_wxuser['country'];
-                        $this->_user->remark = $this->_wxuser['remark'];
-                        $this->_user->userstate =0;
-                        $this->_user->createusertime= date('y-m-d h:i:s',time());
-                        
+					 $this->_user = YiiUser::find()->where(['openid'=>$this->_openid])->one();
+					 
+					 if($this->_user)  //如果用户存在只需要更新用户信息
+					 {
+							
+							 $this->_user->subscribe =$this->_wxuser['subscribe'];
+							$this->_user->nickname = $this->_wxuser['nickname'];
+							$this->_user->sex = $this->_wxuser['sex'];
+							$this->_user->thumb = $this->_wxuser['headimgurl'];
+							$this->_user->headimgurl = $this->_wxuser['headimgurl'];
+							$this->_user->city = $this->_wxuser['city'];
+							$this->_user->country = $this->_wxuser['country'];
+							$this->_user->remark = $this->_wxuser['remark'];
+							$this->_user->userstate =0;
+							$this->_user->createusertime= date('y-m-d h:i:s',time());
+							
 
-                        if($this->_user->save()){
-                            //设置登录成功
-                            Yii::$app->user->login($this->_user,3600*24*1);
-                            
-                            
-                        }
-                        else{
-                            echo "user save fail";
-                            die;
-                        }
-                    }
-                    else
-                    {
-                        //未找到绑定用户自动注册并登陆
-                        $this->_user=new YiiUser();
-                        $this->_user->openid =  $this->_openid;
-                        $this->_user->user =  $this->_openid;
-                        $this->_user->subscribe =$this->_wxuser['subscribe'];
-                        $this->_user->nickname = $this->_wxuser['nickname'];
-                        $this->_user->sex = $this->_wxuser['sex'];
-                        $this->_user->thumb = $this->_wxuser['headimgurl'];
-                        $this->_user->headimgurl = $this->_wxuser['headimgurl'];
-                        $this->_user->city = $this->_wxuser['city'];
-                        $this->_user->country = $this->_wxuser['country'];
-                        $this->_user->remark = $this->_wxuser['remark'];
-                        $this->_user->userstate =0;
-                        $this->_user->createusertime= date('y-m-d h:i:s',time());
-                        
+							if($this->_user->save()){
+								//设置登录成功
+								Yii::$app->user->login($this->_user,3600*24*1);
+								
+								
+							}
+							else{
+								echo "user save fail";
+								die;
+							}
+					 }
+					 else
+					 {
+								 //未找到绑定用户自动注册并登陆
+							$this->_user=new YiiUser();
+							$this->_user->openid =  $this->_openid;
+							$this->_user->user =  $this->_openid;
+							 $this->_user->subscribe =$this->_wxuser['subscribe'];
+							$this->_user->nickname = $this->_wxuser['nickname'];
+							$this->_user->sex = $this->_wxuser['sex'];
+							$this->_user->thumb = $this->_wxuser['headimgurl'];
+							$this->_user->headimgurl = $this->_wxuser['headimgurl'];
+							$this->_user->city = $this->_wxuser['city'];
+							$this->_user->country = $this->_wxuser['country'];
+							$this->_user->remark = $this->_wxuser['remark'];
+							$this->_user->userstate =0;
+							$this->_user->createusertime= date('y-m-d h:i:s',time());
+							
 
-                        if($this->_user->save()){
-                            //设置登录成功
-                            Yii::$app->user->login($this->_user,3600*24*1);
-                            
-                            
-                        }
-                        else{
-                            echo "user save fail";
-                            die;
-                        }
-                    }
+							if($this->_user->save()){
+								//设置登录成功
+								Yii::$app->user->login($this->_user,3600*24*1);
+								
+								
+							}
+							else{
+								echo "user save fail";
+								die;
+							}
+					 }
 					
 					
 				}
@@ -345,26 +338,24 @@ class IndexController extends Controller{
 				
             }
 			
-            
+		
 			
-            if(UPSYS=='yes') //判断是否进入维护状态
-            {
-                
-                
-                if($this->_user->isdevelop==1)
-                {
-                    
-                    Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/cuxiaoindex'],true));
-                    return false;
-                }
-                
-                else
-                {
-                    Yii::$app->response->redirect(Url::to(['/cxddc/index/updatesystem'],true));
-                    return false;
-                }
-            }
-            
+				if(UPSYS=='yes') //判断是否进入维护状态
+					{
+						
+					
+						if($this->_user->isdevelop==1)
+						{
+								
+							Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/loadad'],true));
+						}
+						
+						else
+						{
+							Yii::$app->response->redirect(Url::to(['/cxddc/index/updatesystem'],true));
+						}
+					}
+				
 			
             //返回首页
             Yii::$app->response->redirect(Url::to(['/cxddc/cuxiao/cuxiaoindex'],true));
@@ -440,12 +431,12 @@ class IndexController extends Controller{
         return $this->renderPartial('errorlogin');
     }
 	
-    /**
+	  /**
      *  系统维修
      * 
      * 
      */
-    public function actionUpdatesystem()
+	    public function actionUpdatesystem()
     {
         return $this->renderPartial('updatesystem');
         

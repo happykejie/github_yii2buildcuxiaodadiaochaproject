@@ -70,7 +70,7 @@ class ActivityController extends Controller{
         
         $count=$model->count();
         $page=new Pagination(['defaultPageSize'=>20,'totalCount'=>$count]);
-        $items=$model->orderBy('name asc')->offset($page->offset)->limit($page->limit)->all();
+        $items=$model->orderBy('paynum desc')->offset($page->offset)->limit($page->limit)->all();
 
         return $this->render('index',['page'=>$page,'items'=>$items,'search'=>$search,'to'=>$to]);
 
@@ -114,11 +114,10 @@ class ActivityController extends Controller{
             }
             
             if( $model->validate()){
-                
-                $userid=Yii::$app->user->getId();  //获取当前用户；
+				 $userid=Yii::$app->user->getId();  //获取当前用户；
                 $model->publishpeople=$userid;
-                $model->viewcount=range(1,10000);
-                
+                $model->viewcount=10000;
+				$model->ordernum =0;
                 
                 if($model->save()){
                     Yii::$app->response->redirect("/admin/activity/index");

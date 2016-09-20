@@ -676,6 +676,8 @@ class MyCuXiaoController extends Controller{
             $model->ispay='免费';
             $model->paynum=0;
 			$model->viewcount=0;
+            $model->createtime= date('y-m-d h:i:s',time());	
+            
             
             if( $model->validate()){
                 if($model->save()){
@@ -785,6 +787,8 @@ class MyCuXiaoController extends Controller{
             $model->publishpeople=$userid;
             $model->ispay='否';
 			 $model->viewcount=0;
+             $model->createtime= date('y-m-d h:i:s',time());	
+             
 			
            
             
@@ -905,6 +909,8 @@ class MyCuXiaoController extends Controller{
             $model->publishpeople=$userid;
             $model->ispay='否';
             $model->viewcount=0;
+            $model->createtime= date('y-m-d h:i:s',time());	
+            
 			
             
             

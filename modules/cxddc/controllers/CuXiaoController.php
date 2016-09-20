@@ -132,10 +132,7 @@ class CuXiaoController extends Controller{
            //判断当前用户是否关注，如果没有关注跳转让用户关注
         $currentuserid= Yii::$app->user->getId();  //获取当前用户ID
         $items =User::findOne(['id'=>$currentuserid]);
-        
-		
 
-		
 		if($items->subscribe==0) //如果用户没用关注，跳转用户关注
         {
 			Yii::$app->session->setFlash('notattention','还没有关注，请先关注');

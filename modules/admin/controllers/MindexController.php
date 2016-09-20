@@ -169,7 +169,9 @@ class MindexController extends Controller{
             $userid=Yii::$app->user->getId();
             $model->publishpeople=$userid;
             $model->ispay='否';
-            $model->viewcount=0;
+            $model->viewcount=10000;
+            $model->createtime= date('y-m-d h:i:s',time());	
+            
 			
             
             

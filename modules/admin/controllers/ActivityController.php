@@ -119,6 +119,8 @@ class ActivityController extends Controller{
                 $model->viewcount=10000;
 				$model->ordernum =0;
                 
+                $model->createtime= date('y-m-d h:i:s',time());	
+                
                 if($model->save()){
                     Yii::$app->response->redirect("/admin/activity/index");
                 }else{
